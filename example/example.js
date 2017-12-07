@@ -2,8 +2,12 @@ import { LinkedMap } from '../src/linked-map.js';
 
 const body = document.querySelector('body');
 
-function print(...args) {
-  body.insertAdjacentHTML('beforeend', `<div>${args.join(' ')}</div>`);
+function printCommand(command) {
+  body.insertAdjacentHTML('beforeend', `<pre class="command">&gt; ${command}</pre>`);
+}
+
+function printOutput(...args) {
+  body.insertAdjacentHTML('beforeend', `<pre class="output">  ${args.join(' ')}</pre>`);
 }
 
 function runExample() {
@@ -13,45 +17,49 @@ function runExample() {
     .push('key2', '2')
     .push('key3', '3');
 
-  print('[key, value] of map');
+  printCommand('for (const [key, value] of map) { … }');
   for (const [key, value] of map) {
-    print(key, ':', value);
+    printOutput(key, ':', value);
   }
 
-  print('[key, value] of map.entries(true)');
+  printCommand('for (const [key, value] of map.entries(true)) { … }');
   for (const [key, value] of map.entries(true)) {
-    print(key, ':', value);
+    printOutput(key, ':', value);
   }
 
-  print('key of map.keys()');
+  printCommand('for (const key of map.keys()) { … }');
   for (const key of map.keys()) {
-    print(key);
+    printOutput(key);
   }
 
-  print('value of map.values()');
+  printCommand('for (const value of map.values()) { … }');
   for (const value of map.values()) {
-    print(value);
+    printOutput(value);
   }
 
-  print('[key, value] of map.reverse()');
+  printCommand('for (const [key, value] of map.reverse()) { … }');
   for (const [key, value] of map.reverse()) {
-    print(key, ':', value);
+    printOutput(key, ':', value);
   }
 
-  print('[...map]:');
-  print([...map]);
+  printCommand('[...map]');
+  printOutput([...map]);
 
-  print('[...map.reverse()]:');
-  print([...map.reverse()]);
+  printCommand('[...map.reverse()]');
+  printOutput([...map.reverse()]);
 
-  print('Current size:', map.size);
-  print('map.delete("key2")');
+  printCommand('map.size()');
+  printOutput(map.size);
+
+  printCommand('map.delete("key2")');
   map.delete('key2');
-  print('Current size:', map.size);
 
-  print('value of map.values()');
+  printCommand('map.size()');
+  printOutput(map.size);
+
+  printCommand('value of map.values()');
   for (const value of map.values()) {
-    print(value);
+    printOutput(value);
   }
 }
 
