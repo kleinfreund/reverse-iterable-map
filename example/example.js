@@ -11,7 +11,13 @@ function printOutput(...args) {
 }
 
 function runExample() {
+  printCommand('const map = new LinkedMap();');
   const map = new LinkedMap();
+
+  printCommand(`map
+    .push('key1', '1')
+    .push('key2', '2')
+    .push('key3', '3');`);
   map
     .push('key1', '1')
     .push('key2', '2')
@@ -45,19 +51,28 @@ function runExample() {
   printCommand('[...map]');
   printOutput([...map]);
 
+  printCommand('[...map.entries()]');
+  printOutput([...map.entries()]);
+
+  printCommand('[...map.keys()]');
+  printOutput([...map.keys()]);
+
+  printCommand('[...map.values()]');
+  printOutput([...map.values()]);
+
   printCommand('[...map.reverse()]');
   printOutput([...map.reverse()]);
 
-  printCommand('map.size()');
+  printCommand('map.size');
   printOutput(map.size);
 
-  printCommand('map.delete("key2")');
+  printCommand('map.delete("key2");');
   map.delete('key2');
 
-  printCommand('map.size()');
+  printCommand('map.size');
   printOutput(map.size);
 
-  printCommand('value of map.values()');
+  printCommand('for (const value of map.values()) { … }');
   for (const value of map.values()) {
     printOutput(value);
   }
