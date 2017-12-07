@@ -6,9 +6,9 @@ export { LinkedMap };
  * A doubly-linked Map implementation based on Map.
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
  *
- * It exposes its order via iterable iterators than can be used both forwards
- * and backwards. As per Map, the order of a LinkedMap is always the insertion
- * order (i.e. not sorted).
+ * It exposes its order via iterable iterators which can be used for both
+ * forwards and backwards iteration. As per Map, the order of a LinkedMap is
+ * always the insertion order (i.e. not sorted).
  */
 class LinkedMap {
   /**
@@ -194,6 +194,22 @@ class LinkedMap {
    */
   [Symbol.iterator]() {
     return this.entries();
+  }
+
+  /**
+   * Allows usage of the iteration protocols for reverse iteration.
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
+   *
+   * Examples:
+   *
+   *   for (const [key, value] of linkedMap.reverse()) { … }
+   *
+   *   [...linkedMap.reverse()]
+   *
+   * @returns {IterableIterator}
+   */
+  reverse() {
+    return this.entries(true);
   }
 
   /**
