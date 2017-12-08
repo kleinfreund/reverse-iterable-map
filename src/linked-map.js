@@ -370,13 +370,6 @@ class LinkedMapNode {
   }
 
   /**
-   * @param {*} key
-   */
-  set key(key) {
-    this._key = key;
-  }
-
-  /**
    * @returns {*}
    */
   get value() {
