@@ -88,25 +88,21 @@ class LinkedMap {
    *
    * @param {*} key
    * @param {*} value
+   * @returns {LinkedMapNode}
    * @private
    */
   add(key, value) {
-    let link = this._map.get(key);
+    let node = this._map.get(key);
 
-    if (link) {
-      link.value = value;
+    if (node) {
+      node.value = value;
     } else {
-      link = {
-        key,
-        value,
-        next: null,
-        prev: null
-      };
+      node = new LinkedMapNode(key, value);
 
-      this._map.set(key, link);
+      this._map.set(key, node);
     }
 
-    return link;
+    return node;
   }
 
   /**
@@ -115,18 +111,18 @@ class LinkedMap {
    *
    * @param {*} key
    * @param {*} value
-   * @returns {*}
+   * @returns {LinkedMap}
    */
   set(key, value) {
-    const link = this.add(key, value);
+    const node = this.add(key, value);
 
     if (this._first === null && this._last === null) {
-      this._first = link;
-      this._last = link;
+      this._first = node;
+      this._last = node;
     } else {
-      link.prev = this._last;
-      this._last.next = link;
-      this._last = link;
+      node.prev = this._last;
+      this._last.next = node;
+      this._last = node;
     }
 
     return this;
@@ -138,18 +134,21 @@ class LinkedMap {
    *
    * @param {*} key
    * @param {*} value
+   * @returns {LinkedMap}
    */
   setFront(key, value) {
-    const link = this.add(key, value);
+    const node = this.add(key, value);
 
     if (this._first === null && this._last === null) {
-      this._first = link;
-      this._last = link;
+      this._first = node;
+      this._last = node;
     } else {
-      link.next = this._first;
-      this._first.prev = link;
-      this._first = link;
+      node.next = this._first;
+      this._first.prev = node;
+      this._first = node;
     }
+
+    return this;
   }
 
   /**
@@ -161,20 +160,20 @@ class LinkedMap {
    */
   delete(key) {
     if (this.has(key)) {
-      const link = this._map.get(key);
+      const node = this._map.get(key);
 
       if (this._first === this._last) {
         this._first = null;
         this._last = null;
-      } else if (this._first === link) {
-        link.next.prev = null;
-        this._first = link.next;
-      } else if (this._last === link) {
-        link.prev.next = null;
-        this._last = link.prev;
+      } else if (this._first === node) {
+        node.next.prev = null;
+        this._first = node.next;
+      } else if (this._last === node) {
+        node.prev.next = null;
+        this._last = node.prev;
       } else {
-        link.prev.next = link.next;
-        link.next.prev = link.prev;
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
       }
 
       this._map.delete(key);
@@ -318,5 +317,76 @@ class LinkedMap {
         return { value: undefined, done: true };
       }
     };
+  }
+}
+
+/**
+ * Represents a node within a LinkedMap.
+ */
+class LinkedMapNode {
+  /**
+   * @constructor
+   */
+  constructor(key, value) {
+    this._key = key;
+    this._value = value;
+    this._next = null;
+    this._prev = null;
+  }
+
+  /**
+   * @returns {*}
+   */
+  get key() {
+    return this._key;
+  }
+
+  /**
+   * @param {*} key
+   */
+  set key(key) {
+    this._key = key;
+  }
+
+  /**
+   * @returns {*}
+   */
+  get value() {
+    return this._value;
+  }
+
+  /**
+   * @param {*} value
+   */
+  set value(value) {
+    this._value = value;
+  }
+
+  /**
+   * @returns {*}
+   */
+  get next() {
+    return this._next;
+  }
+
+  /**
+   * @param {*} next
+   */
+  set next(next) {
+    this._next = next;
+  }
+
+  /**
+   * @returns {*}
+   */
+  get prev() {
+    return this._prev;
+  }
+
+  /**
+   * @param {*} prev
+   */
+  set prev(prev) {
+    this._prev = prev;
   }
 }
