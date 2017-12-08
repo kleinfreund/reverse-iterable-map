@@ -5,6 +5,7 @@ let correctAssertions = 0;
 
 function assert(condition, message) {
   totalAssertions++;
+
   if (condition) {
     correctAssertions++;
   }
@@ -12,18 +13,21 @@ function assert(condition, message) {
   console.assert(condition, message);
 }
 
-function assertEqual(thing, exptected, actual, message) {
+function assertEqual(expression, exptected, actual, message) {
   const condition = exptected === actual;
-  console.info(`${thing}: ${actual} === ${exptected}? ${statusMark(condition)}`);
-  assert(condition, `Expect ${thing} to be ${exptected} but it was ${actual}.`);
+  console.info(`${expression}: ${actual} === ${exptected}? ${statusMark(condition)}`);
+  assert(condition, `Expect ${expression} to be ${exptected} but it was ${actual}.`);
 }
 
-function assertHasOwnProperty(thing, property, object) {
+function assertHasOwnProperty(expression, property, object) {
   const condition = object.hasOwnProperty(property);
   console.info(
-    `${thing}: ${thing}.hasOwnProperty(${property.toString()})? ${statusMark(condition)}`
+    `${expression}: ${expression}.hasOwnProperty(${property.toString()})? ${statusMark(condition)}`
   );
-  assert(condition, `Expect ${thing} to have a property ${property.toString()} but it doesn’t.`);
+  assert(
+    condition,
+    `Expect ${expression} to have a property ${property.toString()} but it doesn’t.`
+  );
 }
 
 function statusMark(condition) {
@@ -33,12 +37,10 @@ function statusMark(condition) {
 console.group('Tests');
 console.info('Running tests …');
 
-const map = new LinkedMap();
-
-map
-  .push('key1', '1')
-  .push('key2', '2')
-  .push('key3', '3');
+const map = new LinkedMap()
+  .set('key1', '1')
+  .set('key2', '2')
+  .set('key3', '3');
 
 console.group('map.get() method');
 assertEqual('map.size', 3, map.size);
@@ -57,11 +59,15 @@ assertEqual('map.delete("key3")', true, map.delete('key3'));
 assertEqual('map.size', 0, map.size);
 console.groupEnd();
 
-console.group('Iterators');
+console.group('Iterables & Iterators');
 map
-  .push('key1', '1')
-  .push('key2', '2')
-  .push('key3', '3');
+  .set('key1', '4')
+  .set('key2', '5')
+  .set('key3', '6');
+
+console.group('map');
+assertHasOwnProperty('LinkedMap.prototype', Symbol.iterator, LinkedMap.prototype);
+console.groupEnd();
 
 console.group('map.entries()');
 const entries = map.entries();
@@ -136,21 +142,21 @@ let valuesNext = values.next();
 console.info('> let valuesNext = values.next();');
 assertHasOwnProperty('valuesNext', 'done', valuesNext);
 assertHasOwnProperty('valuesNext', 'value', valuesNext);
-assertEqual('valuesNext.value', '1', valuesNext.value);
+assertEqual('valuesNext.value', '4', valuesNext.value);
 assertEqual('valuesNext.done', false, valuesNext.done);
 
 valuesNext = values.next();
 console.info('> valuesNext = values.next();');
 assertHasOwnProperty('valuesNext', 'done', valuesNext);
 assertHasOwnProperty('valuesNext', 'value', valuesNext);
-assertEqual('valuesNext.value', '2', valuesNext.value);
+assertEqual('valuesNext.value', '5', valuesNext.value);
 assertEqual('valuesNext.done', false, valuesNext.done);
 
 valuesNext = values.next();
 console.info('> valuesNext = values.next();');
 assertHasOwnProperty('valuesNext', 'done', valuesNext);
 assertHasOwnProperty('valuesNext', 'value', valuesNext);
-assertEqual('valuesNext.value', '3', valuesNext.value);
+assertEqual('valuesNext.value', '6', valuesNext.value);
 assertEqual('valuesNext.done', false, valuesNext.done);
 
 valuesNext = values.next();

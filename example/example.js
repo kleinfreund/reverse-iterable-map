@@ -15,13 +15,13 @@ function runExample() {
   const map = new LinkedMap();
 
   printCommand(`map
-    .push('key1', '1')
-    .push('key2', '2')
-    .push('key3', '3');`);
+    .set('key1', '1')
+    .set('key2', '2')
+    .set('key3', '3');`);
   map
-    .push('key1', '1')
-    .push('key2', '2')
-    .push('key3', '3');
+    .set('key1', '1')
+    .set('key2', '2')
+    .set('key3', '3');
 
   printCommand('for (const [key, value] of map) { … }');
   for (const [key, value] of map) {

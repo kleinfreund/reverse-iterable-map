@@ -110,14 +110,14 @@ class LinkedMap {
   }
 
   /**
-   * The push() method adds and links a new element at the end of a LinkedMap
+   * The set() method adds and links a new element at the end of a LinkedMap
    * object.
    *
    * @param {*} key
    * @param {*} value
    * @returns {*}
    */
-  push(key, value) {
+  set(key, value) {
     const link = this.add(key, value);
 
     if (this._first === null && this._last === null) {
@@ -133,13 +133,13 @@ class LinkedMap {
   }
 
   /**
-   * The pushFront() method adds and links a new element at the beginning of a
+   * The setFront() method adds and links a new element at the beginning of a
    * LinkedMap object.
    *
    * @param {*} key
    * @param {*} value
    */
-  pushFront(key, value) {
+  setFront(key, value) {
     const link = this.add(key, value);
 
     if (this._first === null && this._last === null) {
