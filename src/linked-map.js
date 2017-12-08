@@ -32,6 +32,7 @@ class LinkedMap {
 
   /**
    * @returns {LinkedMapNode}
+   * @private
    */
   get first() {
     return this._first;
@@ -39,6 +40,7 @@ class LinkedMap {
 
   /**
    * @param {LinkedMapNode} node
+   * @private
    */
   set first(node) {
     this._first = node;
@@ -46,6 +48,7 @@ class LinkedMap {
 
   /**
    * @returns {LinkedMapNode}
+   * @private
    */
   get last() {
     return this._last;
@@ -53,6 +56,7 @@ class LinkedMap {
 
   /**
    * @param {LinkedMapNode} node
+   * @private
    */
   set last(node) {
     this._last = node;
@@ -62,7 +66,7 @@ class LinkedMap {
    * The size accessor property returns the number of elements in a LinkedMap object.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/size
    *
-   * @returns {number}
+   * @returns {number} the size of the LinkedMap.
    */
   get size() {
     return this._map.size;
@@ -236,13 +240,73 @@ class LinkedMap {
    * @returns {IterableIterator}
    */
   reverse() {
-    return this.entries(true);
+    return this.entries().reverse();
   }
 
   /**
    * The entries() method returns a new Iterator object that contains the
    * [key, value] pairs for each element in the Map object in insertion order.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/entries
+   *
+   * @returns {IterableIterator}
+   */
+  entries() {
+    const getIteratorValue = function(node) {
+      return [node.key, node.value];
+    };
+
+    return this.iterableIterator(getIteratorValue);
+  }
+
+  /**
+   * The keys() method returns a new Iterator object that contains the keys for
+   * each element in the Map object in insertion order.
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys
+   *
+   * @returns {IterableIterator}
+   */
+  keys() {
+    const getIteratorValue = function(node) {
+      return node.key;
+    };
+
+    return this.iterableIterator(getIteratorValue);
+  }
+
+  /**
+   * The values() method returns a new Iterator object that contains the values
+   * for each element in the Map object in insertion order.
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values
+   *
+   * @returns {IterableIterator}
+   */
+  values() {
+    const getIteratorValue = function(node) {
+      return node.value;
+    };
+
+    return this.iterableIterator(getIteratorValue);
+  }
+
+  /**
+   *
+   * @param {*} key
+   * @param {boolean} reverse
+   * @returns {IterableIterator}
+   */
+  iteratorFor(key, reverse = false) {
+    let startNode = this._map.get(key);
+    const getIteratorValue = function(node) {
+      return node.value;
+    };
+
+    return this.iterableIterator(getIteratorValue, startNode);
+  }
+
+  /**
+   * Returns an object which is both an iterable and an iterator since it
+   * fulfills the requirements of the iteration protocols.
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
    *
    * Iterator requirements:
    * An object that implements a function called next. This function returns an
@@ -253,78 +317,34 @@ class LinkedMap {
    * returns an iterator. Since the entries() method itself returns the
    * iterator object, `this` references the correct iterator object.
    *
-   * The same rules apply for the keys() and values() methods.
+   * In addition, the object is also reverse-iterable by providing a reverse()
+   * method. Calling it on an iterable will iterate in reverse insertion order.
    *
-   * @param {boolean} reverse
+   * @param {function} getIteratorValue
+   * @param {LinkedMapNode?} currentNode
    * @returns {IterableIterator}
+   * @private
    */
-  entries(reverse = false) {
-    let currentNode = reverse ? this._last : this._first;
-    let nextProp = reverse ? 'prev' : 'next';
+  iterableIterator(getIteratorValue, currentNode = this.first) {
+    // Store the this.last node as inside the reverse() method, `this` will be
+    // bound to iterableIterator, not LinkedMap. That’s on purpose.
+    const last = this.last;
+    let nextProp = 'next';
 
     return {
+      reverse() {
+        currentNode = last;
+        nextProp = 'prev';
+        return this;
+      },
       [Symbol.iterator]() {
         // Return the iterable itself.
         return this;
       },
-      next: () => {
+      next: function() {
         let value;
         if (currentNode) {
-          value = [currentNode.key, this.get(currentNode.key)];
-          currentNode = currentNode[nextProp];
-        }
-        return iteratorResult(value);
-      }
-    };
-  }
-
-  /**
-   * The keys() method returns a new Iterator object that contains the keys for
-   * each element in the Map object in insertion order.
-   *
-   * @param {boolean} reverse
-   * @returns {IterableIterator}
-   */
-  keys(reverse = false) {
-    let currentNode = reverse ? this._last : this._first;
-    let nextProp = reverse ? 'prev' : 'next';
-
-    return {
-      [Symbol.iterator]() {
-        // Return the iterable itself.
-        return this;
-      },
-      next: () => {
-        let value;
-        if (currentNode) {
-          value = currentNode.key;
-          currentNode = currentNode[nextProp];
-        }
-        return iteratorResult(value);
-      }
-    };
-  }
-
-  /**
-   * The values() method returns a new Iterator object that contains the values
-   * for each element in the Map object in insertion order.
-   *
-   * @param {boolean} reverse
-   * @returns {IterableIterator}
-   */
-  values(reverse = false) {
-    let currentNode = reverse ? this._last : this._first;
-    let nextProp = reverse ? 'prev' : 'next';
-
-    return {
-      [Symbol.iterator]() {
-        // Return the iterable itself.
-        return this;
-      },
-      next: () => {
-        let value;
-        if (currentNode) {
-          value = this.get(currentNode.key);
+          value = getIteratorValue(currentNode);
           currentNode = currentNode[nextProp];
         }
         return iteratorResult(value);
@@ -405,7 +425,7 @@ class LinkedMapNode {
  * This function does not belong to the LinkedMap prototype as it doesn’t need
  * access to any of the prototypes properties.
  *
- * @param {*} value
+ * @param {*|undefined} value
  * @returns {IteratorResult}
  */
 function iteratorResult(value) {
