@@ -105,14 +105,29 @@ function runExample() {
     .set('key4', '4')
     .set('key5', '5');
 
-  printCommand('const it = map.iteratorFor("key4").reverse();');
+  printCommand(`const it = map.iteratorFor('key4').reverse();`);
   const it = map.iteratorFor('key4').reverse();
-  printCommand('it.next().value;');
+  printCommand(`it.next().value;`);
   printOutput(it.next().value);
-  printCommand('it.next().value;');
+  printCommand(`it.next().value;`);
   printOutput(it.next().value);
-  printCommand('it.next().value;');
+  printCommand(`it.next().value;`);
   printOutput(it.next().value);
+
+  printCommand(`map.forEach((value, key) => {
+    printOutput(key, ': ', value);
+  });`);
+  map.forEach((value, key) => {
+    printOutput(key, ':', value);
+  });
+
+  printCommand(`map.forEachReverse((value, key) => {
+    printOutput(key, ': ', value);
+  });`);
+  map.forEachReverse((value, key) => {
+    printOutput(key, ':', value);
+  });
+
   printCommand(`map.toString()`);
   printOutput(map.toString());
 }

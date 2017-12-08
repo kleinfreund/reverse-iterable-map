@@ -225,6 +225,32 @@ class LinkedMap {
   }
 
   /**
+   * The forEach() method executes a provided function once per each key/value
+   * pair in the Map object, in insertion order.
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/forEach
+   *
+   * @param {function} callback
+   * @param {*?} thisArg
+   */
+  forEach(callback, thisArg = undefined) {
+    for (const [key, value] of this.entries()) {
+      callback(value, key, thisArg);
+    }
+  }
+
+  /**
+   * Same as the forEach() method, but executing in reverse insertion order.
+   *
+   * @param {function} callback
+   * @param {*?} thisArg
+   */
+  forEachReverse(callback, thisArg = undefined) {
+    for (const [key, value] of this.entries().reverse()) {
+      callback(value, key, thisArg);
+    }
+  }
+
+  /**
    * The initial value of the @@iterator property is the same function object
    * as the initial value of the entries property.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@iterator
