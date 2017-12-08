@@ -31,6 +31,34 @@ class LinkedMap {
   }
 
   /**
+   * @returns {LinkedMapNode}
+   */
+  get first() {
+    return this._first;
+  }
+
+  /**
+   * @param {LinkedMapNode} node
+   */
+  set first(node) {
+    this._first = node;
+  }
+
+  /**
+   * @returns {LinkedMapNode}
+   */
+  get last() {
+    return this._last;
+  }
+
+  /**
+   * @param {LinkedMapNode} node
+   */
+  set last(node) {
+    this._last = node;
+  }
+
+  /**
    * The size accessor property returns the number of elements in a LinkedMap object.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/size
    *
@@ -69,7 +97,7 @@ class LinkedMap {
    * @returns {*}
    */
   getLast() {
-    return this._last.value;
+    return this.last.value;
   }
 
   /**
@@ -78,7 +106,7 @@ class LinkedMap {
    * @returns {*}
    */
   getFirst() {
-    return this._first.value;
+    return this.first.value;
   }
 
   /**
@@ -116,13 +144,13 @@ class LinkedMap {
   set(key, value) {
     const node = this.add(key, value);
 
-    if (this._first === null && this._last === null) {
-      this._first = node;
-      this._last = node;
+    if (this.first === null && this.last === null) {
+      this.first = node;
+      this.last = node;
     } else {
-      node.prev = this._last;
-      this._last.next = node;
-      this._last = node;
+      node.prev = this.last;
+      this.last.next = node;
+      this.last = node;
     }
 
     return this;
@@ -139,13 +167,13 @@ class LinkedMap {
   setFront(key, value) {
     const node = this.add(key, value);
 
-    if (this._first === null && this._last === null) {
-      this._first = node;
-      this._last = node;
+    if (this.first === null && this.last === null) {
+      this.first = node;
+      this.last = node;
     } else {
-      node.next = this._first;
-      this._first.prev = node;
-      this._first = node;
+      node.next = this.first;
+      this.first.prev = node;
+      this.first = node;
     }
 
     return this;
@@ -162,15 +190,15 @@ class LinkedMap {
     if (this.has(key)) {
       const node = this._map.get(key);
 
-      if (this._first === this._last) {
-        this._first = null;
-        this._last = null;
-      } else if (this._first === node) {
+      if (this.first === this.last) {
+        this.first = null;
+        this.last = null;
+      } else if (this.first === node) {
         node.next.prev = null;
-        this._first = node.next;
-      } else if (this._last === node) {
+        this.first = node.next;
+      } else if (this.last === node) {
         node.prev.next = null;
-        this._last = node.prev;
+        this.last = node.prev;
       } else {
         node.prev.next = node.next;
         node.next.prev = node.prev;
