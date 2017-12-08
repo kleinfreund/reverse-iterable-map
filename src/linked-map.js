@@ -29,16 +29,6 @@ class LinkedMap {
   }
 
   /**
-   * The clear() method removes all elements from a LinkedMap object.
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear
-   */
-  clear() {
-    this._map.clear();
-    this._first = null;
-    this._last = null;
-  }
-
-  /**
    * @returns {LinkedMapNode}
    * @private
    */
@@ -78,6 +68,16 @@ class LinkedMap {
    */
   get size() {
     return this._map.size;
+  }
+
+  /**
+   * The clear() method removes all elements from a LinkedMap object.
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear
+   */
+  clear() {
+    this._map.clear();
+    this._first = null;
+    this._last = null;
   }
 
   /**
