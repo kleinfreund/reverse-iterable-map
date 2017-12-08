@@ -273,7 +273,7 @@ class LinkedMap {
           value = [currentNode.key, this.get(currentNode.key)];
           currentNode = currentNode[nextProp];
         }
-        return this.iteratorResult(value);
+        return iteratorResult(value);
       }
     };
   }
@@ -300,7 +300,7 @@ class LinkedMap {
           value = currentNode.key;
           currentNode = currentNode[nextProp];
         }
-        return this.iteratorResult(value);
+        return iteratorResult(value);
       }
     };
   }
@@ -327,24 +327,8 @@ class LinkedMap {
           value = this.get(currentNode.key);
           currentNode = currentNode[nextProp];
         }
-        return this.iteratorResult(value);
+        return iteratorResult(value);
       }
-    };
-  }
-
-  /**
-   * Returns an IteratorResult object as per the following rules:
-   * - If value is not undefined, done is false.
-   * - If value is undefined, done is true. Furthermore, value may be omitted.
-   *
-   * @param {*} value
-   * @returns {IteratorResult}
-   * @private
-   */
-  iteratorResult(value) {
-    return {
-      value: value,
-      done: value === undefined ? false : true
     };
   }
 }
@@ -411,4 +395,22 @@ class LinkedMapNode {
   set prev(prev) {
     this._prev = prev;
   }
+}
+
+/**
+ * Returns an IteratorResult object as per the following rules:
+ * - If value is not undefined, done is false.
+ * - If value is undefined, done is true. In this case, value may be omitted.
+ *
+ * This function does not belong to the LinkedMap prototype as it doesn’t need
+ * access to any of the prototypes properties.
+ *
+ * @param {*} value
+ * @returns {IteratorResult}
+ */
+function iteratorResult(value) {
+  return {
+    value: value,
+    done: value === undefined
+  };
 }
