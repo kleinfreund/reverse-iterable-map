@@ -28,8 +28,8 @@ function runExample() {
     printOutput(key, ':', value);
   }
 
-  printCommand('for (const [key, value] of map.entries(true)) { … }');
-  for (const [key, value] of map.entries(true)) {
+  printCommand('for (const [key, value] of map.entries()) { … }');
+  for (const [key, value] of map.entries()) {
     printOutput(key, ':', value);
   }
 
@@ -48,6 +48,21 @@ function runExample() {
     printOutput(key, ':', value);
   }
 
+  printCommand('for (const [key, value] of map.entries().reverse()) { … }');
+  for (const [key, value] of map.entries().reverse()) {
+    printOutput(key, ':', value);
+  }
+
+  printCommand('for (const key of map.keys().reverse()) { … }');
+  for (const key of map.keys().reverse()) {
+    printOutput(key);
+  }
+
+  printCommand('for (const value of map.values().reverse()) { … }');
+  for (const value of map.values().reverse()) {
+    printOutput(value);
+  }
+
   printCommand('[...map]');
   printOutput([...map]);
 
@@ -63,6 +78,15 @@ function runExample() {
   printCommand('[...map.reverse()]');
   printOutput([...map.reverse()]);
 
+  printCommand('[...map.entries().reverse()]');
+  printOutput([...map.entries().reverse()]);
+
+  printCommand('[...map.keys().reverse()]');
+  printOutput([...map.keys().reverse()]);
+
+  printCommand('[...map.values().reverse()]');
+  printOutput([...map.values().reverse()]);
+
   printCommand('map.size');
   printOutput(map.size);
 
@@ -72,10 +96,23 @@ function runExample() {
   printCommand('map.size');
   printOutput(map.size);
 
-  printCommand('for (const value of map.values()) { … }');
-  for (const value of map.values()) {
-    printOutput(value);
-  }
+  printCommand(`map
+    .set('key2', '2')
+    .set('key4', '4')
+    .set('key5', '5');`);
+  map
+    .set('key2', '2')
+    .set('key4', '4')
+    .set('key5', '5');
+
+  printCommand('const it = map.iteratorFor("key4").reverse();');
+  const it = map.iteratorFor('key4').reverse();
+  printCommand('it.next().value;');
+  printOutput(it.next().value);
+  printCommand('it.next().value;');
+  printOutput(it.next().value);
+  printCommand('it.next().value;');
+  printOutput(it.next().value);
 }
 
 runExample();

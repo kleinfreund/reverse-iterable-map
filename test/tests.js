@@ -47,6 +47,10 @@ assertEqual('map.size', 3, map.size);
 assertEqual('map.get("key1")', '1', map.get('key1'));
 assertEqual('map.get("key2")', '2', map.get('key2'));
 assertEqual('map.get("key3")', '3', map.get('key3'));
+assertEqual('map.has("key1")', true, map.has('key1'));
+assertEqual('map.has("key2")', true, map.has('key2'));
+assertEqual('map.has("key3")', true, map.has('key3'));
+assertEqual('map.has("")', false, map.has(''));
 console.groupEnd();
 
 console.group('map.delete() method');
@@ -72,26 +76,32 @@ console.groupEnd();
 console.group('map.entries()');
 const entries = map.entries();
 console.info('> const entries = map.entries();');
-assertHasOwnProperty('map.entries()', 'next', entries);
-assertHasOwnProperty('map.entries()', Symbol.iterator, entries);
+assertHasOwnProperty('entries', 'next', entries);
+assertHasOwnProperty('entries', Symbol.iterator, entries);
 
 let entriesNext = entries.next();
 console.info('> let entriesNext = entries.next();');
 assertHasOwnProperty('entriesNext', 'done', entriesNext);
 assertHasOwnProperty('entriesNext', 'value', entriesNext);
 assertEqual('entriesNext.done', false, entriesNext.done);
+assertEqual('entriesNext.value[0]', 'key1', entriesNext.value[0]);
+assertEqual('entriesNext.value[1]', '4', entriesNext.value[1]);
 
 entriesNext = entries.next();
 console.info('> entriesNext = entries.next();');
 assertHasOwnProperty('entriesNext', 'done', entriesNext);
 assertHasOwnProperty('entriesNext', 'value', entriesNext);
 assertEqual('entriesNext.done', false, entriesNext.done);
+assertEqual('entriesNext.value[0]', 'key2', entriesNext.value[0]);
+assertEqual('entriesNext.value[1]', '5', entriesNext.value[1]);
 
 entriesNext = entries.next();
 console.info('> entriesNext = entries.next();');
 assertHasOwnProperty('entriesNext', 'done', entriesNext);
 assertHasOwnProperty('entriesNext', 'value', entriesNext);
 assertEqual('entriesNext.done', false, entriesNext.done);
+assertEqual('entriesNext.value[0]', 'key3', entriesNext.value[0]);
+assertEqual('entriesNext.value[1]', '6', entriesNext.value[1]);
 
 entriesNext = entries.next();
 console.info('> entriesNext = entries.next();');
@@ -163,6 +173,42 @@ valuesNext = values.next();
 console.info('> valuesNext = values.next();');
 assertHasOwnProperty('valuesNext', 'done', valuesNext);
 assertEqual('valuesNext.done', true, valuesNext.done);
+console.groupEnd();
+
+console.group('map.entries().reverse()');
+const entriesReverse = map.entries().reverse();
+console.info('> const entriesReverse = map.entries().reverse();');
+assertHasOwnProperty('entriesReverse', 'next', entriesReverse);
+assertHasOwnProperty('entriesReverse', Symbol.iterator, entriesReverse);
+
+let entriesReverseNext = entriesReverse.next();
+console.info('> let entriesReverseNext = entries.next();');
+assertHasOwnProperty('entriesReverseNext', 'done', entriesReverseNext);
+assertHasOwnProperty('entriesReverseNext', 'value', entriesReverseNext);
+assertEqual('entriesReverseNext.done', false, entriesReverseNext.done);
+assertEqual('entriesReverseNext.value[0]', 'key3', entriesReverseNext.value[0]);
+assertEqual('entriesReverseNext.value[1]', '6', entriesReverseNext.value[1]);
+
+entriesReverseNext = entriesReverse.next();
+console.info('> entriesReverseNext = entries.next();');
+assertHasOwnProperty('entriesReverseNext', 'done', entriesReverseNext);
+assertHasOwnProperty('entriesReverseNext', 'value', entriesReverseNext);
+assertEqual('entriesReverseNext.done', false, entriesReverseNext.done);
+assertEqual('entriesReverseNext.value[0]', 'key2', entriesReverseNext.value[0]);
+assertEqual('entriesReverseNext.value[1]', '5', entriesReverseNext.value[1]);
+
+entriesReverseNext = entriesReverse.next();
+console.info('> entriesReverseNext = entries.next();');
+assertHasOwnProperty('entriesReverseNext', 'done', entriesReverseNext);
+assertHasOwnProperty('entriesReverseNext', 'value', entriesReverseNext);
+assertEqual('entriesReverseNext.done', false, entriesReverseNext.done);
+assertEqual('entriesReverseNext.value[0]', 'key1', entriesReverseNext.value[0]);
+assertEqual('entriesReverseNext.value[1]', '4', entriesReverseNext.value[1]);
+
+entriesReverseNext = entriesReverse.next();
+console.info('> entriesReverseNext = entries.next();');
+assertHasOwnProperty('entriesReverseNext', 'done', entriesReverseNext);
+assertEqual('entriesReverseNext.done', true, entriesReverseNext.done);
 console.groupEnd();
 console.groupEnd();
 
