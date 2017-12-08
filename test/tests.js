@@ -210,6 +210,8 @@ console.info('> entriesReverseNext = entries.next();');
 assertHasOwnProperty('entriesReverseNext', 'done', entriesReverseNext);
 assertEqual('entriesReverseNext.done', true, entriesReverseNext.done);
 console.groupEnd();
+
+assertEqual('map.toString()', '[object LinkedMap]', map.toString());
 console.groupEnd();
 
 console.info(

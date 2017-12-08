@@ -113,6 +113,8 @@ function runExample() {
   printOutput(it.next().value);
   printCommand('it.next().value;');
   printOutput(it.next().value);
+  printCommand(`map.toString()`);
+  printOutput(map.toString());
 }
 
 runExample();

@@ -21,6 +21,14 @@ class LinkedMap {
   }
 
   /**
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@toStringTag
+   * @returns {string}
+   */
+  get [Symbol.toStringTag]() {
+    return 'LinkedMap';
+  }
+
+  /**
    * The clear() method removes all elements from a LinkedMap object.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear
    */
