@@ -267,18 +267,13 @@ class LinkedMap {
         // Return the iterable itself.
         return this;
       },
-      // Returns an IteratorResult
       next: () => {
+        let value;
         if (currentNode) {
-          let it = {
-            value: [currentNode.key, this.get(currentNode.key)],
-            done: false
-          };
+          value = [currentNode.key, this.get(currentNode.key)];
           currentNode = currentNode[nextProp];
-          return it;
         }
-
-        return { value: undefined, done: true };
+        return this.iteratorResult(value);
       }
     };
   }
@@ -299,18 +294,13 @@ class LinkedMap {
         // Return the iterable itself.
         return this;
       },
-      // Returns an IteratorResult
       next: () => {
+        let value;
         if (currentNode) {
-          let it = {
-            value: currentNode.key,
-            done: false
-          };
+          value = currentNode.key;
           currentNode = currentNode[nextProp];
-          return it;
         }
-
-        return { value: undefined, done: true };
+        return this.iteratorResult(value);
       }
     };
   }
@@ -331,19 +321,30 @@ class LinkedMap {
         // Return the iterable itself.
         return this;
       },
-      // Returns an IteratorResult
       next: () => {
+        let value;
         if (currentNode) {
-          let it = {
-            value: this.get(currentNode.key),
-            done: false
-          };
+          value = this.get(currentNode.key);
           currentNode = currentNode[nextProp];
-          return it;
         }
-
-        return { value: undefined, done: true };
+        return this.iteratorResult(value);
       }
+    };
+  }
+
+  /**
+   * Returns an IteratorResult object as per the following rules:
+   * - If value is not undefined, done is false.
+   * - If value is undefined, done is true. Furthermore, value may be omitted.
+   *
+   * @param {*} value
+   * @returns {IteratorResult}
+   * @private
+   */
+  iteratorResult(value) {
+    return {
+      value: value,
+      done: value === undefined ? false : true
     };
   }
 }
