@@ -105,6 +105,9 @@ function runExample() {
     .set('key4', '4')
     .set('key5', '5');
 
+  printCommand('[...map.values()]');
+  printOutput([...map.values()]);
+
   printCommand(`const it = map.iteratorFor('key4').reverse();`);
   const it = map.iteratorFor('key4').reverse();
   printCommand(`it.next().value;`);

@@ -323,12 +323,12 @@ class LinkedMap {
   }
 
   /**
+   * Return an iterator for a specific element in the LinkedMap.
    *
    * @param {*} key
-   * @param {boolean} reverse
    * @returns {IterableIterator}
    */
-  iteratorFor(key, reverse = false) {
+  iteratorFor(key) {
     let startNode = this._map.get(key);
     const getIteratorValue = function(node) {
       return node.value;
@@ -355,11 +355,12 @@ class LinkedMap {
    * method. Calling it on an iterable will iterate in reverse insertion order.
    *
    * @param {function} getIteratorValue
-   * @param {LinkedMapNode?} currentNode
+   * @param {LinkedMapNode?} startNode
    * @returns {IterableIterator}
    * @private
    */
-  iterableIterator(getIteratorValue, currentNode = this.first) {
+  iterableIterator(getIteratorValue, startNode = undefined) {
+    let currentNode = startNode ? startNode : this.first;
     // Store the this.last node as inside the reverse() method, `this` will be
     // bound to iterableIterator, not LinkedMap. That’s on purpose.
     const last = this.last;
@@ -367,7 +368,7 @@ class LinkedMap {
 
     return {
       reverse() {
-        currentNode = last;
+        currentNode = startNode ? startNode : last;
         nextProp = 'prev';
         return this;
       },
