@@ -1,6 +1,6 @@
 # linked-map.js
 
-A reverse-iterable linked map for JavaScript.
+A reverse-iterable, linked map implementation for JavaScript.
 
 ## Why?
 
