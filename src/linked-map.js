@@ -331,7 +331,7 @@ class LinkedMap {
   iteratorFor(key) {
     let startNode = this._map.get(key);
     const getIteratorValue = function(node) {
-      return node.value;
+      return [node.key, node.value];
     };
 
     return this.iterableIterator(getIteratorValue, startNode);
