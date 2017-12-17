@@ -3,12 +3,22 @@
 export { LinkedMap };
 
 /**
+ * @typedef {class} LinkedMapType
+ * @property {Map.<K, V>} _map
+ * @property {LinkedMapNode} _first
+ * @property {LinkedMapNode} _last
+ * @template K, V
+ */
+
+/**
  * A doubly-linked Map implementation based on Map.
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
  *
  * It exposes its order via iterable iterators which can be used for both
  * forwards and backwards iteration. As per Map, the order of a LinkedMap is
  * always the insertion order (i.e. not sorted).
+ *
+ * @type {LinkedMapType}
  */
 class LinkedMap {
   /**
@@ -396,11 +406,24 @@ class LinkedMap {
 }
 
 /**
+ * @typedef {class} LinkedMapNodeType
+ * @property {K} _key
+ * @property {V} _value
+ * @property {LinkedMapNode} _prev
+ * @property {LinkedMapNode} _next
+ * @template K, V
+ */
+
+/**
  * Represents a node within a LinkedMap.
+ *
+ * @type {LinkedMapNodeType}
  */
 class LinkedMapNode {
   /**
    * @constructor
+   * @param {*} key
+   * @param {*} value
    */
   constructor(key, value) {
     this._key = key;
@@ -431,28 +454,28 @@ class LinkedMapNode {
   }
 
   /**
-   * @returns {*}
+   * @returns {LinkedMapNode}
    */
   get next() {
     return this._next;
   }
 
   /**
-   * @param {*} next
+   * @param {LinkedMapNode} next
    */
   set next(next) {
     this._next = next;
   }
 
   /**
-   * @returns {*}
+   * @returns {LinkedMapNode}
    */
   get prev() {
     return this._prev;
   }
 
   /**
-   * @param {*} prev
+   * @param {LinkedMapNode} prev
    */
   set prev(prev) {
     this._prev = prev;
