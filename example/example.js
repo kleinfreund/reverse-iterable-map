@@ -1,3 +1,4 @@
+// @ts-check
 import { LinkedMap } from '../src/linked-map.js';
 
 const body = document.querySelector('body');
@@ -22,6 +23,12 @@ function runExample() {
     .set('key1', '1')
     .set('key2', '2')
     .set('key3', '3');
+
+  printCommand(`const map2 = new LinkedMap([[0, '1'], [1, '2'], [2, '3']]);`);
+  const map2 = new LinkedMap([[0, '1'], [1, '2'], [2, '3']]);
+
+  printCommand(`const map3 = new LinkedMap(['1', '2', '3'].entries());`);
+  const map3 = new LinkedMap(['1', '2', '3'].entries());
 
   printCommand('for (const [key, value] of map) { … }');
   for (const [key, value] of map) {

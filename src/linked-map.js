@@ -13,11 +13,18 @@ export { LinkedMap };
 class LinkedMap {
   /**
    * @constructor
+   * @param {Iterable?} iterable
    */
-  constructor() {
+  constructor(iterable = null) {
     this._map = new Map();
     this._first = null;
     this._last = null;
+
+    if (iterable) {
+      for (const [key, value] of iterable) {
+        this.set(key, value);
+      }
+    }
   }
 
   /**
