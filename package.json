@@ -1,0 +1,32 @@
+{
+  "name": "reverse-iterable-map",
+  "version": "1.0.0",
+  "description": "A reverse-iterable map implementation based on the built-in Map object",
+  "main": "./src/reverse-iterable-map",
+  "engines": {
+    "node": ">=8.5"
+  },
+  "scripts": {
+    "build": "node create-mjs-files.js",
+    "test": "npm run build && node --experimental-modules test/tests.mjs",
+    "example": "npm run build && npx http-static"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kleinfreund/reverse-iterable-map.js.git"
+  },
+  "keywords": ["map", "linked-map", "reverse-iterable", "iterable-iterator"],
+  "author": {
+    "name": "Philipp Rudloff",
+    "url": "https://kleinfreund.de"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kleinfreund/reverse-iterable-map.js/issues"
+  },
+  "homepage": "https://kleinfreund.github.io/reverse-iterable-map.js",
+  "devDependencies": {
+    "copy": "^0.3.1",
+    "replace-in-file": "^3.1.0"
+  }
+}
