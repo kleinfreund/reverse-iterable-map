@@ -1,29 +1,27 @@
-// @ts-check
-
 export { LinkedMap };
 
 /**
- * @typedef {class} LinkedMapType
- * @property {Map.<K, V>} _map
- * @property {LinkedMapNode} _first
- * @property {LinkedMapNode} _last
- * @template K, V
- */
-
-/**
- * A doubly-linked Map implementation based on Map.
+ * A reverse-iterable map implementation based on the built-in Map object.
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
  *
  * It exposes its order via iterable iterators which can be used for both
  * forwards and backwards iteration. As per Map, the order of a LinkedMap is
  * always the insertion order (i.e. not sorted).
  *
+ * @typedef {class} LinkedMapType
+ * @template K, V
+ * @property {Map<K, V>} _map
+ * @property {LinkedMapNode} _first
+ * @property {LinkedMapNode} _last
+ *
  * @type {LinkedMapType}
  */
 class LinkedMap {
   /**
-   * @constructor
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/prototype
+   *
    * @param {Iterable?} iterable
+   * @public
    */
   constructor(iterable = null) {
     this._map = new Map();
@@ -39,7 +37,9 @@ class LinkedMap {
 
   /**
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@toStringTag
+   *
    * @returns {string}
+   * @public
    */
   get [Symbol.toStringTag]() {
     return 'LinkedMap';
@@ -82,6 +82,7 @@ class LinkedMap {
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/size
    *
    * @returns {number} the size of the LinkedMap.
+   * @public
    */
   get size() {
     return this._map.size;
@@ -90,6 +91,8 @@ class LinkedMap {
   /**
    * The clear() method removes all elements from a LinkedMap object.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear
+   *
+   * @public
    */
   clear() {
     this._map.clear();
@@ -104,6 +107,7 @@ class LinkedMap {
    *
    * @param {*} key
    * @returns {boolean}
+   * @public
    */
   has(key) {
     return this._map.has(key);
@@ -115,6 +119,7 @@ class LinkedMap {
    *
    * @param {*} key
    * @returns {*|undefined}
+   * @public
    */
   get(key) {
     return this._map.get(key).value;
@@ -124,6 +129,7 @@ class LinkedMap {
    * Retrieves the last element in a LinkedMap object
    *
    * @returns {*}
+   * @public
    */
   getLast() {
     return this.last.value;
@@ -133,6 +139,7 @@ class LinkedMap {
    * Retrieves the first element in a LinkedMap object
    *
    * @returns {*}
+   * @public
    */
   getFirst() {
     return this.first.value;
@@ -169,6 +176,7 @@ class LinkedMap {
    * @param {*} key
    * @param {*} value
    * @returns {LinkedMap}
+   * @public
    */
   set(key, value) {
     const node = this.add(key, value);
@@ -192,8 +200,9 @@ class LinkedMap {
    * @param {*} key
    * @param {*} value
    * @returns {LinkedMap}
+   * @public
    */
-  setFront(key, value) {
+  setFirst(key, value) {
     const node = this.add(key, value);
 
     if (this.first === null && this.last === null) {
@@ -214,6 +223,7 @@ class LinkedMap {
    *
    * @param {*} key
    * @returns {boolean}
+   * @public
    */
   delete(key) {
     if (this.has(key)) {
@@ -248,6 +258,7 @@ class LinkedMap {
    *
    * @param {function} callback
    * @param {*?} thisArg
+   * @public
    */
   forEach(callback, thisArg = undefined) {
     for (const [key, value] of this.entries()) {
@@ -260,6 +271,7 @@ class LinkedMap {
    *
    * @param {function} callback
    * @param {*?} thisArg
+   * @public
    */
   forEachReverse(callback, thisArg = undefined) {
     for (const [key, value] of this.entries().reverse()) {
@@ -273,6 +285,7 @@ class LinkedMap {
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@iterator
    *
    * @returns {IterableIterator}
+   * @public
    */
   [Symbol.iterator]() {
     return this.entries();
@@ -289,6 +302,7 @@ class LinkedMap {
    *   [...linkedMap.reverse()]
    *
    * @returns {IterableIterator}
+   * @public
    */
   reverse() {
     return this.entries().reverse();
@@ -300,6 +314,7 @@ class LinkedMap {
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/entries
    *
    * @returns {IterableIterator}
+   * @public
    */
   entries() {
     const getIteratorValue = function(node) {
@@ -315,6 +330,7 @@ class LinkedMap {
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys
    *
    * @returns {IterableIterator}
+   * @public
    */
   keys() {
     const getIteratorValue = function(node) {
@@ -330,6 +346,7 @@ class LinkedMap {
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values
    *
    * @returns {IterableIterator}
+   * @public
    */
   values() {
     const getIteratorValue = function(node) {
@@ -344,6 +361,7 @@ class LinkedMap {
    *
    * @param {*} key
    * @returns {IterableIterator}
+   * @public
    */
   iteratorFor(key) {
     let startNode = this._map.get(key);
@@ -406,24 +424,23 @@ class LinkedMap {
 }
 
 /**
+ * Represents a node within a LinkedMap.
+ *
  * @typedef {class} LinkedMapNodeType
+ * @template K, V
  * @property {K} _key
  * @property {V} _value
  * @property {LinkedMapNode} _prev
  * @property {LinkedMapNode} _next
- * @template K, V
- */
-
-/**
- * Represents a node within a LinkedMap.
  *
  * @type {LinkedMapNodeType}
+ * @protected
  */
 class LinkedMapNode {
   /**
-   * @constructor
-   * @param {*} key
-   * @param {*} value
+   * @template K, V
+   * @param {K} key
+   * @param {V} value
    */
   constructor(key, value) {
     this._key = key;
@@ -434,6 +451,7 @@ class LinkedMapNode {
 
   /**
    * @returns {*}
+   * @protected
    */
   get key() {
     return this._key;
@@ -441,6 +459,7 @@ class LinkedMapNode {
 
   /**
    * @returns {*}
+   * @protected
    */
   get value() {
     return this._value;
@@ -448,6 +467,7 @@ class LinkedMapNode {
 
   /**
    * @param {*} value
+   * @protected
    */
   set value(value) {
     this._value = value;
@@ -455,6 +475,7 @@ class LinkedMapNode {
 
   /**
    * @returns {LinkedMapNode}
+   * @protected
    */
   get next() {
     return this._next;
@@ -462,6 +483,7 @@ class LinkedMapNode {
 
   /**
    * @param {LinkedMapNode} next
+   * @protected
    */
   set next(next) {
     this._next = next;
@@ -469,6 +491,7 @@ class LinkedMapNode {
 
   /**
    * @returns {LinkedMapNode}
+   * @protected
    */
   get prev() {
     return this._prev;
@@ -476,6 +499,7 @@ class LinkedMapNode {
 
   /**
    * @param {LinkedMapNode} prev
+   * @protected
    */
   set prev(prev) {
     this._prev = prev;
@@ -487,8 +511,8 @@ class LinkedMapNode {
  * - If value is not undefined, done is false.
  * - If value is undefined, done is true. In this case, value may be omitted.
  *
- * This function does not belong to the LinkedMap prototype as it doesn’t need
- * access to any of the prototypes properties.
+ * This function does not belong to LinkedMap as it doesn’t need access to any
+ * of its properties.
  *
  * @param {*|undefined} value
  * @returns {IteratorResult}
