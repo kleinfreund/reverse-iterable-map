@@ -2,6 +2,54 @@
 
 A reverse-iterable map implementation based on the built-in [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) object.
 
+## Table of Contents
+
+* [Install](#install)
+* [Examples](#examples)
+* [Tests](#tests)
+* [Why?](#why)
+* [But why a map?](#but-why-a-map)
+
+## Install
+
+### … for JavaScript
+
+Downloads an ES module file.
+
+```
+curl -O https://github.com/kleinfreund/reverse-iterable-map.js/blob/master/src/reverse-iterable-map.js
+```
+
+```js
+import { ReverseIterableMap } from './src/reverse-iterable-map.js';
+
+const map = new ReverseIterableMap();
+```
+
+## Examples
+
+**… on the website:**:
+
+[kleinfreund.github.io/reverse-iterable-map.js](https://kleinfreund.github.io/reverse-iterable-map.js/)
+
+Prints test results to the console.
+
+**… on a local HTTP server**:
+
+```
+npm run example
+```
+
+Prints test results to the console.
+
+## Tests
+
+**… with Node’s experimental ES module feature**:
+
+```
+npm test
+```
+
 ## Why?
 
 Part of the additions to ECMAScript 2015 are the [iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols): [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) and [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol). The former allows arbitrary objects to become iterable. Following the rules of the protocol gives one iteration capabilities via the following techniques:
@@ -23,7 +71,3 @@ That’s what I needed. To be precise, I needed to access an iterator _at a spec
 I tried to stick to the [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) interface as close as possible.
 
 Implementing a reverse-iterable array, for example, can be accomplished by using the same techniques of this implementation.
-
-## Examples & Tests
-
-Example output can be seen here: [kleinfreund.github.io/reverse-iterable-map.js](https://kleinfreund.github.io/reverse-iterable-map.js/). Test results are logged in the console.
