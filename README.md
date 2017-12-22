@@ -16,7 +16,7 @@ A reverse-iterable map implementation based on the built-in [Map](https://develo
 
 Downloads an ES module file.
 
-```
+```shell
 curl -O https://github.com/kleinfreund/reverse-iterable-map.js/blob/master/src/reverse-iterable-map.js
 ```
 
@@ -30,7 +30,7 @@ const map = new ReverseIterableMap();
 
 Installs the node package as a dependency. It doesn’t have any non-development dependencies itself.
 
-```
+```shell
 npm install --save reverse-iterable-map
 ```
 
@@ -52,7 +52,7 @@ Prints test results to the console.
 
 **… on a local HTTP server**:
 
-```
+```shell
 npm run example
 ```
 
@@ -62,7 +62,7 @@ Prints test results to the console.
 
 **… with Node’s experimental ES module feature**:
 
-```
+```shell
 npm test
 ```
 
