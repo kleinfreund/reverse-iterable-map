@@ -1,5 +1,4 @@
-// @ts-check
-import { LinkedMap } from '../src/linked-map.js';
+import { ReverseIterableMap } from '../src/reverse-iterable-map.js';
 
 const body = document.querySelector('body');
 
@@ -12,8 +11,8 @@ function printOutput(...args) {
 }
 
 function runExample() {
-  printCommand('const map = new LinkedMap();');
-  const map = new LinkedMap();
+  printCommand('const map = new ReverseIterableMap();');
+  const map = new ReverseIterableMap();
 
   printCommand(`map
     .set('key1', '1')
@@ -24,11 +23,11 @@ function runExample() {
     .set('key2', '2')
     .set('key3', '3');
 
-  printCommand(`const map2 = new LinkedMap([[0, '1'], [1, '2'], [2, '3']]);`);
-  const map2 = new LinkedMap([[0, '1'], [1, '2'], [2, '3']]);
+  printCommand(`const map2 = new ReverseIterableMap([[0, '1'], [1, '2'], [2, '3']]);`);
+  const map2 = new ReverseIterableMap([[0, '1'], [1, '2'], [2, '3']]);
 
-  printCommand(`const map3 = new LinkedMap(['1', '2', '3'].entries());`);
-  const map3 = new LinkedMap(['1', '2', '3'].entries());
+  printCommand(`const map3 = new ReverseIterableMap(['1', '2', '3'].entries());`);
+  const map3 = new ReverseIterableMap(['1', '2', '3'].entries());
 
   printCommand('for (const [key, value] of map) { … }');
   for (const [key, value] of map) {

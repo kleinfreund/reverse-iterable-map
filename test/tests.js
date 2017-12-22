@@ -1,4 +1,4 @@
-import { LinkedMap } from '../src/linked-map.js';
+import { ReverseIterableMap } from '../src/reverse-iterable-map.js';
 
 let totalAssertions = 0;
 let correctAssertions = 0;
@@ -37,7 +37,7 @@ function statusMark(condition) {
 console.group('Tests');
 console.info('Running tests …');
 
-const map = new LinkedMap()
+const map = new ReverseIterableMap()
   .set('key1', '1')
   .set('key2', '2')
   .set('key3', '3');
@@ -70,7 +70,7 @@ map
   .set('key3', '6');
 
 console.group('map');
-assertHasOwnProperty('LinkedMap.prototype', Symbol.iterator, LinkedMap.prototype);
+assertHasOwnProperty('ReverseIterableMap.prototype', Symbol.iterator, ReverseIterableMap.prototype);
 console.groupEnd();
 
 console.group('map.entries()');
@@ -211,7 +211,7 @@ assertHasOwnProperty('entriesReverseNext', 'done', entriesReverseNext);
 assertEqual('entriesReverseNext.done', true, entriesReverseNext.done);
 console.groupEnd();
 
-assertEqual('map.toString()', '[object LinkedMap]', map.toString());
+assertEqual('map.toString()', '[object ReverseIterableMap]', map.toString());
 console.groupEnd();
 
 console.info(

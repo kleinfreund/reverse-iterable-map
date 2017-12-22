@@ -1,6 +1,6 @@
-# linked-map.js
+# reverse-iterable-map.js
 
-A reverse-iterable, linked map implementation for JavaScript.
+A reverse-iterable map implementation based on the built-in [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) object.
 
 ## Why?
 
@@ -12,7 +12,7 @@ Part of the additions to ECMAScript 2015 are the [iteration protocols](https://d
 
 **However**, only the iteration in one direction is considered by the [specification](https://www.ecma-international.org/ecma-262/6.0/#sec-iteration) at the time. This means that we only get forward-iteration by default.
 
-Now, with the iteration protocols, we could redefine the iteration behavior for our purpose and make an objects backwards-iterable. Unfortunately, this also means losing forwards-iterability.
+Now, with the iteration protocols, we could redefine the iteration behavior for our purpose and make an object backwards-iterable. At the same time, this means losing the ability to iterate forwards.
 
 **If you need both a forwards- and backwards-iterable object, this implementation might be for you.**
 
@@ -20,8 +20,10 @@ Now, with the iteration protocols, we could redefine the iteration behavior for 
 
 That’s what I needed. To be precise, I needed to access an iterator _at a specific location_ in my data structure and be able to _iterate in both directions_.
 
-I tried my best to stick to the [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) interface as close as possible.
+I tried to stick to the [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) interface as close as possible.
+
+Implementing a reverse-iterable array, for example, can be accomplished by using the same techniques of this implementation.
 
 ## Examples & Tests
 
-Example output and tests can be run here: [kleinfreund.github.io/linked-map.js](https://kleinfreund.github.io/linked-map.js/). Test results are logged in the developer console.
+Example output can be seen here: [kleinfreund.github.io/reverse-iterable-map.js](https://kleinfreund.github.io/reverse-iterable-map.js/). Test results are logged in the console.

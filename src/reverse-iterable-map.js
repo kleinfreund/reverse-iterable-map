@@ -1,22 +1,22 @@
-export { LinkedMap };
+export { ReverseIterableMap };
 
 /**
  * A reverse-iterable map implementation based on the built-in Map object.
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
  *
  * It exposes its order via iterable iterators which can be used for both
- * forwards and backwards iteration. As per Map, the order of a LinkedMap is
+ * forwards and backwards iteration. As per Map, the order of a ReverseIterableMap is
  * always the insertion order (i.e. not sorted).
  *
- * @typedef {class} LinkedMapType
+ * @typedef {class} ReverseIterableMapType
  * @template K, V
  * @property {Map<K, V>} _map
- * @property {LinkedMapNode} _first
- * @property {LinkedMapNode} _last
+ * @property {ReverseIterableMapNode} _first
+ * @property {ReverseIterableMapNode} _last
  *
- * @type {LinkedMapType}
+ * @type {ReverseIterableMapType}
  */
-class LinkedMap {
+class ReverseIterableMap {
   /**
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/prototype
    *
@@ -42,11 +42,11 @@ class LinkedMap {
    * @public
    */
   get [Symbol.toStringTag]() {
-    return 'LinkedMap';
+    return 'ReverseIterableMap';
   }
 
   /**
-   * @returns {LinkedMapNode}
+   * @returns {ReverseIterableMapNode}
    * @private
    */
   get first() {
@@ -54,7 +54,7 @@ class LinkedMap {
   }
 
   /**
-   * @param {LinkedMapNode} node
+   * @param {ReverseIterableMapNode} node
    * @private
    */
   set first(node) {
@@ -62,7 +62,7 @@ class LinkedMap {
   }
 
   /**
-   * @returns {LinkedMapNode}
+   * @returns {ReverseIterableMapNode}
    * @private
    */
   get last() {
@@ -70,7 +70,7 @@ class LinkedMap {
   }
 
   /**
-   * @param {LinkedMapNode} node
+   * @param {ReverseIterableMapNode} node
    * @private
    */
   set last(node) {
@@ -78,10 +78,10 @@ class LinkedMap {
   }
 
   /**
-   * The size accessor property returns the number of elements in a LinkedMap object.
+   * The size accessor property returns the number of elements in a ReverseIterableMap object.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/size
    *
-   * @returns {number} the size of the LinkedMap.
+   * @returns {number} the size of the ReverseIterableMap.
    * @public
    */
   get size() {
@@ -89,7 +89,7 @@ class LinkedMap {
   }
 
   /**
-   * The clear() method removes all elements from a LinkedMap object.
+   * The clear() method removes all elements from a ReverseIterableMap object.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear
    *
    * @public
@@ -126,7 +126,7 @@ class LinkedMap {
   }
 
   /**
-   * Retrieves the last element in a LinkedMap object
+   * Retrieves the last element in a ReverseIterableMap object
    *
    * @returns {*}
    * @public
@@ -136,7 +136,7 @@ class LinkedMap {
   }
 
   /**
-   * Retrieves the first element in a LinkedMap object
+   * Retrieves the first element in a ReverseIterableMap object
    *
    * @returns {*}
    * @public
@@ -152,7 +152,7 @@ class LinkedMap {
    *
    * @param {*} key
    * @param {*} value
-   * @returns {LinkedMapNode}
+   * @returns {ReverseIterableMapNode}
    * @private
    */
   add(key, value) {
@@ -161,7 +161,7 @@ class LinkedMap {
     if (node) {
       node.value = value;
     } else {
-      node = new LinkedMapNode(key, value);
+      node = new ReverseIterableMapNode(key, value);
 
       this._map.set(key, node);
     }
@@ -170,12 +170,12 @@ class LinkedMap {
   }
 
   /**
-   * The set() method adds and links a new element at the end of a LinkedMap
+   * The set() method adds and links a new element at the end of a ReverseIterableMap
    * object.
    *
    * @param {*} key
    * @param {*} value
-   * @returns {LinkedMap}
+   * @returns {ReverseIterableMap}
    * @public
    */
   set(key, value) {
@@ -195,11 +195,11 @@ class LinkedMap {
 
   /**
    * The setFront() method adds and links a new element at the beginning of a
-   * LinkedMap object.
+   * ReverseIterableMap object.
    *
    * @param {*} key
    * @param {*} value
-   * @returns {LinkedMap}
+   * @returns {ReverseIterableMap}
    * @public
    */
   setFirst(key, value) {
@@ -295,11 +295,17 @@ class LinkedMap {
    * Allows usage of the iteration protocols for reverse iteration.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
    *
-   * Examples:
+   * Example:
    *
-   *   for (const [key, value] of linkedMap.reverse()) { … }
+   * ```
+   * const map = new ReverseIterableMap();
    *
-   *   [...linkedMap.reverse()]
+   * [...map.reverse()];
+   *
+   * for (const [key, value] of map.reverse()) {
+   *   console.log(key, value);
+   * }
+   * ```
    *
    * @returns {IterableIterator}
    * @public
@@ -357,7 +363,7 @@ class LinkedMap {
   }
 
   /**
-   * Return an iterator for a specific element in the LinkedMap.
+   * Return an iterator for a specific element in the ReverseIterableMap.
    *
    * @param {*} key
    * @returns {IterableIterator}
@@ -390,14 +396,14 @@ class LinkedMap {
    * method. Calling it on an iterable will iterate in reverse insertion order.
    *
    * @param {function} getIteratorValue
-   * @param {LinkedMapNode?} startNode
+   * @param {ReverseIterableMapNode?} startNode
    * @returns {IterableIterator}
    * @private
    */
   iterableIterator(getIteratorValue, startNode = undefined) {
     let currentNode = startNode ? startNode : this.first;
     // Store the this.last node as inside the reverse() method, `this` will be
-    // bound to iterableIterator, not LinkedMap. That’s on purpose.
+    // bound to iterableIterator, not ReverseIterableMap. That’s on purpose.
     const last = this.last;
     let nextProp = 'next';
 
@@ -424,19 +430,19 @@ class LinkedMap {
 }
 
 /**
- * Represents a node within a LinkedMap.
+ * Represents a node within a ReverseIterableMap.
  *
- * @typedef {class} LinkedMapNodeType
+ * @typedef {class} ReverseIterableMapNodeType
  * @template K, V
  * @property {K} _key
  * @property {V} _value
- * @property {LinkedMapNode} _prev
- * @property {LinkedMapNode} _next
+ * @property {ReverseIterableMapNode} _prev
+ * @property {ReverseIterableMapNode} _next
  *
- * @type {LinkedMapNodeType}
+ * @type {ReverseIterableMapNodeType}
  * @protected
  */
-class LinkedMapNode {
+class ReverseIterableMapNode {
   /**
    * @template K, V
    * @param {K} key
@@ -474,7 +480,7 @@ class LinkedMapNode {
   }
 
   /**
-   * @returns {LinkedMapNode}
+   * @returns {ReverseIterableMapNode}
    * @protected
    */
   get next() {
@@ -482,7 +488,7 @@ class LinkedMapNode {
   }
 
   /**
-   * @param {LinkedMapNode} next
+   * @param {ReverseIterableMapNode} next
    * @protected
    */
   set next(next) {
@@ -490,7 +496,7 @@ class LinkedMapNode {
   }
 
   /**
-   * @returns {LinkedMapNode}
+   * @returns {ReverseIterableMapNode}
    * @protected
    */
   get prev() {
@@ -498,7 +504,7 @@ class LinkedMapNode {
   }
 
   /**
-   * @param {LinkedMapNode} prev
+   * @param {ReverseIterableMapNode} prev
    * @protected
    */
   set prev(prev) {
@@ -511,7 +517,7 @@ class LinkedMapNode {
  * - If value is not undefined, done is false.
  * - If value is undefined, done is true. In this case, value may be omitted.
  *
- * This function does not belong to LinkedMap as it doesn’t need access to any
+ * This function does not belong to ReverseIterableMap as it doesn’t need access to any
  * of its properties.
  *
  * @param {*|undefined} value
