@@ -26,6 +26,22 @@ import { ReverseIterableMap } from './src/reverse-iterable-map.js';
 const map = new ReverseIterableMap();
 ```
 
+### … for Node.js (8.5+)
+
+Installs the node package as a dependency. It doesn’t have any non-development dependencies itself.
+
+```
+npm install --save reverse-iterable-map
+```
+
+```node
+import { ReverseIterableMap } from 'reverse-iterable-map';
+
+const map = new ReverseIterableMap();
+```
+
+Note, that Node.js version 8.5 or higher is required, as it comes with support for ES modules. If you don’t want to use it as an ES module, you will need to transpile the package yourself.
+
 ## Examples
 
 **… on the website:**:
