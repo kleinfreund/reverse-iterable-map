@@ -132,7 +132,11 @@ class ReverseIterableMap {
    * @public
    */
   getLast() {
-    return this.last.value;
+    if (this.last) {
+      return this.last.value;
+    }
+
+    return null;
   }
 
   /**
@@ -142,7 +146,11 @@ class ReverseIterableMap {
    * @public
    */
   getFirst() {
-    return this.first.value;
+    if (this.first) {
+      return this.first.value;
+    }
+
+    return null;
   }
 
   /**
