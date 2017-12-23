@@ -9,7 +9,7 @@
   "scripts": {
     "build": "node create-mjs-files.js",
     "test": "npm run build && node --experimental-modules test/tests.mjs",
-    "example": "npm run build && npx http-static"
+    "examples": "npm run build && npx http-static"
   },
   "repository": {
     "type": "git",
