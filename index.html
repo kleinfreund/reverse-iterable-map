@@ -9,13 +9,24 @@
   <script type="module" src="test/tests.js"></script>
 
   <style>
-    html {
+    body {
+      font-size: 1.25em;
+      line-height: 1.5;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 5vh 5vw;
+    }
+
+    pre,
+    code,
+    kbd {
       font-family: Consolas, monospace;
     }
 
     pre {
       margin: 0;
-      font: inherit;
     }
 
     .command {
@@ -29,6 +40,13 @@
   <p>Hey, beautiful. :)</p>
 
   <p>Following below are some examples for how <a href="https://github.com/kleinfreund/reverse-iterable-map.js"><code>ReverseIterableMap</code></a> works.</p>
+
+  <p>Reasons why the examples might not show up for you:</p>
+
+  <ul>
+    <li>You’re viewing this file with the <code>file:</code> schema instead of a local HTTP server.</li>
+    <li>You’re using a browser that does not support ES6 modules via the <code>&lt;script&gt;</code> tag. For example, Firefox has the feature behind a flag. For more information, have a look at the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#Browser_compatibility">compatibility table</a> over at MDN.</li>
+  </ul>
 
   <p>Open the developer console (usually <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd>) to see the output of the test file.</p>
 
