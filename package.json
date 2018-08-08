@@ -7,9 +7,8 @@
     "node": ">=8.5"
   },
   "scripts": {
-    "build": "node create-mjs-files.js",
-    "test": "npm run build && node --experimental-modules test/tests.mjs",
-    "examples": "npm run build && node ./node_modules/.bin/http-server"
+    "test": "node --experimental-modules test/tests.mjs",
+    "examples": "node ./node_modules/.bin/http-server"
   },
   "repository": {
     "type": "git",
