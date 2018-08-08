@@ -1,4 +1,4 @@
-import { ReverseIterableMap } from '../src/reverse-iterable-map.js';
+import { ReverseIterableMap } from '../src/reverse-iterable-map.mjs';
 
 let totalAssertions = 0;
 let correctAssertions = 0;

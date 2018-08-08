@@ -9,7 +9,7 @@
   "scripts": {
     "build": "node create-mjs-files.js",
     "test": "npm run build && node --experimental-modules test/tests.mjs",
-    "examples": "npm run build && npx http-static"
+    "examples": "npm run build && node ./node_modules/.bin/http-server"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,6 @@
   },
   "homepage": "https://kleinfreund.github.io/reverse-iterable-map.js",
   "devDependencies": {
-    "copy": "^0.3.2",
-    "replace-in-file": "^3.4.0"
+    "http-server": "^0.11.1"
   }
 }

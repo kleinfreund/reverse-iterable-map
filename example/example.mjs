@@ -1,4 +1,4 @@
-import { ReverseIterableMap } from '../src/reverse-iterable-map.js';
+import { ReverseIterableMap } from '../src/reverse-iterable-map.mjs';
 
 const body = document.querySelector('body');
 
@@ -23,10 +23,10 @@ function runExample() {
     .set('key2', '2')
     .set('key3', '3');
 
-  printCommand(`const map2 = new ReverseIterableMap([[0, '1'], [1, '2'], [2, '3']]);`);
+  printCommand('const map2 = new ReverseIterableMap([[0, "1"], [1, "2"], [2, "3"]]);');
   const map2 = new ReverseIterableMap([[0, '1'], [1, '2'], [2, '3']]);
 
-  printCommand(`const map3 = new ReverseIterableMap(['1', '2', '3'].entries());`);
+  printCommand('const map3 = new ReverseIterableMap(["1", "2", "3"].entries());');
   const map3 = new ReverseIterableMap(['1', '2', '3'].entries());
 
   printCommand('for (const [key, value] of map) { … }');
@@ -114,13 +114,13 @@ function runExample() {
   printCommand('[...map.values()]');
   printOutput([...map.values()]);
 
-  printCommand(`const it = map.iteratorFor('key4').reverse();`);
+  printCommand('const it = map.iteratorFor("key4").reverse();');
   const it = map.iteratorFor('key4').reverse();
-  printCommand(`it.next().value;`);
+  printCommand('it.next().value;');
   printOutput(it.next().value);
-  printCommand(`it.next().value;`);
+  printCommand('it.next().value;');
   printOutput(it.next().value);
-  printCommand(`it.next().value;`);
+  printCommand('it.next().value;');
   printOutput(it.next().value);
 
   printCommand(`map.forEach((value, key) => {
@@ -137,7 +137,7 @@ function runExample() {
     printOutput(key, ':', value);
   });
 
-  printCommand(`map.toString()`);
+  printCommand('map.toString()');
   printOutput(map.toString());
 }
 

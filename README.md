@@ -1,11 +1,13 @@
-# reverse-iterable-map.js
+# reverse-iterable-map
 
 A reverse-iterable map implementation based on the built-in [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) object.
 
 ## Table of Contents
 
-* [Install](#install)
-* [Examples](#examples)
+* [Installation](#installation)
+  * [ES Module](#es-module)
+  * [Node.js package](#nodejs-package)
+* [Usage Examples](#usage-examples)
 * [Tests](#tests)
 * [Documentation](#documentation)
   * [Constructor](#constructor)
@@ -26,24 +28,25 @@ A reverse-iterable map implementation based on the built-in [Map](https://develo
   * [`values()`](#values)
   * [`iteratorFor()`](#iteratorfor)
 * [Why this was implemented](#why-this-was-implemented)
+* [How to update this package](#how-to-update-this-package)
 
-## Install
+## Installation
 
-### … for JavaScript
-
-Downloads an ES module file.
+### ES Module
 
 ```shell
-curl -O https://github.com/kleinfreund/reverse-iterable-map.js/blob/master/src/reverse-iterable-map.js
+curl -O https://github.com/kleinfreund/reverse-iterable-map.js/blob/master/src/reverse-iterable-map.mjs
 ```
 
 ```js
-import { ReverseIterableMap } from './src/reverse-iterable-map.js';
+import { ReverseIterableMap } from './src/reverse-iterable-map.mjs';
 
 const map = new ReverseIterableMap();
 ```
 
-### … for Node.js (8.5+)
+### Node.js package
+
+*(Requires Node version 8.5 or higher for ES module support)*
 
 Installs the node package as a dependency. It doesn’t have any non-development dependencies itself.
 
@@ -57,23 +60,20 @@ import { ReverseIterableMap } from 'reverse-iterable-map';
 const map = new ReverseIterableMap();
 ```
 
-Note, that Node.js version 8.5 or higher is required, as it comes with support for ES modules. If you don’t want to use it as an ES module, you will need to transpile the package yourself.
+Note, that Node.js version 8.5 or higher is required, as it comes with experimental support for ES modules. If you don’t want to use it as an ES module, you will need to transpile the package yourself.
 
-## Examples
+## Usage Examples
 
-**… on the website:**:
+You can have a look at some examples here: [kleinfreund.github.io/reverse-iterable-map.js](https://kleinfreund.github.io/reverse-iterable-map.js)
 
-[kleinfreund.github.io/reverse-iterable-map.js](https://kleinfreund.github.io/reverse-iterable-map.js/)
+Open the developer console to see the results of the test suite.
 
-Prints test results to the console.
-
-**… on a local HTTP server**:
+Alternatively, run the examples locally after cloning this repository:
 
 ```shell
+npm install
 npm run examples
 ```
-
-Prints test results to the console.
 
 ## Tests
 
@@ -590,3 +590,14 @@ That’s what I needed. To be precise, I needed to access an iterator _at a spec
 I tried to stick to the [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) interface as close as possible.
 
 Implementing a reverse-iterable array, for example, can be accomplished by using the same techniques of this implementation.
+
+## How to update this package
+
+Assuming an update to version `v3.1.0` should be made. First of all, the working directory needs to cleaned; all changes need to be added and committed.
+
+```shell
+git add .
+git commit -m "Implemented extremely nice feature"
+npm login
+npm version v3.1.0
+```
