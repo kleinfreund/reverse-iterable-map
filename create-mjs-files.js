@@ -7,9 +7,9 @@ const copyOptions = {
 };
 
 // Copy relevant .js files and rename their extensions to .mjs
-copy.each(['src/reverse-iterable-map.js', 'test/tests.js'], '.', copyOptions, (error, file) => {
+copy.each(['src/reverse-iterable-map.js', 'test/tests.js'], '.', copyOptions, error => {
   if (error) {
-    console.error('copy error', error);
+    console.error('copy error:', error);
   }
 
   updateImports();
@@ -23,10 +23,10 @@ const replaceOptions = {
   to: (match, p1) => `${p1}.mjs`
 };
 
-// updateImports();
 function updateImports() {
   // Update the import statements to reference *.mjs instead of *.js files
-  replace(replaceOptions).catch(error => {
-    console.error('replace-in-file error', error);
-  });
+  replace(replaceOptions)
+    .catch(error => {
+      console.error('replace-in-file error:', error);
+    });
 }
