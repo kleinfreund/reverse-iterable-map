@@ -593,11 +593,30 @@ Implementing a reverse-iterable array, for example, can be accomplished by using
 
 ## How to update this package
 
-Assuming an update to version `v3.1.0` should be made. First of all, the working directory needs to cleaned; all changes need to be added and committed.
+… because I keep forgetting that.
+
+Let’s assume an update to version `v3.1.0` should be made. First of all, the working directory needs to cleaned up; all changes need to be comitted.
 
 ```shell
 git add .
 git commit -m "Implemented extremely nice feature"
-npm login
+```
+
+Next, make sure you have a valid NPM authentication token set up:
+
+```shell
+npm whoami
+```
+
+If not, do that with `npm login` and continue. We now create a new commit with the version tag (i.e. `v3.1.0`) and update the package.json. Actually, the following command will do that:
+
+```shell
 npm version v3.1.0
+```
+
+To finally publish a new version, the changes need to be made publich, too. So before putting the `bli` in `publish`, we `push` our updates.
+
+```shell
+git push
+npm publish
 ```
