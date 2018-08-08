@@ -31,7 +31,7 @@
   },
   "homepage": "https://kleinfreund.github.io/reverse-iterable-map.js",
   "devDependencies": {
-    "copy": "^0.3.1",
-    "replace-in-file": "^3.1.0"
+    "copy": "^0.3.2",
+    "replace-in-file": "^3.4.0"
   }
 }
