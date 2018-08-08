@@ -1,5 +1,3 @@
-export { ReverseIterableMap };
-
 /**
  * A reverse-iterable map implementation based on the built-in [`Map`][Map] object.
  *
@@ -13,7 +11,7 @@ export { ReverseIterableMap };
  * @property {ReverseIterableMapNode<K, V>} _first
  * @property {ReverseIterableMapNode<K, V>} _last
  */
-class ReverseIterableMap {
+export class ReverseIterableMap {
   /**
    * An [iterable][iterable] object whose elements are key-value pairs.
    *
