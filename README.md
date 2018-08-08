@@ -35,7 +35,7 @@ A reverse-iterable map implementation based on the built-in [Map](https://develo
 ### ES Module
 
 ```shell
-curl -O https://github.com/kleinfreund/reverse-iterable-map/blob/master/src/reverse-iterable-map.mjs
+curl -O https://raw.githubusercontent.com/kleinfreund/reverse-iterable-map/master/src/reverse-iterable-map.mjs
 ```
 
 ```js
