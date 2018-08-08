@@ -1,6 +1,6 @@
 {
   "name": "reverse-iterable-map",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A reverse-iterable map implementation based on the built-in Map object",
   "main": "./src/reverse-iterable-map",
   "engines": {
