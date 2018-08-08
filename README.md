@@ -35,7 +35,7 @@ A reverse-iterable map implementation based on the built-in [Map](https://develo
 ### ES Module
 
 ```shell
-curl -O https://github.com/kleinfreund/reverse-iterable-map.js/blob/master/src/reverse-iterable-map.mjs
+curl -O https://github.com/kleinfreund/reverse-iterable-map/blob/master/src/reverse-iterable-map.mjs
 ```
 
 ```js
@@ -617,6 +617,8 @@ npm version v3.1.0
 To finally publish a new version, the changes need to be made publich, too. So before putting the `bli` in `publish`, we `push` our updates.
 
 ```shell
-git push
+git push origin v3.1.0
 npm publish
 ```
+
+Moments after typing these lines, I ran `npm publish` before pushing the changes.

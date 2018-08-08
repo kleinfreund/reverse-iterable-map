@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kleinfreund/reverse-iterable-map.js.git"
+    "url": "git+https://github.com/kleinfreund/reverse-iterable-map.git"
   },
   "keywords": [
     "map",
@@ -26,9 +26,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kleinfreund/reverse-iterable-map.js/issues"
+    "url": "https://github.com/kleinfreund/reverse-iterable-map/issues"
   },
-  "homepage": "https://kleinfreund.github.io/reverse-iterable-map.js",
+  "homepage": "https://kleinfreund.github.io/reverse-iterable-map",
   "devDependencies": {
     "http-server": "^0.11.1"
   }
