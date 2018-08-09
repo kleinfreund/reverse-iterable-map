@@ -68,7 +68,7 @@ Note, that Node.js version 8.5 or higher is required, as it comes with experimen
 
 ## Usage Examples
 
-You can have a look at some examples here: [kleinfreund.github.io/reverse-iterable-map.js](https://kleinfreund.github.io/reverse-iterable-map.js)
+You can have a look at some examples here: [kleinfreund.github.io/reverse-iterable-map](https://kleinfreund.github.io/reverse-iterable-map)
 
 Open the developer console to see the results of the test suite.
 
