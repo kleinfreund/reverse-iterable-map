@@ -7,7 +7,8 @@ function printCommand(command) {
 }
 
 function printOutput(...args) {
-  body.insertAdjacentHTML('beforeend', `<pre class="output">  ${args.join(' ')}</pre>`);
+  const output = args.length > 1 ? args.join(' ') : args[0];
+  body.insertAdjacentHTML('beforeend', `<pre class="output">← ${output}</pre>`);
 }
 
 function runExample() {
@@ -22,12 +23,6 @@ function runExample() {
     .set('key1', '1')
     .set('key2', '2')
     .set('key3', '3');
-
-  printCommand('const map2 = new ReverseIterableMap([[0, "1"], [1, "2"], [2, "3"]]);');
-  const map2 = new ReverseIterableMap([[0, '1'], [1, '2'], [2, '3']]);
-
-  printCommand('const map3 = new ReverseIterableMap(["1", "2", "3"].entries());');
-  const map3 = new ReverseIterableMap(['1', '2', '3'].entries());
 
   printCommand('for (const [key, value] of map) { … }');
   for (const [key, value] of map) {
@@ -96,8 +91,8 @@ function runExample() {
   printCommand('map.size');
   printOutput(map.size);
 
-  printCommand('map.delete("key2");');
-  map.delete('key2');
+  printCommand('map.delete("key2")');
+  printOutput(map.delete('key2'));
 
   printCommand('map.size');
   printOutput(map.size);
@@ -139,6 +134,32 @@ function runExample() {
 
   printCommand('map.toString()');
   printOutput(map.toString());
+
+  printCommand('const map2 = new ReverseIterableMap([[0, "1"], [1, "2"], [2, "3"]]);');
+  const map2 = new ReverseIterableMap([[0, '1'], [1, '2'], [2, '3']]);
+
+  printCommand('const it2 = map2.iteratorFor(1);');
+  const it2 = map2.iteratorFor(1);
+
+  printCommand('iterator.next().value');
+  printOutput(it2.next().value);
+  printCommand('iterator.next().value');
+  printOutput(it2.next().value);
+  printCommand('iterator.next().value');
+  printOutput(it2.next().value);
+
+  printCommand('const map3 = new ReverseIterableMap(["a", "b", "c"].entries());');
+  const map3 = new ReverseIterableMap(['a', 'b', 'c'].entries());
+
+  printCommand('const it3 = map3.iteratorFor(1);');
+  const it3 = map3.iteratorFor(1);
+
+  printCommand('iterator.next().value');
+  printOutput(it3.next().value);
+  printCommand('iterator.next().value');
+  printOutput(it3.next().value);
+  printCommand('iterator.next().value');
+  printOutput(it3.next().value);
 }
 
 runExample();

@@ -2,6 +2,8 @@
 
 A reverse-iterable map implementation based on the built-in [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) object.
 
+
+
 ## Table of Contents
 
 * [Installation](#installation)
@@ -29,6 +31,8 @@ A reverse-iterable map implementation based on the built-in [Map](https://develo
   * [`iteratorFor()`](#iteratorfor)
 * [Why this was implemented](#why-this-was-implemented)
 * [How to update this package](#how-to-update-this-package)
+
+
 
 ## Installation
 
@@ -75,6 +79,8 @@ npm install
 npm run examples
 ```
 
+
+
 ## Tests
 
 **… with Node’s experimental ES module feature**:
@@ -82,6 +88,8 @@ npm run examples
 ```shell
 npm test
 ```
+
+
 
 ## Documentation
 
@@ -423,13 +431,13 @@ const map = new ReverseIterableMap([1, 2, 4].entries());
 const iterator = map[Symbol.iterator]();
 
 iterator.next().value;
-//> 1
+//> [0, 1]
 
 iterator.next().value;
-//> 2
+//> [1, 2]
 
 iterator.next().value;
-//> 4
+//> [2, 4]
 
 iterator.next().value;
 //> undefined
@@ -457,13 +465,13 @@ const map = new ReverseIterableMap([1, 2, 4].entries());
 const reverseIterator = map.reverse();
 
 reverseIterator.next().value;
-//> 4
+//> [2, 4]
 
 reverseIterator.next().value;
-//> 2
+//> [1, 2]
 
 reverseIterator.next().value;
-//> 1
+//> [0, 1]
 
 reverseIterator.next().value;
 //> undefined
@@ -548,10 +556,10 @@ const map = new ReverseIterableMap([1, 2, 4].entries());
 const iterator = map.iteratorFor(1);
 
 iterator.next().value;
-//> 2
+//> [1, 2]
 
 iterator.next().value;
-//> 4
+//> [2, 4]
 
 iterator.next().value;
 //> undefined
@@ -560,14 +568,16 @@ iterator.next().value;
 const reverseIterator = map.iteratorFor(1).reverse();
 
 reverseIterator.next().value;
-//> 2
+//> [1, 2]
 
 reverseIterator.next().value;
-//> 1
+//> [0, 1]
 
 reverseIterator.next().value;
 //> undefined
 ```
+
+
 
 ## Why this was implemented
 
@@ -577,7 +587,7 @@ Part of the additions to ECMAScript 2015 are the [iteration protocols](https://d
 * [`Array.from()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
 * [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)
 
-**However**, only the iteration in one direction is considered by the [specification](https://www.ecma-international.org/ecma-262/6.0/#sec-iteration) at the time. This means that we only get forward-iteration by default.
+**However**, only the iteration in one direction is considered by the [specification](https://www.ecma-international.org/ecma-262/6.0/#sec-iteration) at the time. This means that we only get forward-iteration by default. There is a draft for a proposal to add a `ReverseIterable` interface to the specification: [“The ReverseIterable Interface” by Lee Byron](https://github.com/leebyron/ecmascript-reverse-iterable).
 
 Now, with the iteration protocols, we could redefine the iteration behavior for our purpose and make an object backwards-iterable. At the same time, this means losing the ability to iterate forwards.
 
@@ -614,11 +624,11 @@ If not, do that with `npm login` and continue. We now create a new commit with t
 npm version v3.1.0
 ```
 
-To finally publish a new version, the changes need to be made publich, too. So before putting the `bli` in `publish`, we `push` our updates.
+To finally publish a new version, the changes need to be made publich, too. So before putting the `bli` in `publish`, we `push` our updates. Note that we need to push the `v3.1.0` tag as well, so a bare `git push` won’t suffice.
 
 ```shell
 git push origin v3.1.0
 npm publish
 ```
 
-Moments after typing these lines, I ran `npm publish` before pushing the changes.
+That’s it.
