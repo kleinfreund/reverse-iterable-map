@@ -30,7 +30,8 @@
       margin: 0;
     }
 
-    code:not(:first-child)::before {
+    .command code:not(:first-child)::before,
+    .output code::before {
       content: "\A0" "\A0";
     }
 
@@ -39,15 +40,10 @@
       margin-bottom: 0.5rem;
     }
 
-    .command::before {
+    .command code:first-child::before {
       content: "> ";
       color: hsl(0, 0%, 45%);
       font-weight: bold;
-    }
-
-    .output::before {
-      content: "← ";
-      color: hsl(0, 0%, 65%);
     }
   </style>
 </head>

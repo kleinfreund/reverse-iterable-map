@@ -1,21 +1,66 @@
 import { ReverseIterableMap } from '../src/reverse-iterable-map.mjs';
 
-const body = document.querySelector('body');
+/**
+ * Recursive algorithm to stringify arrays and their content in order to print them like dev tools.
+ *
+ * ```js
+ * stringify(['1', '2', '3'])
+ * //> [ "1", "2", "3" ]
+ *
+ * stringify([1, '2', undefined, '3', [4, 5, 6]])
+ * //> [ 1, "2", undefined, "3", [ 4, 5, 6 ] ]
+ * ```
+ *
+ * @param {*} input
+ * @returns {String}
+ */
+function stringify(input) {
+  if (Array.isArray(input)) {
+    const stringArray = [];
+    for (const element of input) {
+      stringArray.push(stringify(element));
+    }
 
-function printCommand(command) {
-  let codeString = '';
-  for (const line of command.trim().split('\n')) {
-    codeString += `<code>${line}</code>\n`;
+    return `[ ${stringArray.join(', ')} ]`;
+  } else if (typeof input === 'string') {
+    return `"${input}"`;
   }
-  body.insertAdjacentHTML('beforeend', `<pre class="command">${codeString}</pre>`);
+
+  return String(input);
 }
 
+/**
+ * @param {String} command
+ */
+function printCommand(command) {
+  printCodeBlock(command, 'command');
+}
+
+/**
+ * @param {Array} args
+ */
 function printOutput(...args) {
-  const output = args.length > 1 ? args.join(' ') : args[0];
-  body.insertAdjacentHTML('beforeend', `<pre class="output">${output}</pre>`);
+  const output = args.map(arg => Array.isArray(arg) ? stringify(arg) : String(arg));
+  printCodeBlock(output.join(' '), 'output');
 }
 
-function runExample() {
+/**
+ * @param {String} content
+ * @param {Array<String>} classNames
+ */
+function printCodeBlock(content, ...classNames) {
+  let concatenatedLines = '';
+  for (const line of content.trim().split('\n')) {
+    concatenatedLines += `<code>${line}</code>\n`;
+  }
+
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `<pre class="${classNames.join(' ')}">${concatenatedLines}</pre>`
+  );
+}
+
+function printExamples() {
   printCommand('const map = new ReverseIterableMap();');
   const map = new ReverseIterableMap();
 
@@ -162,7 +207,7 @@ map
 
   printCommand(`
 map.forEach((value, key) => {
-  printOutput(key, ': ', value);
+  console.log(key, ':', value);
 });
   `);
   map.forEach((value, key) => {
@@ -171,7 +216,7 @@ map.forEach((value, key) => {
 
   printCommand(`
 map.forEachReverse((value, key) => {
-  printOutput(key, ': ', value);
+  console.log(key, ':', value);
 });
   `);
   map.forEachReverse((value, key) => {
@@ -187,11 +232,11 @@ map.forEachReverse((value, key) => {
   printCommand('const it2 = map2.iteratorFor(1);');
   const it2 = map2.iteratorFor(1);
 
-  printCommand('iterator.next().value');
+  printCommand('it2.next().value');
   printOutput(it2.next().value);
-  printCommand('iterator.next().value');
+  printCommand('it2.next().value');
   printOutput(it2.next().value);
-  printCommand('iterator.next().value');
+  printCommand('it2.next().value');
   printOutput(it2.next().value);
 
   printCommand('const map3 = new ReverseIterableMap(["a", "b", "c"].entries());');
@@ -200,12 +245,17 @@ map.forEachReverse((value, key) => {
   printCommand('const it3 = map3.iteratorFor(1);');
   const it3 = map3.iteratorFor(1);
 
-  printCommand('iterator.next().value');
+  printCommand('it3.next().value');
   printOutput(it3.next().value);
-  printCommand('iterator.next().value');
+  printCommand('it3.next().value');
   printOutput(it3.next().value);
-  printCommand('iterator.next().value');
+  printCommand('it3.next().value');
   printOutput(it3.next().value);
 }
 
-runExample();
+printExamples();
+
+// console.log(stringify([1, 2, 3]));
+// console.log(stringify([1, 2, 3, undefined, 5]));
+// console.log(stringify(['1', '2', '3']));
+// console.log(stringify(['1', 2, [1, '5'], '3']));
