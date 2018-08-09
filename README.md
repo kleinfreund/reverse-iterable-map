@@ -627,6 +627,7 @@ npm version v3.1.0
 To finally publish a new version, the changes need to be made publich, too. So before putting the `bli` in `publish`, we `push` our updates. Note that we need to push the `v3.1.0` tag as well, so a bare `git push` won’t suffice.
 
 ```shell
+git push
 git push origin v3.1.0
 npm publish
 ```
