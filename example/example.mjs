@@ -45,6 +45,14 @@ function printOutput(...args) {
 }
 
 /**
+ * @param {Array} args
+ */
+function printLog(...args) {
+  const output = args.map(arg => Array.isArray(arg) ? stringify(arg) : String(arg));
+  printCodeBlock(output.join(' '), 'log');
+}
+
+/**
  * @param {String} content
  * @param {Array<String>} classNames
  */
@@ -83,7 +91,7 @@ for (const [key, value] of map) {
   `);
 
   for (const [key, value] of map) {
-    printOutput(key, ':', value);
+    printLog(key, ':', value);
   }
 
   printCommand(`
@@ -92,7 +100,7 @@ for (const [key, value] of map.entries()) {
 }
   `);
   for (const [key, value] of map.entries()) {
-    printOutput(key, ':', value);
+    printLog(key, ':', value);
   }
 
   printCommand(`
@@ -101,7 +109,7 @@ for (const key of map.keys()) {
 }
   `);
   for (const key of map.keys()) {
-    printOutput(key);
+    printLog(key);
   }
 
   printCommand(`
@@ -110,7 +118,7 @@ for (const value of map.values()) {
 }
   `);
   for (const value of map.values()) {
-    printOutput(value);
+    printLog(value);
   }
 
   printCommand(`
@@ -119,7 +127,7 @@ for (const [key, value] of map.reverse()) {
 }
   `);
   for (const [key, value] of map.reverse()) {
-    printOutput(key, ':', value);
+    printLog(key, ':', value);
   }
 
   printCommand(`
@@ -128,7 +136,7 @@ for (const [key, value] of map.entries().reverse()) {
 }
   `);
   for (const [key, value] of map.entries().reverse()) {
-    printOutput(key, ':', value);
+    printLog(key, ':', value);
   }
 
   printCommand(`
@@ -137,7 +145,7 @@ for (const key of map.keys().reverse()) {
 }
   `);
   for (const key of map.keys().reverse()) {
-    printOutput(key);
+    printLog(key);
   }
 
   printCommand(`
@@ -146,7 +154,7 @@ for (const value of map.values().reverse()) {
 }
   `);
   for (const value of map.values().reverse()) {
-    printOutput(value);
+    printLog(value);
   }
 
   printCommand('[...map]');
@@ -211,7 +219,7 @@ map.forEach((value, key) => {
 });
   `);
   map.forEach((value, key) => {
-    printOutput(key, ':', value);
+    printLog(key, ':', value);
   });
 
   printCommand(`
@@ -220,7 +228,7 @@ map.forEachReverse((value, key) => {
 });
   `);
   map.forEachReverse((value, key) => {
-    printOutput(key, ':', value);
+    printLog(key, ':', value);
   });
 
   printCommand('map.toString()');

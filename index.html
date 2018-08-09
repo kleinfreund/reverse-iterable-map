@@ -31,12 +31,13 @@
     }
 
     .command code:not(:first-child)::before,
-    .output code::before {
+    .output code:not(:first-child)::before,
+    .log code::before {
       content: "\A0" "\A0";
     }
 
     .command {
-      margin-top: 1.5rem;
+      margin-top: 2.5rem;
       margin-bottom: 0.5rem;
     }
 
@@ -44,6 +45,11 @@
       content: "> ";
       color: hsl(0, 0%, 45%);
       font-weight: bold;
+    }
+
+    .output code:first-child::before {
+      content: "← ";
+      color: hsl(0, 0%, 65%);
     }
   </style>
 </head>
