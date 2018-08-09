@@ -3,63 +3,103 @@ import { ReverseIterableMap } from '../src/reverse-iterable-map.mjs';
 const body = document.querySelector('body');
 
 function printCommand(command) {
-  body.insertAdjacentHTML('beforeend', `<pre class="command">&gt; ${command}</pre>`);
+  let codeString = '';
+  for (const line of command.trim().split('\n')) {
+    codeString += `<code>${line}</code>\n`;
+  }
+  body.insertAdjacentHTML('beforeend', `<pre class="command">${codeString}</pre>`);
 }
 
 function printOutput(...args) {
   const output = args.length > 1 ? args.join(' ') : args[0];
-  body.insertAdjacentHTML('beforeend', `<pre class="output">← ${output}</pre>`);
+  body.insertAdjacentHTML('beforeend', `<pre class="output">${output}</pre>`);
 }
 
 function runExample() {
   printCommand('const map = new ReverseIterableMap();');
   const map = new ReverseIterableMap();
 
-  printCommand(`map
-    .set('key1', '1')
-    .set('key2', '2')
-    .set('key3', '3');`);
+  printCommand(`
+map
+  .set('key1', '1')
+  .set('key2', '2')
+  .set('key3', '3');
+  `);
+
   map
     .set('key1', '1')
     .set('key2', '2')
     .set('key3', '3');
 
-  printCommand('for (const [key, value] of map) { … }');
+  printCommand(`
+for (const [key, value] of map) {
+  console.log(key, ':', value);
+}
+  `);
+
   for (const [key, value] of map) {
     printOutput(key, ':', value);
   }
 
-  printCommand('for (const [key, value] of map.entries()) { … }');
+  printCommand(`
+for (const [key, value] of map.entries()) {
+  console.log(key, ':', value);
+}
+  `);
   for (const [key, value] of map.entries()) {
     printOutput(key, ':', value);
   }
 
-  printCommand('for (const key of map.keys()) { … }');
+  printCommand(`
+for (const key of map.keys()) {
+  console.log(key);
+}
+  `);
   for (const key of map.keys()) {
     printOutput(key);
   }
 
-  printCommand('for (const value of map.values()) { … }');
+  printCommand(`
+for (const value of map.values()) {
+  console.log(value);
+}
+  `);
   for (const value of map.values()) {
     printOutput(value);
   }
 
-  printCommand('for (const [key, value] of map.reverse()) { … }');
+  printCommand(`
+for (const [key, value] of map.reverse()) {
+  console.log(key, ':', value);
+}
+  `);
   for (const [key, value] of map.reverse()) {
     printOutput(key, ':', value);
   }
 
-  printCommand('for (const [key, value] of map.entries().reverse()) { … }');
+  printCommand(`
+for (const [key, value] of map.entries().reverse()) {
+  console.log(key, ':', value);
+}
+  `);
   for (const [key, value] of map.entries().reverse()) {
     printOutput(key, ':', value);
   }
 
-  printCommand('for (const key of map.keys().reverse()) { … }');
+  printCommand(`
+for (const key of map.keys().reverse()) {
+  console.log(key);
+}
+  `);
   for (const key of map.keys().reverse()) {
     printOutput(key);
   }
 
-  printCommand('for (const value of map.values().reverse()) { … }');
+  printCommand(`
+for (const value of map.values().reverse()) {
+  console.log(value);
+}
+  `);
   for (const value of map.values().reverse()) {
     printOutput(value);
   }
@@ -97,10 +137,12 @@ function runExample() {
   printCommand('map.size');
   printOutput(map.size);
 
-  printCommand(`map
-    .set('key2', '2')
-    .set('key4', '4')
-    .set('key5', '5');`);
+  printCommand(`
+map
+  .set('key2', '2')
+  .set('key4', '4')
+  .set('key5', '5');
+  `);
   map
     .set('key2', '2')
     .set('key4', '4')
@@ -118,16 +160,20 @@ function runExample() {
   printCommand('it.next().value;');
   printOutput(it.next().value);
 
-  printCommand(`map.forEach((value, key) => {
-    printOutput(key, ': ', value);
-  });`);
+  printCommand(`
+map.forEach((value, key) => {
+  printOutput(key, ': ', value);
+});
+  `);
   map.forEach((value, key) => {
     printOutput(key, ':', value);
   });
 
-  printCommand(`map.forEachReverse((value, key) => {
-    printOutput(key, ': ', value);
-  });`);
+  printCommand(`
+map.forEachReverse((value, key) => {
+  printOutput(key, ': ', value);
+});
+  `);
   map.forEachReverse((value, key) => {
     printOutput(key, ':', value);
   });

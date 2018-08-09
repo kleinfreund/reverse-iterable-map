@@ -30,9 +30,24 @@
       margin: 0;
     }
 
+    code:not(:first-child)::before {
+      content: "\A0" "\A0";
+    }
+
     .command {
       margin-top: 1.5rem;
       margin-bottom: 0.5rem;
+    }
+
+    .command::before {
+      content: "> ";
+      color: hsl(0, 0%, 45%);
+      font-weight: bold;
+    }
+
+    .output::before {
+      content: "← ";
+      color: hsl(0, 0%, 65%);
     }
   </style>
 </head>
@@ -42,14 +57,11 @@
 
   <p>Following below are some examples for how <a href="https://github.com/kleinfreund/reverse-iterable-map"><code>ReverseIterableMap</code></a> works.</p>
 
-  <p>Reasons why the examples might not show up for you:</p>
+  <p>Open the developer console to see the results of the test cases.</p>
 
-  <ul>
-    <li>You’re viewing this file with the <code>file:</code> schema instead of a local HTTP server.</li>
-    <li>You’re using a browser that does not support ES6 modules via the <code>&lt;script&gt;</code> tag. For more information, have a look at the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#Browser_compatibility">compatibility table</a> over at MDN.</li>
-  </ul>
+  <p>Requires a browser with <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#Browser_compatibility">ES module support</a>.</p>
 
-  <p>Open the developer console (usually <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd>) for the results of the tests.</p>
+  <p>Must be served via HTTP (i.e. it won’t work when viewing the file locally with the <code>file:</code> schema).</p>
 
   <hr>
 
