@@ -309,10 +309,10 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The initial value of the @@iterator property is the same function object as the initial value
-   * of the entries property.
+   * The initial value of the [@@iterator][is] property is the same function object as the initial
+   * value of the entries property.
    *
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@iterator
+   * [is]:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@iterator
    *
    * @returns {IterableIterator}
    * @public
@@ -418,15 +418,15 @@ export class ReverseIterableMap {
    * - **Iterable requirements**: An object that implements a function `[Symbol.iterator]()`. This
    *   function returns an iterator.
    *
-   * - **Reverse-iterable requirements**: An object that implements a function `reverse()`. This
+   * - **Reverse-iterable requirements**: An object that implements a function `reverse`. This
    *   function returns an iterator with the special behavior of iterating in reverse insertion
    *   order. This is non-standard behavior.
    *
    * [ip]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
    *
    * @param {Function} getIteratorValue
-   * @param {ReverseIterableMapNode<K, V>?} startNode
-   * @returns {IterableIterator}
+   * @param {ReverseIterableMapNode<K, V>?} startNode Node to start iterating from
+   * @returns {IterableIterator} a reverse-iterable iterator
    * @private
    */
   iterableIterator(getIteratorValue, startNode = undefined) {
@@ -446,7 +446,7 @@ export class ReverseIterableMap {
         // Return the iterable itself.
         return this;
       },
-      next: function () {
+      next() {
         let value;
         if (currentNode) {
           value = getIteratorValue(currentNode);
@@ -488,7 +488,7 @@ class ReverseIterableMapNode {
   /**
    * Returns the key from a `ReverseIterableMapNode` object.
    *
-   * @returns {K} The key.
+   * @returns {K} the key.
    * @protected
    */
   get key() {
@@ -498,7 +498,7 @@ class ReverseIterableMapNode {
   /**
    * Returns the value from a `ReverseIterableMapNode` object.
    *
-   * @returns {V} The value.
+   * @returns {V} the value.
    * @protected
    */
   get value() {
@@ -516,9 +516,9 @@ class ReverseIterableMapNode {
   }
 
   /**
-   * Returns the reference to the next node of a `ReverseIterableMapNode` object.
+   * Returns a reference to the next node of the `ReverseIterableMapNode` object.
    *
-   * @returns {ReverseIterableMapNode<K, V>} The `ReverseIterableMapNode` object.
+   * @returns {ReverseIterableMapNode<K, V>} the next `ReverseIterableMapNode` object.
    * @protected
    */
   get next() {
@@ -526,9 +526,9 @@ class ReverseIterableMapNode {
   }
 
   /**
-   * Sets the reference to the next node of a `ReverseIterableMapNode` object.
+   * Sets the next node reference of the `ReverseIterableMapNode` object.
    *
-   * @param {ReverseIterableMapNode<K, V>} next The `ReverseIterableMapNode` object.
+   * @param {ReverseIterableMapNode<K, V>} next The next `ReverseIterableMapNode` object.
    * @protected
    */
   set next(next) {
@@ -536,9 +536,9 @@ class ReverseIterableMapNode {
   }
 
   /**
-   * Returns the reference to the previous node of a `ReverseIterableMapNode` object.
+   * Returns a reference to the previous node of the `ReverseIterableMapNode` object.
    *
-   * @returns {ReverseIterableMapNode<K, V>} The `ReverseIterableMapNode` object.
+   * @returns {ReverseIterableMapNode<K, V>} the `ReverseIterableMapNode` object.
    * @protected
    */
   get prev() {
@@ -546,9 +546,9 @@ class ReverseIterableMapNode {
   }
 
   /**
-   * Sets the reference to the previous node of a `ReverseIterableMapNode` object.
+   * Sets the previous node reference of the `ReverseIterableMapNode` object.
    *
-   * @param {ReverseIterableMapNode<K, V>} prev The `ReverseIterableMapNode` object.
+   * @param {ReverseIterableMapNode<K, V>} prev The previous `ReverseIterableMapNode` object.
    * @protected
    */
   set prev(prev) {
@@ -558,6 +558,7 @@ class ReverseIterableMapNode {
 
 /**
  * Returns an `IteratorResult` object as per the following rules:
+ *
  * - If `value` is not `undefined`, `done` is `false`.
  * - If `value` is `undefined`, `done` is `true`. In this case, `value` may be omitted.
  *
