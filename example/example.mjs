@@ -204,6 +204,9 @@ map
   printCommand('[...map.values()]');
   printOutput([...map.values()]);
 
+  printCommand('map.size');
+  printOutput(map.size);
+
   printCommand('const it = map.iteratorFor("key4").reverse();');
   const it = map.iteratorFor('key4').reverse();
   printCommand('it.next().value;');
@@ -247,8 +250,10 @@ map.forEachReverse((value, key) => {
   printCommand('it2.next().value');
   printOutput(it2.next().value);
 
-  printCommand('const map3 = new ReverseIterableMap(["a", "b", "c"].entries());');
-  const map3 = new ReverseIterableMap(['a', 'b', 'c'].entries());
+  printCommand('const builtInMap = new Map(["a", "b", "c"].entries());');
+  printCommand('const map3 = new ReverseIterableMap(builtInMap);');
+  const builtInMap = new Map(['a', 'b', 'c'].entries());
+  const map3 = new ReverseIterableMap(builtInMap);
 
   printCommand('const it3 = map3.iteratorFor(1);');
   const it3 = map3.iteratorFor(1);
