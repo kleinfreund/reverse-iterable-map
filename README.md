@@ -16,8 +16,6 @@ A reverse-iterable map implementation based on the built-in [Map](https://develo
   * [`clear()`](#clear)
   * [`has()`](#has)
   * [`get()`](#get)
-  * [`getLast()`](#getlast)
-  * [`getFirst()`](#getfirst)
   * [`set()`](#set)
   * [`setFirst()`](#setfirst)
   * [`delete()`](#delete)
