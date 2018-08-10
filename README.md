@@ -6,10 +6,10 @@ A reverse-iterable map implementation based on the built-in [Map](https://develo
 
 ## Table of Contents
 
-* [Installation](#installation)
+* [Install](#install)
   * [ES Module](#es-module)
   * [Node.js package](#nodejs-package)
-* [Usage Examples](#usage-examples)
+* [Usage](#usage)
 * [Tests](#tests)
 * [Documentation](#documentation)
   * [Constructor](#constructor)
@@ -34,13 +34,29 @@ A reverse-iterable map implementation based on the built-in [Map](https://develo
 
 
 
-## Installation
+## Install
 
 ### ES Module
+
+Download only the ES module file:
 
 ```shell
 curl -O https://raw.githubusercontent.com/kleinfreund/reverse-iterable-map/master/src/reverse-iterable-map.mjs
 ```
+
+### Node.js package
+
+*(Requires Node version 8.5 or higher for ES module support)*
+
+Installs the node package as a dependency. It doesn’t have any dependencies itself.
+
+```shell
+npm install --save reverse-iterable-map
+```
+
+Note, that Node.js version 8.5 or higher is required, as it comes with experimental support for ES modules. If you don’t want to use it as an ES module, you will need to transpile the package yourself.
+
+## Usage
 
 ```js
 import { ReverseIterableMap } from './src/reverse-iterable-map.mjs';
@@ -48,35 +64,12 @@ import { ReverseIterableMap } from './src/reverse-iterable-map.mjs';
 const map = new ReverseIterableMap();
 ```
 
-### Node.js package
+For more usage examples, have a look at [kleinfreund.github.io/reverse-iterable-map](https://kleinfreund.github.io/reverse-iterable-map).
 
-*(Requires Node version 8.5 or higher for ES module support)*
-
-Installs the node package as a dependency. It doesn’t have any non-development dependencies itself.
+You can also run the examples locally after cloning the repository:
 
 ```shell
-npm install --save reverse-iterable-map
-```
-
-```node
-import { ReverseIterableMap } from 'reverse-iterable-map';
-
-const map = new ReverseIterableMap();
-```
-
-Note, that Node.js version 8.5 or higher is required, as it comes with experimental support for ES modules. If you don’t want to use it as an ES module, you will need to transpile the package yourself.
-
-## Usage Examples
-
-You can have a look at some examples here: [kleinfreund.github.io/reverse-iterable-map](https://kleinfreund.github.io/reverse-iterable-map)
-
-Open the developer console to see the results of the test suite.
-
-Alternatively, run the examples locally after cloning this repository:
-
-```shell
-npm install
-npm run examples
+npm install && npm run examples
 ```
 
 
@@ -392,7 +385,7 @@ map.forEach(callback[, thisArg]);
 
 ### `forEachReverse()`
 
-The `forEach()` method executes a provided function once per each `[key, value]` pair in the `ReverseIterableMap` object, in reverse-insertion order.
+The `forEachReverse()` method executes a provided function once per each `[key, value]` pair in the `ReverseIterableMap` object, in reverse-insertion order.
 
 #### Syntax
 
