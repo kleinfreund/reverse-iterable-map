@@ -218,7 +218,7 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The `setFront()` method adds a new element to a `ReverseIterableMap` object in
+   * The `setFirst()` method adds a new element to a `ReverseIterableMap` object in
    * reverse insertion order or updates the value of an existing element.
    *
    * @param {K} key The key of the element to add to the `ReverseIterableMap` object.
@@ -431,8 +431,8 @@ export class ReverseIterableMap {
    */
   iterableIterator(getIteratorValue, startNode = undefined) {
     let currentNode = startNode ? startNode : this.first;
-    // Store the this.last node as inside the reverse() method, `this` will be
-    // bound to iterableIterator, not ReverseIterableMap. That’s on purpose.
+    // Store the this.last node because inside the reverse() method, `this` will be
+    // bound to the `iterableIterator` method, not the `ReverseIterableMap` object.
     const last = this.last;
     let nextProp = 'next';
 
@@ -561,9 +561,6 @@ class ReverseIterableMapNode {
  *
  * - If `value` is not `undefined`, `done` is `false`.
  * - If `value` is `undefined`, `done` is `true`. In this case, `value` may be omitted.
- *
- * This function does not belong to `ReverseIterableMap` as it doesn’t need access to any
- * of its properties.
  *
  * @param {*|undefined} value
  * @returns {IteratorResult}
