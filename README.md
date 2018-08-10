@@ -598,11 +598,12 @@ Implementing a reverse-iterable array, for example, can be accomplished by using
 
 … because I keep forgetting that.
 
-Let’s assume an update to version `v3.1.0` should be made. First of all, the working directory needs to cleaned up; all changes need to be comitted.
+Let’s assume an update to version `v3.1.0` should be made. First of all, the working directory needs to cleaned up; all changes need to be comitted and pushed.
 
 ```shell
 git add .
 git commit -m "Implemented extremely nice feature"
+git push
 ```
 
 Next, make sure you have a valid NPM authentication token set up:
@@ -617,10 +618,9 @@ If not, do that with `npm login` and continue. We now create a new commit with t
 npm version v3.1.0
 ```
 
-To finally publish a new version, the changes need to be made publich, too. So before putting the `bli` in `publish`, we `push` our updates. Note that we need to push the `v3.1.0` tag as well, so a bare `git push` won’t suffice.
+This creates a new git tag that we need to publish as well. With that, we can now publish the new version.
 
 ```shell
-git push
 git push origin v3.1.0
 npm publish
 ```
