@@ -18,7 +18,8 @@
     "map",
     "linked-map",
     "reverse-iterable",
-    "iterable-iterator"
+    "iterable",
+    "iterator"
   ],
   "author": {
     "name": "Philipp Rudloff",
