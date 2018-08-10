@@ -74,9 +74,9 @@ function printExamples() {
 
   printCommand(`
 map
-  .set('key1', '1')
-  .set('key2', '2')
-  .set('key3', '3');
+  .set("key1", "1")
+  .set("key2", "2")
+  .set("key3", "3");
   `);
 
   map
@@ -86,7 +86,7 @@ map
 
   printCommand(`
 for (const [key, value] of map) {
-  console.log(key, ':', value);
+  console.log(key, ":", value);
 }
   `);
 
@@ -96,7 +96,7 @@ for (const [key, value] of map) {
 
   printCommand(`
 for (const [key, value] of map.entries()) {
-  console.log(key, ':', value);
+  console.log(key, ":", value);
 }
   `);
   for (const [key, value] of map.entries()) {
@@ -123,7 +123,7 @@ for (const value of map.values()) {
 
   printCommand(`
 for (const [key, value] of map.reverse()) {
-  console.log(key, ':', value);
+  console.log(key, ":", value);
 }
   `);
   for (const [key, value] of map.reverse()) {
@@ -132,7 +132,7 @@ for (const [key, value] of map.reverse()) {
 
   printCommand(`
 for (const [key, value] of map.entries().reverse()) {
-  console.log(key, ':', value);
+  console.log(key, ":", value);
 }
   `);
   for (const [key, value] of map.entries().reverse()) {
@@ -192,9 +192,9 @@ for (const value of map.values().reverse()) {
 
   printCommand(`
 map
-  .set('key2', '2')
-  .set('key4', '4')
-  .set('key5', '5');
+  .set("key2", "2")
+  .set("key4", "4")
+  .set("key5", "5");
   `);
   map
     .set('key2', '2')
@@ -215,7 +215,7 @@ map
 
   printCommand(`
 map.forEach((value, key) => {
-  console.log(key, ':', value);
+  console.log(key, ":", value);
 });
   `);
   map.forEach((value, key) => {
@@ -224,7 +224,7 @@ map.forEach((value, key) => {
 
   printCommand(`
 map.forEachReverse((value, key) => {
-  console.log(key, ':', value);
+  console.log(key, ":", value);
 });
   `);
   map.forEachReverse((value, key) => {
