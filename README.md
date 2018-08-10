@@ -90,6 +90,8 @@ npm test
 
 A `ReverseIterableMap` object iterates its elements in insertion or reverse-insertion order — a [`for...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) loop returns an array of `[key, value]` for each iteration.
 
+
+
 ### Constructor
 
 #### Syntax
@@ -129,6 +131,8 @@ const builtInMap = new Map([['key1', 1], ['key2', 2], ['key3', 3]]);
 const map = new ReverseIterableMap(builtInMap);
 ```
 
+
+
 ### `clear()`
 
 #### Syntax
@@ -148,6 +152,8 @@ map.clear();
 // Sets the first and last node references to null
 map.clear();
 ```
+
+
 
 ### `has()`
 
@@ -180,6 +186,8 @@ map.has(2);
 //> false
 ```
 
+
+
 ### `get()`
 
 #### Syntax
@@ -199,7 +207,7 @@ map.get(key);
 #### Usage
 
 ```js
-const map = new ReverseIterableMap(['hey', 'beauty']);
+const map = new ReverseIterableMap(['hey', 'beauty'].entries());
 
 map.get(0);
 //> 'hey'
@@ -210,6 +218,8 @@ map.get(1);
 map.get(2);
 //> undefined
 ```
+
+
 
 ### `getLast()`
 
@@ -231,11 +241,13 @@ const map = new ReverseIterableMap();
 map.getLast();
 //> null
 
-map.set('key-chain', 'beauty');
+map.set('you', 'beauty');
 
 map.getLast();
 //> 'beauty'
 ```
+
+
 
 ### `getFirst()`
 
@@ -263,6 +275,8 @@ map.getFirst();
 //> 'hey'
 ```
 
+
+
 ### `set()`
 
 #### Syntax
@@ -285,10 +299,10 @@ map.set(key, value);
 ```js
 const map = new ReverseIterableMap();
 
-map.set('key-chain', 'hey');
+map.set('you', 'beauty');
 //> map
 
-map.set('the-magic-key', 'beauty');
+map.set('the-magic-key', 'hey');
 //> map
 ```
 
@@ -299,6 +313,8 @@ const map = new ReverseIterableMap()
   .set('key', '… is spelled like tea')
   .set('hey', '… somehow ney');
 ```
+
+
 
 ### `setFirst()`
 
@@ -323,15 +339,17 @@ map.set(key, value);
 
 ```js
 const map = new ReverseIterableMap()
-  .setFirst('one-t', 'the-magic-key')
-  .setFirst('featuring', 'cool-t');
+  .setFirst('key1', 'was inserted first')
+  .setFirst('key2', 'was inserted last');
 
 map.getFirst();
-//> 'cool-t'
+//> 'was inserted last'
 
 map.getLast();
-//> 'the-magic-key'
+//> 'was inserted first'
 ```
+
+
 
 ### `delete()`
 
@@ -352,7 +370,7 @@ map.delete(key);
 #### Usage
 
 ```js
-const map = new ReverseIterableMap(['hey', 'beauty']);
+const map = new ReverseIterableMap(['hey', 'beauty'].entries());
 
 map.delete(0);
 //> true (deletes the key value pair [0, 'hey'])
@@ -363,6 +381,8 @@ map.delete(1);
 map.delete(2);
 //> false (key 2 does not exist in map)
 ```
+
+
 
 ### `forEach()`
 
@@ -383,6 +403,8 @@ map.forEach(callback[, thisArg]);
 
 [`undefined`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined).
 
+
+
 ### `forEachReverse()`
 
 The `forEachReverse()` method executes a provided function once per each `[key, value]` pair in the `ReverseIterableMap` object, in reverse-insertion order.
@@ -401,6 +423,8 @@ map.forEachReverse(callback[, thisArg]);
 **Return value**:
 
 [`undefined`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined).
+
+
 
 ### `[Symbol.iterator]()`
 
@@ -436,6 +460,8 @@ iterator.next().value;
 //> undefined
 ```
 
+
+
 ### `reverse()`
 
 In theory, following the semantics of `[Symbol.iterator]()`, this should be `[Symbol.reverseIterator]()`. However, as a developer, I cannot define a well-known symbol myself and make use of it. In the future, the a proposal like [The ReverseIterable Interface, by Lee Byron](https://github.com/leebyron/ecmascript-reverse-iterable) might make it’s way into the specification. For the time being, the `reverse()` function serves the same purpose.
@@ -470,6 +496,8 @@ reverseIterator.next().value;
 //> undefined
 ```
 
+
+
 ### `entries()`
 
 Returns an iterator containing the `[key, value]` pairs for each element in the `ReverseIterableMap` object in insertion order.
@@ -485,6 +513,8 @@ map.entries();
 **Return value**:
 
 A new `ReverseIterableMap` iterator object.
+
+
 
 ### `keys()`
 
@@ -502,6 +532,8 @@ map.keys();
 
 A new `ReverseIterableMap` iterator object.
 
+
+
 ### `values()`
 
 Returns an iterator containing the values for each element in the `ReverseIterableMap` object in insertion order.
@@ -517,6 +549,8 @@ map.values();
 **Return value**:
 
 A new `ReverseIterableMap` iterator object.
+
+
 
 ### `iteratorFor()`
 
