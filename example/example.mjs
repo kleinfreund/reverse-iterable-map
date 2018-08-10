@@ -262,8 +262,3 @@ map.forEachReverse((value, key) => {
 }
 
 printExamples();
-
-// console.log(stringify([1, 2, 3]));
-// console.log(stringify([1, 2, 3, undefined, 5]));
-// console.log(stringify(['1', '2', '3']));
-// console.log(stringify(['1', 2, [1, '5'], '3']));
