@@ -221,62 +221,6 @@ map.get(2);
 
 
 
-### `getLast()`
-
-#### Syntax
-
-```
-map.getLast();
-```
-
-**Return value**:
-
-* Returns the last element or `null` if the map is empty.
-
-#### Usage
-
-```js
-const map = new ReverseIterableMap();
-
-map.getLast();
-//> null
-
-map.set('you', 'beauty');
-
-map.getLast();
-//> 'beauty'
-```
-
-
-
-### `getFirst()`
-
-#### Syntax
-
-```
-map.getLast();
-```
-
-**Return value**:
-
-* Returns the first element or `null` if the map is empty.
-
-#### Usage
-
-```js
-const map = new ReverseIterableMap();
-
-map.getFirst();
-//> null
-
-map.set('the-magic-key', 'hey');
-
-map.getFirst();
-//> 'hey'
-```
-
-
-
 ### `set()`
 
 #### Syntax

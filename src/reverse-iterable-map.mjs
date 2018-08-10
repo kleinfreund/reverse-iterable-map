@@ -106,34 +106,6 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The `getLast()` method returns the last element from a `ReverseIterableMap` object.
-   *
-   * @returns {V|null} The last element or `null` if the map is empty.
-   * @public
-   */
-  getLast() {
-    if (this._lastNode) {
-      return this._lastNode.value;
-    }
-
-    return null;
-  }
-
-  /**
-   * The `getFirst()` method returns the first element from a `ReverseIterableMap` object.
-   *
-   * @returns {V|null} The first element or `null` if the map is empty.
-   * @public
-   */
-  getFirst() {
-    if (this._firstNode) {
-      return this._firstNode.value;
-    }
-
-    return null;
-  }
-
-  /**
    * The `add()` method adds a new element to the internal `Map` object. It does not link itself
    * with its neighboring elements which is why this method must never be called directly.
    *
