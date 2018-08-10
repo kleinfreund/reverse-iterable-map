@@ -100,7 +100,7 @@ new ReverseIterableMap([iterable])
 
 **Parameters**:
 
-* `iterable`: An [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) oject whose elements are key-value pairs.
+* `iterable`: An [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object whose elements are key-value pairs.
 
   In order to construct a `ReverseIterableMap` object from an array, it can be passed by calling the [`Array.prototype.entries()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries) method.
 
@@ -168,7 +168,7 @@ map.has(key);
 #### Usage
 
 ```js
-const map = new ReverseIterableMap(['hey', 'beauty']);
+const map = new ReverseIterableMap(['hey', 'beauty'].entries());
 
 map.has(0);
 //> true
