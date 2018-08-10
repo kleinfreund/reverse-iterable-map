@@ -26,8 +26,12 @@ export class ReverseIterableMap {
     this._lastNode = null;
 
     if (iterable !== null) {
-      for (const [key, value] of iterable) {
-        this.set(key, value);
+      for (const array of iterable) {
+        if (!Array.isArray(array)) {
+          throw new TypeError('iterable for Map should have array-like objects');
+        }
+
+        this.set(array[0], array[1]);
       }
     }
   }
