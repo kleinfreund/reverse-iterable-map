@@ -22,10 +22,10 @@ export class ReverseIterableMap {
    */
   constructor(iterable = null) {
     this._map = new Map();
-    this._first = null;
-    this._last = null;
+    this._firstNode = null;
+    this._lastNode = null;
 
-    if (iterable) {
+    if (iterable !== null) {
       for (const [key, value] of iterable) {
         this.set(key, value);
       }
@@ -43,46 +43,6 @@ export class ReverseIterableMap {
    */
   get [Symbol.toStringTag]() {
     return 'ReverseIterableMap';
-  }
-
-  /**
-   * Returns the first `ReverseIterableMapNode` from a `ReverseIterableMap` object.
-   *
-   * @returns {ReverseIterableMapNode<K, V>} The `ReverseIterableMapNode` object.
-   * @private
-   */
-  get first() {
-    return this._first;
-  }
-
-  /**
-   * Sets the first `ReverseIterableMapNode` of a `ReverseIterableMap` object.
-   *
-   * @param {ReverseIterableMapNode<K, V>} node The `ReverseIterableMapNode` object.
-   * @private
-   */
-  set first(node) {
-    this._first = node;
-  }
-
-  /**
-   * Returns the last `ReverseIterableMapNode` from a `ReverseIterableMap` object.
-   *
-   * @returns {ReverseIterableMapNode<K, V>} The `ReverseIterableMapNode` object.
-   * @private
-   */
-  get last() {
-    return this._last;
-  }
-
-  /**
-   * Sets the last `ReverseIterableMapNode` of a `ReverseIterableMap` object.
-   *
-   * @param {ReverseIterableMapNode<K, V>} node The `ReverseIterableMapNode` object.
-   * @private
-   */
-  set last(node) {
-    this._last = node;
   }
 
   /**
@@ -108,8 +68,8 @@ export class ReverseIterableMap {
    */
   clear() {
     this._map.clear();
-    this._first = null;
-    this._last = null;
+    this._firstNode = null;
+    this._lastNode = null;
   }
 
   /**
@@ -148,8 +108,8 @@ export class ReverseIterableMap {
    * @public
    */
   getLast() {
-    if (this.last) {
-      return this.last.value;
+    if (this._lastNode) {
+      return this._lastNode.value;
     }
 
     return null;
@@ -162,8 +122,8 @@ export class ReverseIterableMap {
    * @public
    */
   getFirst() {
-    if (this.first) {
-      return this.first.value;
+    if (this._firstNode) {
+      return this._firstNode.value;
     }
 
     return null;
@@ -178,7 +138,7 @@ export class ReverseIterableMap {
    * @returns {ReverseIterableMapNode<K, V>} The `ReverseIterableMapNode` object.
    * @private
    */
-  add(key, value) {
+  _add(key, value) {
     /** @type {ReverseIterableMapNode<K, V>} */
     let node = this._map.get(key);
 
@@ -203,15 +163,15 @@ export class ReverseIterableMap {
    * @public
    */
   set(key, value) {
-    const node = this.add(key, value);
+    const node = this._add(key, value);
 
-    if (this.first === null && this.last === null) {
-      this.first = node;
-      this.last = node;
+    if (this._firstNode === null && this._lastNode === null) {
+      this._firstNode = node;
+      this._lastNode = node;
     } else {
-      node.prev = this.last;
-      this.last.next = node;
-      this.last = node;
+      node.prev = this._lastNode;
+      this._lastNode.next = node;
+      this._lastNode = node;
     }
 
     return this;
@@ -227,15 +187,15 @@ export class ReverseIterableMap {
    * @public
    */
   setFirst(key, value) {
-    const node = this.add(key, value);
+    const node = this._add(key, value);
 
-    if (this.first === null && this.last === null) {
-      this.first = node;
-      this.last = node;
+    if (this._firstNode === null && this._lastNode === null) {
+      this._firstNode = node;
+      this._lastNode = node;
     } else {
-      node.next = this.first;
-      this.first.prev = node;
-      this.first = node;
+      node.next = this._firstNode;
+      this._firstNode.prev = node;
+      this._firstNode = node;
     }
 
     return this;
@@ -257,15 +217,15 @@ export class ReverseIterableMap {
     if (this.has(key)) {
       const node = this._map.get(key);
 
-      if (this.first === this.last) {
-        this.first = null;
-        this.last = null;
-      } else if (this.first === node) {
+      if (this._firstNode === this._lastNode) {
+        this._firstNode = null;
+        this._lastNode = null;
+      } else if (this._firstNode === node) {
         node.next.prev = null;
-        this.first = node.next;
-      } else if (this.last === node) {
+        this._firstNode = node.next;
+      } else if (this._lastNode === node) {
         node.prev.next = null;
-        this.last = node.prev;
+        this._lastNode = node.prev;
       } else {
         node.prev.next = node.next;
         node.next.prev = node.prev;
@@ -357,7 +317,7 @@ export class ReverseIterableMap {
   entries() {
     const getIteratorValue = node => [node.key, node.value];
 
-    return this.iterableIterator(getIteratorValue);
+    return this._iterableIterator(getIteratorValue);
   }
 
   /**
@@ -372,7 +332,7 @@ export class ReverseIterableMap {
   keys() {
     const getIteratorValue = node => node.key;
 
-    return this.iterableIterator(getIteratorValue);
+    return this._iterableIterator(getIteratorValue);
   }
 
   /**
@@ -387,7 +347,7 @@ export class ReverseIterableMap {
   values() {
     const getIteratorValue = node => node.value;
 
-    return this.iterableIterator(getIteratorValue);
+    return this._iterableIterator(getIteratorValue);
   }
 
   /**
@@ -405,7 +365,7 @@ export class ReverseIterableMap {
     let startNode = this._map.get(key);
     const getIteratorValue = node => [node.key, node.value];
 
-    return this.iterableIterator(getIteratorValue, startNode);
+    return this._iterableIterator(getIteratorValue, startNode);
   }
 
   /**
@@ -429,11 +389,11 @@ export class ReverseIterableMap {
    * @returns {IterableIterator} a reverse-iterable iterator
    * @private
    */
-  iterableIterator(getIteratorValue, startNode = undefined) {
-    let currentNode = startNode ? startNode : this.first;
-    // Store the this.last node because inside the reverse() method, `this` will be
+  _iterableIterator(getIteratorValue, startNode = undefined) {
+    let currentNode = startNode ? startNode : this._firstNode;
+    // Store the this._last node because inside the reverse() method, `this` will be
     // bound to the `iterableIterator` method, not the `ReverseIterableMap` object.
-    const last = this.last;
+    const last = this._lastNode;
     let nextProp = 'next';
 
     return {
@@ -479,80 +439,10 @@ class ReverseIterableMapNode {
    * @param {V} value
    */
   constructor(key, value) {
-    this._key = key;
-    this._value = value;
-    this._next = null;
-    this._prev = null;
-  }
-
-  /**
-   * Returns the key from a `ReverseIterableMapNode` object.
-   *
-   * @returns {K} the key.
-   * @protected
-   */
-  get key() {
-    return this._key;
-  }
-
-  /**
-   * Returns the value from a `ReverseIterableMapNode` object.
-   *
-   * @returns {V} the value.
-   * @protected
-   */
-  get value() {
-    return this._value;
-  }
-
-  /**
-   * Sets the value of a `ReverseIterableMapNode` object.
-   *
-   * @param {V} value The value.
-   * @protected
-   */
-  set value(value) {
-    this._value = value;
-  }
-
-  /**
-   * Returns a reference to the next node of the `ReverseIterableMapNode` object.
-   *
-   * @returns {ReverseIterableMapNode<K, V>} the next `ReverseIterableMapNode` object.
-   * @protected
-   */
-  get next() {
-    return this._next;
-  }
-
-  /**
-   * Sets the next node reference of the `ReverseIterableMapNode` object.
-   *
-   * @param {ReverseIterableMapNode<K, V>} next The next `ReverseIterableMapNode` object.
-   * @protected
-   */
-  set next(next) {
-    this._next = next;
-  }
-
-  /**
-   * Returns a reference to the previous node of the `ReverseIterableMapNode` object.
-   *
-   * @returns {ReverseIterableMapNode<K, V>} the `ReverseIterableMapNode` object.
-   * @protected
-   */
-  get prev() {
-    return this._prev;
-  }
-
-  /**
-   * Sets the previous node reference of the `ReverseIterableMapNode` object.
-   *
-   * @param {ReverseIterableMapNode<K, V>} prev The previous `ReverseIterableMapNode` object.
-   * @protected
-   */
-  set prev(prev) {
-    this._prev = prev;
+    this.key = key;
+    this.value = value;
+    this.next = null;
+    this.prev = null;
   }
 }
 
