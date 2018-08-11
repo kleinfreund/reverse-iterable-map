@@ -2,6 +2,12 @@
 
 The `ReverseIterableMap` object is a reverse-iterable map implementation based on the built-in [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) object.
 
+Links:
+
+- [**npmjs.com**/package/reverse-iterable-map](https://www.npmjs.com/package/reverse-iterable-map)
+- [**github.com**/kleinfreund/reverse-iterable-map](https://github.com/kleinfreund/reverse-iterable-map)
+- [kleinfreund.github.io/reverse-iterable-map](https://kleinfreund.github.io/reverse-iterable-map)
+
 See also:
 
 - `ReverseIterableArray`: [reverse-iterable-array](https://www.npmjs.com/package/reverse-iterable-array)
@@ -119,19 +125,42 @@ new ReverseIterableMap([iterable])
 const map = new ReverseIterableMap();
 ```
 
-```js
-const builtInArray = [1, 2, 3];
-const map = new ReverseIterableMap(builtInArray.entries());
-```
+##### `Array`
 
 ```js
-const builtInArrayOfArrays = [[0, 1], [1, 2], [2, 3]];
-const map = new ReverseIterableMap(builtInArrayOfArrays);
+const map = new ReverseIterableMap([1, 2, 3].entries());
 ```
+
+##### `Array` of `Array`s
+
+```js
+const map = new ReverseIterableMap([[0, 1], [1, 2], [2, 3]]);
+```
+
+##### `Map`
 
 ```js
 const builtInMap = new Map([['key1', 1], ['key2', 2], ['key3', 3]]);
 const map = new ReverseIterableMap(builtInMap);
+```
+
+##### `NodeList`
+
+```js
+const nodeList = document.querySelectorAll('a');
+const map = new ReverseIterableMap(nodeList.entries());
+```
+
+##### Array-like objects
+
+An object `thing` is array-like if it …
+
+- has a `length` property and …
+- has non-negative integer properties (e.g. `0`, `1`, etc.); thus, can be accessed by index: `thing[0]`
+
+```js
+const arrayLike = document.getElementsByClassName('nav-item');
+const map = new ReverseIterableMap(Array.from(arrayLike));
 ```
 
 
