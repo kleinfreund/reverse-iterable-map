@@ -151,18 +151,6 @@ const nodeList = document.querySelectorAll('a');
 const map = new ReverseIterableMap(nodeList.entries());
 ```
 
-##### Array-like objects
-
-An object `thing` is array-like if it …
-
-- has a `length` property and …
-- has non-negative integer properties (e.g. `0`, `1`, etc.); thus, can be accessed by index: `thing[0]`
-
-```js
-const arrayLike = document.getElementsByClassName('nav-item');
-const map = new ReverseIterableMap(Array.from(arrayLike));
-```
-
 
 
 ### `clear()`
