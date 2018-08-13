@@ -1,10 +1,10 @@
 /**
- * A reverse-iterable map implementation based on the built-in [`Map`][Map] object.
+ * A reverse-iterable map implementation based on the built-in [`Map`][1] object.
  *
  * It exposes its order via iterable iterators which can be used for both forwards and backwards
  * iteration. As per `Map`, the order of a `ReverseIterableMap` is the insertion order.
  *
- * [Map]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+ * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
  *
  * @template K, V
  * @property {Map<K, V>} _map
@@ -13,9 +13,9 @@
  */
 export class ReverseIterableMap {
   /**
-   * An [iterable][iterable] object whose elements are key-value pairs.
+   * An [iterable][1] object whose elements are key-value pairs.
    *
-   * [iterable]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol
    *
    * @param {Iterable?} iterable
    * @public
@@ -37,10 +37,10 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The [`@@toStringTag`][toStr] property is used is used when `toString()` is called on a
+   * The [`@@toStringTag`][1] property is used is used when `toString()` is called on a
    * `ReverseIterableMap` object.
    *
-   * [toStr]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@toStringTag
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@toStringTag
    *
    * @returns {String} The string tag of the `ReverseIterableMap` class.
    * @public
@@ -51,9 +51,9 @@ export class ReverseIterableMap {
 
   /**
    * The `size` accessor property returns the number of elements in a `ReverseIterableMap` object.
-   * Calls [`Map.prototype.size`][size].
+   * Calls [`Map.prototype.size`][1].
    *
-   * [size]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/size
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/size
    *
    * @returns {Number} The size of the `ReverseIterableMap` object.
    * @public
@@ -63,10 +63,10 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The `clear()` method removes all elements from a `ReverseIterableMap` object. Calls
-   * [`Map.prototype.clear`][clear].
+   * The `clear()` method removes all elements from a `ReverseIterableMap` object.
+   * Calls [`Map.prototype.clear`][1].
    *
-   * [clear]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear
    *
    * @public
    */
@@ -78,9 +78,10 @@ export class ReverseIterableMap {
 
   /**
    * The `has()` method returns a boolean indicating whether an element with the specified key
-   * exists or not. Calls [`Map.prototype.has`][has].
+   * exists or not.
+   * Calls [`Map.prototype.has`][1].
    *
-   * [has]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has
    *
    * @param {K} key
    * @returns {Boolean} `true` if an element with the specified key exists in a
@@ -92,10 +93,10 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The `get()` method returns a specified element from a `ReverseIterableMap` object. Calls
-   * [`Map.prototype.get`][get].
+   * The `get()` method returns a specified element from a `ReverseIterableMap` object.
+   * Calls [`Map.prototype.get`][1].
    *
-   * [get]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/get
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/get
    *
    * @param {K} key
    * @returns {V|undefined}
@@ -178,10 +179,10 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The `delete()` method removes the specified element from a
-   * `ReverseIterableMap` object. Calls [`Map.prototype.delete`][del].
+   * The `delete()` method removes the specified element from a `ReverseIterableMap` object.
+   * Calls [`Map.prototype.delete`][1].
    *
-   * [del]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/delete
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/delete
    *
    * @param {K} key The key of the element to remove from the
    * `ReverseIterableMap` object.
@@ -216,9 +217,9 @@ export class ReverseIterableMap {
   /**
    * The `forEach()` method executes a provided function once per each key/value pair in the
    * `ReverseIterableMap` object, in insertion order. For reference, see
-   * [`Map.prototype.forEach`][fe].
+   * [`Map.prototype.forEach`][1].
    *
-   * [fe]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/forEach
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/forEach
    *
    * @param {Function} callback
    * @param {*?} thisArg
@@ -245,10 +246,10 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The initial value of the [@@iterator][is] property is the same function object as the initial
+   * The initial value of the [@@iterator][1] property is the same function object as the initial
    * value of the entries property.
    *
-   * [is]:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@iterator
+   * [1]:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@iterator
    *
    * @returns {IterableIterator}
    * @public
@@ -258,9 +259,9 @@ export class ReverseIterableMap {
   }
 
   /**
-   * Allows usage of the [iteration protocols][ip] for reverse iteration.
+   * Allows usage of the [iteration protocols][1] for reverse iteration.
    *
-   * [ip]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
    *
    * Examples:
    *
@@ -282,10 +283,10 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The `entries()` method returns a new [Iterator][it] object that contains the `[key, value]`
+   * The `entries()` method returns a new [Iterator][1] object that contains the `[key, value]`
    * pairs for each element in a `ReverseIterableMap` object in insertion order.
    *
-   * [it]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
    *
    * @returns {IterableIterator}
    * @public
@@ -297,10 +298,10 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The `keys()` method returns a new [Iterator][it] object that contains the keys for each
+   * The `keys()` method returns a new [Iterator][1] object that contains the keys for each
    * element in a `ReverseIterableMap` object in insertion order.
    *
-   * [it]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
    *
    * @returns {IterableIterator}
    * @public
@@ -312,10 +313,10 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The `values()` method returns a new [Iterator][it] object that contains the values for each
+   * The `values()` method returns a new [Iterator][1] object that contains the values for each
    * element in a `ReverseIterableMap` object in insertion order.
    *
-   * [it]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
    *
    * @returns {IterableIterator}
    * @public
@@ -327,11 +328,11 @@ export class ReverseIterableMap {
   }
 
   /**
-   * The `iteratorFor()` method returns a new [Iterator][it] object that contains the
+   * The `iteratorFor()` method returns a new [Iterator][1] object that contains the
    * `[key, value]` pairs for each element in a `ReverseIterableMap` object in insertion order
    *  **starting with the pair specified by the `key` parameter**.
    *
-   * [it]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
    *
    * @param {K} key The key of the element to start iterating from.
    * @returns {IterableIterator}
@@ -346,7 +347,7 @@ export class ReverseIterableMap {
 
   /**
    * Returns an object which is both an iterable and an iterator. It fulfills the requirements of
-   * the [iteration protocols][ip] plus allowing reverse-iteration.
+   * the [iteration protocols][1] plus allowing reverse-iteration.
    *
    * - **Iterator requirements**: An object that implements a function `next`. This function
    *   returns an object with two properties: `value` and `done`.
@@ -358,7 +359,7 @@ export class ReverseIterableMap {
    *   function returns an iterator with the special behavior of iterating in reverse insertion
    *   order. This is non-standard behavior.
    *
-   * [ip]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
+   * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
    *
    * @param {Function} getIteratorValue
    * @param {ReverseIterableMapNode<K, V>?} startNode Node to start iterating from
