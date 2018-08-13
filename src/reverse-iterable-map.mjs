@@ -266,7 +266,7 @@ export class ReverseIterableMap {
    * Examples:
    *
    * ```js
-   * const map = new ReverseIterableMap();
+   * const map = new ReverseIterableMap([1, 2, 3].entries());
    *
    * [...map.reverseIterator()];
    *
