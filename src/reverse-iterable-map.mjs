@@ -251,7 +251,7 @@ export class ReverseIterableMap {
    *
    * [1]:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@iterator
    *
-   * @returns {IterableIterator}
+   * @returns {IterableIterator<[K, V]>}
    * @public
    */
   [Symbol.iterator]() {
@@ -288,7 +288,7 @@ export class ReverseIterableMap {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
    *
-   * @returns {IterableIterator}
+   * @returns {IterableIterator<[K, V]>}
    * @public
    */
   entries() {
@@ -303,7 +303,7 @@ export class ReverseIterableMap {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
    *
-   * @returns {IterableIterator}
+   * @returns {IterableIterator<[K, V]>}
    * @public
    */
   keys() {
@@ -318,7 +318,7 @@ export class ReverseIterableMap {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
    *
-   * @returns {IterableIterator}
+   * @returns {IterableIterator<[K, V]>}
    * @public
    */
   values() {
@@ -335,7 +335,7 @@ export class ReverseIterableMap {
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
    *
    * @param {K} key The key of the element to start iterating from.
-   * @returns {IterableIterator}
+   * @returns {IterableIterator<[K, V]>}
    * @public
    */
   iteratorFor(key) {
@@ -363,19 +363,19 @@ export class ReverseIterableMap {
    *
    * @param {Function} getIteratorValue
    * @param {ReverseIterableMapNode<K, V>?} startNode Node to start iterating from
-   * @returns {IterableIterator} a reverse-iterable iterator
+   * @returns {IterableIterator<[K, V]>} a reverse-iterable iterator
    * @private
    */
   _iterableIterator(getIteratorValue, startNode = undefined) {
+    // Store `this._lastNode` because inside the `reverseIterator()` method, `this` will be
+    // bound to the `_iterableIterator` method, not the `ReverseIterableMap` object.
+    const lastNode = this._lastNode;
     let currentNode = startNode ? startNode : this._firstNode;
-    // Store the this._last node because inside the reverseIterator() method, `this` will be
-    // bound to the `iterableIterator` method, not the `ReverseIterableMap` object.
-    const last = this._lastNode;
     let nextProp = 'next';
 
     return {
       reverseIterator() {
-        currentNode = startNode ? startNode : last;
+        currentNode = startNode ? startNode : lastNode;
         nextProp = 'prev';
         return this;
       },
