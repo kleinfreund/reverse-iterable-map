@@ -24,20 +24,21 @@ See also:
 * [Tests](#tests)
 * [Documentation](#documentation)
   * [Constructor](#constructor)
+  * [`size`](#size)
   * [`clear()`](#clear)
-  * [`has()`](#has)
-  * [`get()`](#get)
-  * [`set()`](#set)
-  * [`setFirst()`](#setfirst)
   * [`delete()`](#delete)
+  * [`entries()`](#entries)
   * [`forEach()`](#foreach)
   * [`forEachReverse()`](#foreachreverse)
-  * [`[Symbol.iterator]()`](#symboliterator)
-  * [`reverseIterator()`](#reverseiterator)
-  * [`entries()`](#entries)
-  * [`keys()`](#keys)
-  * [`values()`](#values)
+  * [`get()`](#get)
+  * [`has()`](#has)
   * [`iteratorFor()`](#iteratorfor)
+  * [`keys()`](#keys)
+  * [`reverseIterator()`](#reverseiterator)
+  * [`set()`](#set)
+  * [`setFirst()`](#setfirst)
+  * [`[Symbol.iterator]()`](#symboliterator)
+  * [`values()`](#values)
 * [Why this was implemented](#why-this-was-implemented)
 * [How to update this package](#how-to-update-this-package)
 
@@ -153,6 +154,33 @@ const map = new ReverseIterableMap(nodeList.entries());
 
 
 
+### `size`
+
+The `size` accessor property returns the number of elements in a `ReverseIterableMap` object.
+
+#### Syntax
+
+```
+map.size
+```
+
+#### Usage
+
+```js
+const map = new ReverseIterableMap();
+
+map
+  .set('one', 'I')
+  .set('two', 'lack')
+  .set('three', 'creativity');
+
+map.size
+//> 3
+```
+
+
+
+
 ### `clear()`
 
 #### Syntax
@@ -171,6 +199,132 @@ map.clear();
 // Clears the underlying Map object
 // Sets the first and last node references to null
 map.clear();
+```
+
+
+
+### `delete()`
+
+#### Syntax
+
+```
+map.delete(key);
+```
+
+**Parameters**:
+
+* **key**: Required. The key of the element to remove from the `ReverseIterableMap` object.
+
+**Return value**:
+
+* **Boolean**: Returns `true` if an element in the `ReverseIterableMap` object existed and has been removed, or `false` if the element does not exist.
+
+#### Usage
+
+```js
+const map = new ReverseIterableMap(['hey', 'beauty'].entries());
+
+map.delete(0);
+//> true (deletes the key value pair [0, 'hey'])
+
+map.delete(1);
+//> true (deletes the key value pair [1, 'beauty'])
+
+map.delete(2);
+//> false (key 2 does not exist in map)
+```
+
+
+
+### `entries()`
+
+Returns an iterator containing the `[key, value]` pairs for each element in the `ReverseIterableMap` object in insertion order.
+
+An iterator containing the same pairs in reverse-insertion order can be obtained with `entries().reverseIterator()`.
+
+#### Syntax
+
+```
+map.entries();
+```
+
+**Return value**:
+
+A new `ReverseIterableMap` iterator object.
+
+
+
+### `forEach()`
+
+The `forEach()` method executes a provided function once per each `[key, value]` pair in the `ReverseIterableMap` object, in insertion order.
+
+#### Syntax
+
+```
+map.forEach(callback[, thisArg]);
+```
+
+**Parameters**:
+
+* **callback**: Function to execute for each element.
+* **thisArg**: Value to use as `this` when executing `callback`.
+
+**Return value**:
+
+[`undefined`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined).
+
+
+
+### `forEachReverse()`
+
+The `forEachReverse()` method executes a provided function once per each `[key, value]` pair in the `ReverseIterableMap` object, in reverse-insertion order.
+
+#### Syntax
+
+```
+map.forEachReverse(callback[, thisArg]);
+```
+
+**Parameters**:
+
+* **callback**: Function to execute for each element.
+* **thisArg**: Value to use as `this` when executing `callback`.
+
+**Return value**:
+
+[`undefined`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined).
+
+
+
+### `get()`
+
+#### Syntax
+
+```
+map.get(key);
+```
+
+**Parameters**:
+
+* **key**: Required. The key of the element to return from the `ReverseIterableMap` object.
+
+**Return value**:
+
+* Returns the element associated with the specified key or `undefined` if the key can't be found in the `ReverseIterableMap` object.
+
+#### Usage
+
+```js
+const map = new ReverseIterableMap(['hey', 'beauty'].entries());
+
+map.get(0);
+//> 'hey'
+
+map.get(1);
+//> 'beauty'
+
+map.get(2);
+//> undefined
 ```
 
 
@@ -208,34 +362,109 @@ map.has(2);
 
 
 
-### `get()`
+### `iteratorFor()`
+
+Returns an iterator containing the `[key, value]` pairs for each element in the `ReverseIterableMap` object in insertion order **starting with the pair specified by the `key` parameter**.
+
+This allows starting iteration at a specific element in the map.
+
+An iterator containing the same pairs in reverse-insertion order can be obtained with `iteratorFor().reverseIterator()`.
 
 #### Syntax
 
 ```
-map.get(key);
+map.iteratorFor(key);
 ```
 
 **Parameters**:
 
-* **key**: Required. The key of the element to return from the `ReverseIterableMap` object.
+* **key**: Required. The key of the element to start iterating from.
 
 **Return value**:
 
-* Returns the element associated with the specified key or `undefined` if the key can't be found in the `ReverseIterableMap` object.
+A new `ReverseIterableMap` iterator object.
 
 #### Usage
 
 ```js
-const map = new ReverseIterableMap(['hey', 'beauty'].entries());
+const map = new ReverseIterableMap([1, 2, 4].entries());
 
-map.get(0);
-//> 'hey'
+// Iterator, starting at the element with key 1.
+const iterator = map.iteratorFor(1);
 
-map.get(1);
-//> 'beauty'
+iterator.next().value;
+//> [1, 2]
 
-map.get(2);
+iterator.next().value;
+//> [2, 4]
+
+iterator.next().value;
+//> undefined
+
+// Reverse-iterator, starting at the element with key 1.
+const reverseIterator = map.iteratorFor(1).reverseIterator();
+
+reverseIterator.next().value;
+//> [1, 2]
+
+reverseIterator.next().value;
+//> [0, 1]
+
+reverseIterator.next().value;
+//> undefined
+```
+
+
+
+### `keys()`
+
+Returns an iterator containing the keys for each element in the `ReverseIterableMap` object in insertion order.
+
+An iterator containing the same keys in reverse-insertion order can be obtained with `keys().reverseIterator()`.
+
+#### Syntax
+
+```
+map.keys();
+```
+
+**Return value**:
+
+A new `ReverseIterableMap` iterator object.
+
+
+
+### `reverseIterator()`
+
+In theory, following the semantics of `[Symbol.iterator]()`, this should be `[Symbol.reverseIterator]()`. However, as a developer, I cannot define a well-known symbol myself and make use of it. In the future, the a proposal like [The ReverseIterable Interface, by Lee Byron](https://github.com/leebyron/ecmascript-reverse-iterable) might make it’s way into the specification. For the time being, the `reverseIterator()` function serves the same purpose.
+
+#### Syntax
+
+```
+map.reverseIterator();
+```
+
+**Return value**:
+
+The map **reverse-iterator** function, which is the `entries().reverseIterator()` function by default.
+
+#### Usage
+
+```js
+const map = new ReverseIterableMap([1, 2, 4].entries());
+
+const reverseIterator = map.reverseIterator();
+
+reverseIterator.next().value;
+//> [2, 4]
+
+reverseIterator.next().value;
+//> [1, 2]
+
+reverseIterator.next().value;
+//> [0, 1]
+
+reverseIterator.next().value;
 //> undefined
 ```
 
@@ -306,87 +535,12 @@ const map = new ReverseIterableMap()
   .setFirst('key1', 'was inserted first')
   .setFirst('key2', 'was inserted last');
 
-map.getFirst();
+map.values().next().value;
 //> 'was inserted last'
 
-map.getLast();
+map.values().reverseIterator().next().value;
 //> 'was inserted first'
 ```
-
-
-
-### `delete()`
-
-#### Syntax
-
-```
-map.delete(key);
-```
-
-**Parameters**:
-
-* **key**: Required. The key of the element to remove from the `ReverseIterableMap` object.
-
-**Return value**:
-
-* **Boolean**: Returns `true` if an element in the `ReverseIterableMap` object existed and has been removed, or `false` if the element does not exist.
-
-#### Usage
-
-```js
-const map = new ReverseIterableMap(['hey', 'beauty'].entries());
-
-map.delete(0);
-//> true (deletes the key value pair [0, 'hey'])
-
-map.delete(1);
-//> true (deletes the key value pair [1, 'beauty'])
-
-map.delete(2);
-//> false (key 2 does not exist in map)
-```
-
-
-
-### `forEach()`
-
-The `forEach()` method executes a provided function once per each `[key, value]` pair in the `ReverseIterableMap` object, in insertion order.
-
-#### Syntax
-
-```
-map.forEach(callback[, thisArg]);
-```
-
-**Parameters**:
-
-* **callback**: Function to execute for each element.
-* **thisArg**: Value to use as `this` when executing `callback`.
-
-**Return value**:
-
-[`undefined`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined).
-
-
-
-### `forEachReverse()`
-
-The `forEachReverse()` method executes a provided function once per each `[key, value]` pair in the `ReverseIterableMap` object, in reverse-insertion order.
-
-#### Syntax
-
-```
-map.forEachReverse(callback[, thisArg]);
-```
-
-**Parameters**:
-
-* **callback**: Function to execute for each element.
-* **thisArg**: Value to use as `this` when executing `callback`.
-
-**Return value**:
-
-[`undefined`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined).
 
 
 
@@ -426,78 +580,6 @@ iterator.next().value;
 
 
 
-### `reverseIterator()`
-
-In theory, following the semantics of `[Symbol.iterator]()`, this should be `[Symbol.reverseIterator]()`. However, as a developer, I cannot define a well-known symbol myself and make use of it. In the future, the a proposal like [The ReverseIterable Interface, by Lee Byron](https://github.com/leebyron/ecmascript-reverse-iterable) might make it’s way into the specification. For the time being, the `reverseIterator()` function serves the same purpose.
-
-#### Syntax
-
-```
-map.reverseIterator();
-```
-
-**Return value**:
-
-The map **reverse-iterator** function, which is the `entries().reverseIterator()` function by default.
-
-#### Usage
-
-```js
-const map = new ReverseIterableMap([1, 2, 4].entries());
-
-const reverseIterator = map.reverseIterator();
-
-reverseIterator.next().value;
-//> [2, 4]
-
-reverseIterator.next().value;
-//> [1, 2]
-
-reverseIterator.next().value;
-//> [0, 1]
-
-reverseIterator.next().value;
-//> undefined
-```
-
-
-
-### `entries()`
-
-Returns an iterator containing the `[key, value]` pairs for each element in the `ReverseIterableMap` object in insertion order.
-
-An iterator containing the same pairs in reverse-insertion order can be obtained with `entries().reverseIterator()`.
-
-#### Syntax
-
-```
-map.entries();
-```
-
-**Return value**:
-
-A new `ReverseIterableMap` iterator object.
-
-
-
-### `keys()`
-
-Returns an iterator containing the keys for each element in the `ReverseIterableMap` object in insertion order.
-
-An iterator containing the same keys in reverse-insertion order can be obtained with `keys().reverseIterator()`.
-
-#### Syntax
-
-```
-map.keys();
-```
-
-**Return value**:
-
-A new `ReverseIterableMap` iterator object.
-
-
-
 ### `values()`
 
 Returns an iterator containing the values for each element in the `ReverseIterableMap` object in insertion order.
@@ -513,60 +595,6 @@ map.values();
 **Return value**:
 
 A new `ReverseIterableMap` iterator object.
-
-
-
-### `iteratorFor()`
-
-Returns an iterator containing the `[key, value]` pairs for each element in the `ReverseIterableMap` object in insertion order **starting with the pair specified by the `key` parameter**.
-
-This allows starting iteration at a specific element in the map.
-
-An iterator containing the same pairs in reverse-insertion order can be obtained with `iteratorFor().reverseIterator()`.
-
-#### Syntax
-
-```
-map.iteratorFor(key);
-```
-
-**Parameters**:
-
-* **key**: Required. The key of the element to start iterating from.
-
-**Return value**:
-
-A new `ReverseIterableMap` iterator object.
-
-#### Usage
-
-```js
-const map = new ReverseIterableMap([1, 2, 4].entries());
-
-// Iterator, starting at the element with key 1.
-const iterator = map.iteratorFor(1);
-
-iterator.next().value;
-//> [1, 2]
-
-iterator.next().value;
-//> [2, 4]
-
-iterator.next().value;
-//> undefined
-
-// Reverse-iterator, starting at the element with key 1.
-const reverseIterator = map.iteratorFor(1).reverseIterator();
-
-reverseIterator.next().value;
-//> [1, 2]
-
-reverseIterator.next().value;
-//> [0, 1]
-
-reverseIterator.next().value;
-//> undefined
-```
 
 
 

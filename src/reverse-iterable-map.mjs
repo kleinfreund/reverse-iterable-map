@@ -55,7 +55,7 @@ export class ReverseIterableMap {
    *
    * [size]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/size
    *
-   * @returns {Number} The size of the ReverseIterableMap.
+   * @returns {Number} The size of the `ReverseIterableMap` object.
    * @public
    */
   get size() {
