@@ -2,6 +2,8 @@
 
 The `ReverseIterableMap` object is a reverse-iterable map implementation based on the built-in [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) object.
 
+It implements a linked list meaning that each element in the internal data structure (a `Map` object) knows about its previous and next element; thus, allowing iteration in both directions *at the same time*. This implies added memory usage because in addition to its key and value, an element also needs to store the two references for the previous and next elements.
+
 Links:
 
 - [**npmjs.com**/package/reverse-iterable-map](https://www.npmjs.com/package/reverse-iterable-map)
