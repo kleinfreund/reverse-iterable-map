@@ -123,38 +123,38 @@ for (const value of map.values()) {
   }
 
   printCommand(`
-for (const [key, value] of map.reverse()) {
+for (const [key, value] of map.reverseIterator()) {
   console.log(key, ":", value);
 }
   `);
-  for (const [key, value] of map.reverse()) {
+  for (const [key, value] of map.reverseIterator()) {
     printLog(key, ':', value);
   }
 
   printCommand(`
-for (const [key, value] of map.entries().reverse()) {
+for (const [key, value] of map.entries().reverseIterator()) {
   console.log(key, ":", value);
 }
   `);
-  for (const [key, value] of map.entries().reverse()) {
+  for (const [key, value] of map.entries().reverseIterator()) {
     printLog(key, ':', value);
   }
 
   printCommand(`
-for (const key of map.keys().reverse()) {
+for (const key of map.keys().reverseIterator()) {
   console.log(key);
 }
   `);
-  for (const key of map.keys().reverse()) {
+  for (const key of map.keys().reverseIterator()) {
     printLog(key);
   }
 
   printCommand(`
-for (const value of map.values().reverse()) {
+for (const value of map.values().reverseIterator()) {
   console.log(value);
 }
   `);
-  for (const value of map.values().reverse()) {
+  for (const value of map.values().reverseIterator()) {
     printLog(value);
   }
 
@@ -170,17 +170,17 @@ for (const value of map.values().reverse()) {
   printCommand('[...map.values()]');
   printOutput([...map.values()]);
 
-  printCommand('[...map.reverse()]');
-  printOutput([...map.reverse()]);
+  printCommand('[...map.reverseIterator()]');
+  printOutput([...map.reverseIterator()]);
 
-  printCommand('[...map.entries().reverse()]');
-  printOutput([...map.entries().reverse()]);
+  printCommand('[...map.entries().reverseIterator()]');
+  printOutput([...map.entries().reverseIterator()]);
 
-  printCommand('[...map.keys().reverse()]');
-  printOutput([...map.keys().reverse()]);
+  printCommand('[...map.keys().reverseIterator()]');
+  printOutput([...map.keys().reverseIterator()]);
 
-  printCommand('[...map.values().reverse()]');
-  printOutput([...map.values().reverse()]);
+  printCommand('[...map.values().reverseIterator()]');
+  printOutput([...map.values().reverseIterator()]);
 
   printCommand('map.size');
   printOutput(map.size);
@@ -208,8 +208,8 @@ map
   printCommand('map.size');
   printOutput(map.size);
 
-  printCommand('const it = map.iteratorFor("key4").reverse()');
-  const it = map.iteratorFor('key4').reverse();
+  printCommand('const it = map.iteratorFor("key4").reverseIterator()');
+  const it = map.iteratorFor('key4').reverseIterator();
   printOutput(it);
 
   printCommand('it.next().value');

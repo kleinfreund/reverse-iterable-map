@@ -239,7 +239,7 @@ export class ReverseIterableMap {
    * @public
    */
   forEachReverse(callback, thisArg = undefined) {
-    for (const [key, value] of this.entries().reverse()) {
+    for (const [key, value] of this.entries().reverseIterator()) {
       callback(value, key, thisArg);
     }
   }
@@ -267,9 +267,9 @@ export class ReverseIterableMap {
    * ```js
    * const map = new ReverseIterableMap();
    *
-   * [...map.reverse()];
+   * [...map.reverseIterator()];
    *
-   * for (const [key, value] of map.reverse()) {
+   * for (const [key, value] of map.reverseIterator()) {
    *   console.log(key, value);
    * }
    * ```
@@ -277,8 +277,8 @@ export class ReverseIterableMap {
    * @returns {IterableIterator}
    * @public
    */
-  reverse() {
-    return this.entries().reverse();
+  reverseIterator() {
+    return this.entries().reverseIterator();
   }
 
   /**
@@ -367,13 +367,13 @@ export class ReverseIterableMap {
    */
   _iterableIterator(getIteratorValue, startNode = undefined) {
     let currentNode = startNode ? startNode : this._firstNode;
-    // Store the this._last node because inside the reverse() method, `this` will be
+    // Store the this._last node because inside the reverseIterator() method, `this` will be
     // bound to the `iterableIterator` method, not the `ReverseIterableMap` object.
     const last = this._lastNode;
     let nextProp = 'next';
 
     return {
-      reverse() {
+      reverseIterator() {
         currentNode = startNode ? startNode : last;
         nextProp = 'prev';
         return this;

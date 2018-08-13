@@ -33,7 +33,7 @@ See also:
   * [`forEach()`](#foreach)
   * [`forEachReverse()`](#foreachreverse)
   * [`[Symbol.iterator]()`](#symboliterator)
-  * [`reverse()`](#reverse)
+  * [`reverseIterator()`](#reverseiterator)
   * [`entries()`](#entries)
   * [`keys()`](#keys)
   * [`values()`](#values)
@@ -426,26 +426,26 @@ iterator.next().value;
 
 
 
-### `reverse()`
+### `reverseIterator()`
 
-In theory, following the semantics of `[Symbol.iterator]()`, this should be `[Symbol.reverseIterator]()`. However, as a developer, I cannot define a well-known symbol myself and make use of it. In the future, the a proposal like [The ReverseIterable Interface, by Lee Byron](https://github.com/leebyron/ecmascript-reverse-iterable) might make it’s way into the specification. For the time being, the `reverse()` function serves the same purpose.
+In theory, following the semantics of `[Symbol.iterator]()`, this should be `[Symbol.reverseIterator]()`. However, as a developer, I cannot define a well-known symbol myself and make use of it. In the future, the a proposal like [The ReverseIterable Interface, by Lee Byron](https://github.com/leebyron/ecmascript-reverse-iterable) might make it’s way into the specification. For the time being, the `reverseIterator()` function serves the same purpose.
 
 #### Syntax
 
 ```
-map.reverse();
+map.reverseIterator();
 ```
 
 **Return value**:
 
-The map **reverse-iterator** function, which is the `entries().reverse()` function by default.
+The map **reverse-iterator** function, which is the `entries().reverseIterator()` function by default.
 
 #### Usage
 
 ```js
 const map = new ReverseIterableMap([1, 2, 4].entries());
 
-const reverseIterator = map.reverse();
+const reverseIterator = map.reverseIterator();
 
 reverseIterator.next().value;
 //> [2, 4]
@@ -466,7 +466,7 @@ reverseIterator.next().value;
 
 Returns an iterator containing the `[key, value]` pairs for each element in the `ReverseIterableMap` object in insertion order.
 
-An iterator containing the same pairs in reverse-insertion order can be obtained with `entries().reverse()`.
+An iterator containing the same pairs in reverse-insertion order can be obtained with `entries().reverseIterator()`.
 
 #### Syntax
 
@@ -484,7 +484,7 @@ A new `ReverseIterableMap` iterator object.
 
 Returns an iterator containing the keys for each element in the `ReverseIterableMap` object in insertion order.
 
-An iterator containing the same keys in reverse-insertion order can be obtained with `keys().reverse()`.
+An iterator containing the same keys in reverse-insertion order can be obtained with `keys().reverseIterator()`.
 
 #### Syntax
 
@@ -502,7 +502,7 @@ A new `ReverseIterableMap` iterator object.
 
 Returns an iterator containing the values for each element in the `ReverseIterableMap` object in insertion order.
 
-An iterator containing the same values in reverse-insertion order can be obtained with `values().reverse()`.
+An iterator containing the same values in reverse-insertion order can be obtained with `values().reverseIterator()`.
 
 #### Syntax
 
@@ -522,7 +522,7 @@ Returns an iterator containing the `[key, value]` pairs for each element in the 
 
 This allows starting iteration at a specific element in the map.
 
-An iterator containing the same pairs in reverse-insertion order can be obtained with `iteratorFor().reverse()`.
+An iterator containing the same pairs in reverse-insertion order can be obtained with `iteratorFor().reverseIterator()`.
 
 #### Syntax
 
@@ -556,7 +556,7 @@ iterator.next().value;
 //> undefined
 
 // Reverse-iterator, starting at the element with key 1.
-const reverseIterator = map.iteratorFor(1).reverse();
+const reverseIterator = map.iteratorFor(1).reverseIterator();
 
 reverseIterator.next().value;
 //> [1, 2]
