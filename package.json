@@ -1,7 +1,7 @@
 {
   "name": "reverse-iterable-map",
   "description": "A reverse-iterable map implementation based on the built-in Map object",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "main": "./src/reverse-iterable-map.mjs",
   "module": "./src/reverse-iterable-map.mjs",
   "repository": "kleinfreund/reverse-iterable-map",
