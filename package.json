@@ -2,8 +2,6 @@
   "name": "reverse-iterable-map",
   "description": "A reverse-iterable map implementation based on the built-in Map object",
   "version": "3.0.1",
-  "main": "./src/reverse-iterable-map.mjs",
-  "module": "./src/reverse-iterable-map.mjs",
   "repository": "kleinfreund/reverse-iterable-map",
   "homepage": "https://kleinfreund.github.io/reverse-iterable-map",
   "author": {
@@ -11,6 +9,11 @@
     "url": "https://kleinfreund.de"
   },
   "license": "MIT",
+  "main": "./src/reverse-iterable-map.mjs",
+  "module": "./src/reverse-iterable-map.mjs",
+  "files": [
+    "src/"
+  ],
   "engines": {
     "node": ">=8.5"
   },
