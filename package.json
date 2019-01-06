@@ -11,6 +11,7 @@
   "license": "MIT",
   "main": "./src/reverse-iterable-map.mjs",
   "module": "./src/reverse-iterable-map.mjs",
+  "sideEffects": false,
   "files": [
     "src/"
   ],
