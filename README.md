@@ -8,7 +8,6 @@ Links:
 
 - [**npmjs.com**/package/reverse-iterable-map](https://www.npmjs.com/package/reverse-iterable-map)
 - [**github.com**/kleinfreund/reverse-iterable-map](https://github.com/kleinfreund/reverse-iterable-map)
-- [kleinfreund.github.io/reverse-iterable-map](https://kleinfreund.github.io/reverse-iterable-map)
 
 See also:
 
@@ -76,13 +75,13 @@ import { ReverseIterableMap } from './src/reverse-iterable-map.mjs';
 const map = new ReverseIterableMap();
 ```
 
-For more usage examples, have a look at [kleinfreund.github.io/reverse-iterable-map](https://kleinfreund.github.io/reverse-iterable-map).
-
-You can also run the examples locally after cloning the repository:
+For more usage examples, clone the repository and run:
 
 ```shell
 npm install && npm run examples
 ```
+
+Then, open `http://127.0.0.1:8080` in your browser.
 
 
 
