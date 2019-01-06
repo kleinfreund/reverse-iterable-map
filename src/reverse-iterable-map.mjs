@@ -275,7 +275,7 @@ export class ReverseIterableMap {
    * }
    * ```
    *
-   * @returns {IterableIterator}
+   * @returns {IterableIterator<[K, V]>}
    * @public
    */
   reverseIterator() {
