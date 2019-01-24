@@ -625,7 +625,7 @@ Implementing a reverse-iterable array, for example, can be accomplished by using
 
 … because I keep forgetting that.
 
-Let’s assume an update to version `v3.1.0` should be made. First of all, the working directory needs to cleaned up; all changes need to be comitted and pushed.
+Let’s assume a *minor* update was made. First of all, the working directory needs to cleaned up; all changes need to be comitted and pushed.
 
 ```shell
 git add .
@@ -639,16 +639,16 @@ Next, make sure you have a valid NPM authentication token set up:
 npm whoami
 ```
 
-If not, do that with `npm login` and continue. We now create a new commit with the version tag (i.e. `v3.1.0`) and update the package.json. Actually, the following command will do that:
+If not, do that with `npm login` and continue. We now create a new commit with the next *minor* version tag and update the package.json. Actually, the following command will do that:
 
 ```shell
-npm version v3.1.0
+npm version minor # See `npm version --help` for more options
 ```
 
 This creates a new git tag that we need to publish as well. With that, we can now publish the new version.
 
 ```shell
-git push origin v3.1.0
+git push --tags
 npm publish
 ```
 
