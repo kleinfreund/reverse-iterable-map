@@ -52,7 +52,7 @@ See also:
 Download only the ES module file:
 
 ```shell
-curl -O https://raw.githubusercontent.com/kleinfreund/reverse-iterable-map/master/src/reverse-iterable-map.mjs
+curl -O https://raw.githubusercontent.com/kleinfreund/reverse-iterable-map/main/src/reverse-iterable-map.mjs
 ```
 
 ### Node.js package
