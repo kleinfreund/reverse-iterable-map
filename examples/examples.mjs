@@ -1,4 +1,4 @@
-import { ReverseIterableMap } from '../src/reverse-iterable-map.mjs';
+import ReverseIterableMap from '../dist/esm/reverse-iterable-map.mjs';
 
 /**
  * Recursive algorithm to stringify arrays and their content in order to print them like dev tools.

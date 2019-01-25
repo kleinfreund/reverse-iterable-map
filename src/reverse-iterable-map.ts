@@ -5,27 +5,23 @@
  * iteration. As per `Map`, the order of a `ReverseIterableMap` is the insertion order.
  *
  * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
- *
- * @template K, V
- * @property {Map<K, V>} _map
- * @property {ReverseIterableMapNode<K, V>} _first
- * @property {ReverseIterableMapNode<K, V>} _last
  */
-export class ReverseIterableMap {
+export default class ReverseIterableMap<K, V> {
+  private _map: Map<K, ReverseIterableMapNode<K, V>>;
+  private _firstNode: ReverseIterableMapNode<K, V> | null;
+  private _lastNode: ReverseIterableMapNode<K, V> | null;
+
   /**
    * An [iterable][1] object whose elements are key-value pairs.
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol
-   *
-   * @param {Iterable?} iterable
-   * @public
    */
-  constructor(iterable = null) {
+  constructor(iterable?: Iterable<[K, V]>) {
     this._map = new Map();
     this._firstNode = null;
     this._lastNode = null;
 
-    if (iterable !== null) {
+    if (iterable !== undefined) {
       for (const array of iterable) {
         if (!Array.isArray(array)) {
           throw new TypeError('iterable for Map should have array-like objects');
@@ -42,10 +38,9 @@ export class ReverseIterableMap {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@toStringTag
    *
-   * @returns {String} The string tag of the `ReverseIterableMap` class.
-   * @public
+   * @returns the string tag of the `ReverseIterableMap` class.
    */
-  get [Symbol.toStringTag]() {
+  get [Symbol.toStringTag](): string {
     return 'ReverseIterableMap';
   }
 
@@ -55,10 +50,9 @@ export class ReverseIterableMap {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/size
    *
-   * @returns {Number} The size of the `ReverseIterableMap` object.
-   * @public
+   * @returns the size of the `ReverseIterableMap` object.
    */
-  get size() {
+  get size(): number {
     return this._map.size;
   }
 
@@ -67,10 +61,8 @@ export class ReverseIterableMap {
    * Calls [`Map.prototype.clear`][1].
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear
-   *
-   * @public
    */
-  clear() {
+  clear(): void {
     this._map.clear();
     this._firstNode = null;
     this._lastNode = null;
@@ -83,12 +75,10 @@ export class ReverseIterableMap {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/has
    *
-   * @param {K} key
-   * @returns {Boolean} `true` if an element with the specified key exists in a
+   * @returns `true` if an element with the specified key exists in a
    * `ReverseIterableMap` object; otherwise `false`.
-   * @public
    */
-  has(key) {
+  has(key: K): boolean {
     return this._map.has(key);
   }
 
@@ -97,29 +87,24 @@ export class ReverseIterableMap {
    * Calls [`Map.prototype.get`][1].
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/get
-   *
-   * @param {K} key
-   * @returns {V|undefined}
-   * @public
    */
-  get(key) {
-    return this._map.get(key).value;
+  get(key: K): V | undefined {
+    const node = this._map.get(key);
+    return node ? node.value : undefined;
   }
 
   /**
    * The `add()` method adds a new element to the internal `Map` object. It does not link itself
    * with its neighboring elements which is why this method must never be called directly.
    *
-   * @param {K} key The key of the element to add to the `ReverseIterableMap` object.
-   * @param {V} value The value of the element to add to the `ReverseIterableMap` object.
-   * @returns {ReverseIterableMapNode<K, V>} The `ReverseIterableMapNode` object.
-   * @private
+   * @param key The key of the element to add to the `ReverseIterableMap` object.
+   * @param value The value of the element to add to the `ReverseIterableMap` object.
+   * @returns the `ReverseIterableMapNode` object.
    */
-  _add(key, value) {
-    /** @type {ReverseIterableMapNode<K, V>} */
+  private _add(key: K, value: V): ReverseIterableMapNode<K, V> {
     let node = this._map.get(key);
 
-    if (node) {
+    if (node !== undefined) {
       node.value = value;
     } else {
       node = new ReverseIterableMapNode(key, value);
@@ -134,21 +119,22 @@ export class ReverseIterableMap {
    * The `set()` method adds a new element to a `ReverseIterableMap` object in insertion order or
    * updates the value of an existing element.
    *
-   * @param {K} key The key of the element to add to the `ReverseIterableMap` object.
-   * @param {V} value The value of the element to add to the `ReverseIterableMap` object.
-   * @returns {ReverseIterableMap<K, V>} The `ReverseIterableMap` object.
-   * @public
+   * @param key The key of the element to add to the `ReverseIterableMap` object.
+   * @param value The value of the element to add to the `ReverseIterableMap` object.
+   * @returns the `ReverseIterableMap` object.
    */
-  set(key, value) {
+  set(key: K, value: V): this {
     const node = this._add(key, value);
 
-    if (this._firstNode === null && this._lastNode === null) {
+    if (this._lastNode !== null) {
+      node.prevNode = this._lastNode;
+      this._lastNode.nextNode = node;
+    }
+
+    this._lastNode = node;
+
+    if (this._firstNode === null) {
       this._firstNode = node;
-      this._lastNode = node;
-    } else {
-      node.prev = this._lastNode;
-      this._lastNode.next = node;
-      this._lastNode = node;
     }
 
     return this;
@@ -158,21 +144,22 @@ export class ReverseIterableMap {
    * The `setFirst()` method adds a new element to a `ReverseIterableMap` object in
    * reverse insertion order or updates the value of an existing element.
    *
-   * @param {K} key The key of the element to add to the `ReverseIterableMap` object.
-   * @param {V} value The value of the element to add to the `ReverseIterableMap` object.
-   * @returns {ReverseIterableMap<K, V>} The `ReverseIterableMap` object.
-   * @public
+   * @param key The key of the element to add to the `ReverseIterableMap` object.
+   * @param value The value of the element to add to the `ReverseIterableMap` object.
+   * @returns the `ReverseIterableMap` object.
    */
-  setFirst(key, value) {
+  setFirst(key: K, value: V): this {
     const node = this._add(key, value);
 
-    if (this._firstNode === null && this._lastNode === null) {
-      this._firstNode = node;
+    if (this._firstNode !== null) {
+      node.nextNode = this._firstNode;
+      this._firstNode.prevNode = node;
+    }
+
+    this._firstNode = node;
+
+    if (this._lastNode === null) {
       this._lastNode = node;
-    } else {
-      node.next = this._firstNode;
-      this._firstNode.prev = node;
-      this._firstNode = node;
     }
 
     return this;
@@ -184,34 +171,36 @@ export class ReverseIterableMap {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/delete
    *
-   * @param {K} key The key of the element to remove from the
+   * @param key The key of the element to remove from the
    * `ReverseIterableMap` object.
-   * @returns {Boolean} `true` if an element in the `ReverseIterableMap` object
+   * @returns `true` if an element in the `ReverseIterableMap` object
    * existed and has been removed, or `false` if the element does not exist.
-   * @public
    */
-  delete(key) {
-    if (this.has(key)) {
-      const node = this._map.get(key);
+  delete(key: K): boolean {
+    const node = this._map.get(key);
 
-      if (this._firstNode === this._lastNode) {
-        this._firstNode = null;
-        this._lastNode = null;
-      } else if (this._firstNode === node) {
-        node.next.prev = null;
-        this._firstNode = node.next;
-      } else if (this._lastNode === node) {
-        node.prev.next = null;
-        this._lastNode = node.prev;
-      } else {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-      }
-
-      return this._map.delete(key);
+    if (node === undefined) {
+      return false;
     }
 
-    return false;
+    if (node.prevNode !== null && node.nextNode !== null) {
+      node.prevNode.nextNode = node.nextNode;
+      node.nextNode.prevNode = node.prevNode;
+    }
+    else if (node.prevNode !== null) {
+      node.prevNode.nextNode = null;
+      this._lastNode = node.prevNode;
+    }
+    else if (node.nextNode !== null) {
+      node.nextNode.prevNode = null;
+      this._firstNode = node.nextNode;
+    }
+    else {
+      this._firstNode = null;
+      this._lastNode = null;
+    }
+
+    return this._map.delete(key);
   }
 
   /**
@@ -220,28 +209,20 @@ export class ReverseIterableMap {
    * [`Map.prototype.forEach`][1].
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/forEach
-   *
-   * @param {Function} callback
-   * @param {*?} thisArg
-   * @public
    */
-  forEach(callback, thisArg = undefined) {
+  forEach(callbackfn: (value: V, key: K, map: Map<K, V>) => void, thisArg?: any): void {
     for (const [key, value] of this.entries()) {
-      callback(value, key, thisArg);
+      callbackfn(value, key, thisArg);
     }
   }
 
   /**
    * The `forEachReverse()` method executes a provided function once per each key/value pair in the
    * `ReverseIterableMap` object, in reverse insertion order.
-   *
-   * @param {Function} callback
-   * @param {*?} thisArg
-   * @public
    */
-  forEachReverse(callback, thisArg = undefined) {
+  forEachReverse(callbackfn: (value: V, key: K, map: Map<K, V>) => void, thisArg?: any): void {
     for (const [key, value] of this.entries().reverseIterator()) {
-      callback(value, key, thisArg);
+      callbackfn(value, key, thisArg);
     }
   }
 
@@ -250,11 +231,8 @@ export class ReverseIterableMap {
    * value of the entries property.
    *
    * [1]:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/@@iterator
-   *
-   * @returns {IterableIterator<[K, V]>}
-   * @public
    */
-  [Symbol.iterator]() {
+  [Symbol.iterator](): ReverseIterableIterator<[K, V]> {
     return this.entries();
   }
 
@@ -274,11 +252,8 @@ export class ReverseIterableMap {
    *   console.log(key, value);
    * }
    * ```
-   *
-   * @returns {IterableIterator<[K, V]>}
-   * @public
    */
-  reverseIterator() {
+  reverseIterator(): IterableIterator<[K, V]> {
     return this.entries().reverseIterator();
   }
 
@@ -287,12 +262,9 @@ export class ReverseIterableMap {
    * pairs for each element in a `ReverseIterableMap` object in insertion order.
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
-   *
-   * @returns {IterableIterator<[K, V]>}
-   * @public
    */
-  entries() {
-    const getIteratorValue = node => [node.key, node.value];
+  entries(): ReverseIterableIterator<[K, V]> {
+    const getIteratorValue = (node: ReverseIterableMapNode<K, V>) => [node.key, node.value];
 
     return this._iterableIterator(getIteratorValue);
   }
@@ -302,12 +274,9 @@ export class ReverseIterableMap {
    * element in a `ReverseIterableMap` object in insertion order.
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
-   *
-   * @returns {IterableIterator<[K, V]>}
-   * @public
    */
-  keys() {
-    const getIteratorValue = node => node.key;
+  keys(): ReverseIterableIterator<[K, V]> {
+    const getIteratorValue = (node: ReverseIterableMapNode<K, V>) => node.key;
 
     return this._iterableIterator(getIteratorValue);
   }
@@ -317,12 +286,9 @@ export class ReverseIterableMap {
    * element in a `ReverseIterableMap` object in insertion order.
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
-   *
-   * @returns {IterableIterator<[K, V]>}
-   * @public
    */
-  values() {
-    const getIteratorValue = node => node.value;
+  values(): ReverseIterableIterator<[K, V]> {
+    const getIteratorValue = (node: ReverseIterableMapNode<K, V>) => node.value;
 
     return this._iterableIterator(getIteratorValue);
   }
@@ -334,13 +300,11 @@ export class ReverseIterableMap {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterators
    *
-   * @param {K} key The key of the element to start iterating from.
-   * @returns {IterableIterator<[K, V]>}
-   * @public
+   * @param key The key of the element to start iterating from.
    */
-  iteratorFor(key) {
+  iteratorFor(key: K): IterableIterator<[K, V]> {
     let startNode = this._map.get(key);
-    const getIteratorValue = node => [node.key, node.value];
+    const getIteratorValue = (node: ReverseIterableMapNode<K, V>) => [node.key, node.value];
 
     return this._iterableIterator(getIteratorValue, startNode);
   }
@@ -361,22 +325,20 @@ export class ReverseIterableMap {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
    *
-   * @param {Function} getIteratorValue
-   * @param {ReverseIterableMapNode<K, V>?} startNode Node to start iterating from
-   * @returns {IterableIterator<[K, V]>} a reverse-iterable iterator
-   * @private
+   * @param startNode Node to start iterating from
+   * @returns a reverse-iterable iterator
    */
-  _iterableIterator(getIteratorValue, startNode = undefined) {
+  private _iterableIterator(getIteratorValue: Function, startNode?: ReverseIterableMapNode<K, V>): ReverseIterableIterator<[K, V]> {
     // Store `this._lastNode` because inside the `reverseIterator()` method, `this` will be
     // bound to the `_iterableIterator` method, not the `ReverseIterableMap` object.
     const lastNode = this._lastNode;
-    let currentNode = startNode ? startNode : this._firstNode;
-    let nextProp = 'next';
+    let currentNode = startNode !== undefined ? startNode : this._firstNode;
+    let forwards = true;
 
     return {
       reverseIterator() {
-        currentNode = startNode ? startNode : lastNode;
-        nextProp = 'prev';
+        currentNode = startNode !== undefined ? startNode : lastNode;
+        forwards = false;
         return this;
       },
       [Symbol.iterator]() {
@@ -387,7 +349,7 @@ export class ReverseIterableMap {
         let value;
         if (currentNode) {
           value = getIteratorValue(currentNode);
-          currentNode = currentNode[nextProp];
+          currentNode = forwards ? currentNode.nextNode : currentNode.prevNode;
         }
         return iteratorResult(value);
       }
@@ -400,26 +362,21 @@ export class ReverseIterableMap {
  * Its main purpose is storing a `[key, value]` pair. Additionally, it keeps references to the
  * `ReverseIterableMapNode` objects appearing before and after itself in a `ReverseIterableMap`
  * object.
- *
- * @template K, V
- * @property {K} _key
- * @property {V} _value
- * @property {ReverseIterableMapNode<K, V>} _prev
- * @property {ReverseIterableMapNode<K, V>} _next
- * @protected
  */
-class ReverseIterableMapNode {
+class ReverseIterableMapNode<K, V> {
+  key: K;
+  value: V;
+  nextNode: ReverseIterableMapNode<K, V> | null;
+  prevNode: ReverseIterableMapNode<K, V> | null;
+
   /**
    * A `[key, value]` pair that is part of a `ReverseIterableMap` object.
-   *
-   * @param {K} key
-   * @param {V} value
    */
-  constructor(key, value) {
+  constructor(key: K, value: V) {
     this.key = key;
     this.value = value;
-    this.next = null;
-    this.prev = null;
+    this.prevNode = null;
+    this.nextNode = null;
   }
 }
 
@@ -428,13 +385,19 @@ class ReverseIterableMapNode {
  *
  * - If `value` is not `undefined`, `done` is `false`.
  * - If `value` is `undefined`, `done` is `true`. In this case, `value` may be omitted.
- *
- * @param {*|undefined} value
- * @returns {IteratorResult}
  */
-function iteratorResult(value) {
+function iteratorResult(value: any): IteratorResult<any> {
   return {
     value: value,
     done: value === undefined
   };
+}
+
+/**
+ * Custom `IterableIterator` interface including a `reverseIterator` function.
+ * Should reverse-iteration make it into ECMAScript, this function would probably be named
+ * `[Symbol.reverseIterator]`.
+ */
+interface ReverseIterableIterator<T> extends IterableIterator<T> {
+  reverseIterator(): IterableIterator<T>;
 }

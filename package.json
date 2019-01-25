@@ -8,18 +8,20 @@
     "url": "https://kleinfreund.de"
   },
   "license": "MIT",
-  "main": "./src/reverse-iterable-map.mjs",
-  "module": "./src/reverse-iterable-map.mjs",
+  "main": "dist/cjs/reverse-iterable-map",
+  "module": "dist/esm/reverse-iterable-map.mjs",
   "sideEffects": false,
   "files": [
-    "src/"
+    "src",
+    "dist"
   ],
-  "engines": {
-    "node": ">=8.5"
-  },
   "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --module es2015 --outDir dist/esm && npm run rename-to-mjs",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "rename-to-mjs": "mv dist/esm/reverse-iterable-map.js dist/esm/reverse-iterable-map.mjs",
     "test": "node --experimental-modules tests/tests.mjs",
-    "examples": "node ./node_modules/.bin/http-server"
+    "examples": "http-server"
   },
   "keywords": [
     "map",
@@ -32,6 +34,7 @@
     "url": "https://github.com/kleinfreund/reverse-iterable-map/issues"
   },
   "devDependencies": {
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "typescript": "^3.2.4"
   }
 }

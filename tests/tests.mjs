@@ -1,10 +1,35 @@
-import { ReverseIterableMap } from '../src/reverse-iterable-map.mjs';
+import ReverseIterableMap from '../dist/esm/reverse-iterable-map.mjs';
 import { TestRunner } from './test-runner.mjs';
 
 function tests() {
   const testRunner = new TestRunner();
   console.group('Tests');
   console.info('Running tests …');
+
+  console.group('Constructor');
+  const m = new ReverseIterableMap([[1, 'one'], [2, 'two'], [3, 'three']]);
+  testRunner.assertEqual('m.size', 3, m.size);
+  testRunner.assertEqual('m.get(1)', 'one', m.get(1));
+  testRunner.assertEqual('m.get(2)', 'two', m.get(2));
+  testRunner.assertEqual('m.get(3)', 'three', m.get(3));
+  testRunner.assertEqual('m.has(1)', true, m.has(1));
+  testRunner.assertEqual('m.has(2)', true, m.has(2));
+  testRunner.assertEqual('m.has(3)', true, m.has(3));
+  testRunner.assertEqual('m.has("")', false, m.has(''));
+  console.groupEnd();
+
+  console.group('Some particulars');
+  m.set('', 'surprise!');
+  testRunner.assertEqual('m.has("")', true, m.has(''));
+  testRunner.assertEqual('m.has(String(""))', true, m.has(String('')));
+
+  testRunner.assertEqual('m.has(new String(""))', false, m.has(new String('')));
+  m.set(new String(''), 'huh?');
+  testRunner.assertEqual('m.has(new String(""))', false, m.has(new String('')));
+  m.set(NaN, 'really?');
+  testRunner.assertEqual('m.has(NaN)', true, m.has(NaN));
+  testRunner.assertEqual('m.get(NaN)', 'really?', m.get(NaN));
+  console.groupEnd();
 
   const map = new ReverseIterableMap()
     .set('key1', '1')
@@ -185,6 +210,7 @@ function tests() {
 
   testRunner.printResults();
   console.groupEnd();
+
 }
 
 tests();

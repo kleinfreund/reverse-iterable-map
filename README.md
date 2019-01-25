@@ -18,10 +18,8 @@ See also:
 
 ## Table of Contents
 
-* [Install](#install)
-  * [ES Module](#es-module)
-  * [Node.js package](#nodejs-package)
-* [Usage](#usage)
+* [Installation & usage](#installation--usage)
+* [Examples](#examples)
 * [Tests](#tests)
 * [Documentation](#documentation)
   * [Constructor](#constructor)
@@ -45,49 +43,75 @@ See also:
 
 
 
-## Install
+## Installation & usage
 
-### ES Module
+### Browser
 
-Download only the ES module file:
+Download the ES module file …
 
-```shell
-curl -O https://raw.githubusercontent.com/kleinfreund/reverse-iterable-map/main/src/reverse-iterable-map.mjs
+```sh
+curl -O https://raw.githubusercontent.com/kleinfreund/reverse-iterable-map/main/dist/esm/reverse-iterable-map.mjs
 ```
 
-### Node.js package
-
-*(Requires Node version 8.5 or higher for ES module support)*
-
-Installs the node package as a dependency. It doesn’t have any dependencies itself.
-
-```shell
-npm install --save reverse-iterable-map
-```
-
-Note, that Node.js version 8.5 or higher is required, as it comes with experimental support for ES modules. If you don’t want to use it as an ES module, you will need to transpile the package yourself.
-
-## Usage
+… and import it like this:
 
 ```js
-import { ReverseIterableMap } from './src/reverse-iterable-map.mjs';
+import ReverseIterableMap from 'reverse-iterable-map.mjs';
 
 const map = new ReverseIterableMap();
 ```
 
-For more usage examples, clone the repository and run:
+### Node
 
-```shell
+Install the node package as a dependency …
+
+```sh
+npm install --save reverse-iterable-map
+```
+
+… and import it like this:
+
+- CommonJS module
+
+  ```node
+  const ReverseIterableMap = require('reverse-iterable-map').default;
+
+  const map = new ReverseIterableMap();
+  ```
+
+- ES module
+
+  ```js
+  import ReverseIterableMap from 'reverse-iterable-map/dist/esm/reverse-iterable-map.mjs';
+
+  const map = new ReverseIterableMap();
+  ```
+
+- TypeScript module
+
+  ```ts
+  import ReverseIterableMap from 'reverse-iterable-map/src/reverse-iterable-map';
+
+  const map = new ReverseIterableMap();
+  ```
+
+
+
+## Examples
+
+For some live usage examples, clone the repository and run the following:
+
+```sh
 npm install && npm run examples
 ```
 
-Then, open `http://127.0.0.1:8080/examples` in your browser.
+Then, open [localhost:8080/examples](http://127.0.0.1:8080/examples) in a browser.
 
 
 
 ## Tests
 
-**… with Node’s experimental ES module feature**:
+*(requires Node.js version 8.5 or higher for experimental ES module support)*
 
 ```shell
 npm test
