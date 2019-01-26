@@ -87,17 +87,69 @@ test('map.set()', t => {
   t.is(map.get(3), undefined);
 });
 
-test('map.delete()', t => {
+test('map.setFirst()', t => {
+  const map = new ReverseIterableMap()
+    .set(0, 'Hello?')
+    .set(1, 'Are you still there?')
+    .set(2, 'I see you')
+    .setFirst(-1, 'lie')
+    .setFirst(-2, 'a')
+    .setFirst(-3, 'is')
+    .setFirst(-4, 'cake');
+
+  t.is(map.set(0, 'Overwritten value'), map);
+
+  t.deepEqual([...map.keys()], [-4, -3, -2, -1, 0, 1, 2]);
+});
+
+test('map.set() first node with existing key', t => {
+  const map = new ReverseIterableMap([
+    [0, 'a'],
+    [1, 'b'],
+    [2, 'c']
+  ]);
+
+  t.is(map.set(0, 'alpha'), map);
+
+  t.deepEqual([...map.values()], ['alpha', 'b', 'c']);
+});
+
+test('map.set() last node with existing key', t => {
+  const map = new ReverseIterableMap([
+    [0, 'a'],
+    [1, 'b'],
+    [2, 'c']
+  ]);
+
+  t.is(map.set(2, 'omega'), map);
+
+  t.deepEqual([...map.values()], ['a', 'b', 'omega']);
+});
+
+test('map.delete() with multiple entries', t => {
   const map = new ReverseIterableMap()
     .set(0, 'Hello?')
     .set(1, 'Are you still there?')
     .set(2, 'I see you');
 
   t.is(map.size, 3);
+  t.deepEqual([...map.keys()], [0, 1, 2]);
 
   t.true(map.delete(0));
 
   t.is(map.size, 2);
+  t.deepEqual([...map.keys()], [1, 2]);
+});
+
+test('map.delete() with a single entry', t => {
+  const map = new ReverseIterableMap()
+    .set(0, 'Hello?');
+
+  t.is(map.size, 1);
+
+  t.true(map.delete(0));
+
+  t.is(map.size, 0);
 });
 
 test('map[Symbol.toStringTag]()', t => {

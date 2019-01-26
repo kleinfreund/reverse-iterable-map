@@ -94,25 +94,21 @@ export default class ReverseIterableMap<K, V> {
   }
 
   /**
-   * The `add()` method adds a new element to the internal `Map` object. It does not link itself
-   * with its neighboring elements which is why this method must never be called directly.
+   * Updates a node’s value if one exists for the given key.
    *
-   * @param key The key of the element to add to the `ReverseIterableMap` object.
-   * @param value The value of the element to add to the `ReverseIterableMap` object.
-   * @returns the `ReverseIterableMapNode` object.
+   * @param key The key of the element to update.
+   * @param value The new value to set on the element.
+   * @returns `true` if a node was present and updated; `false` otherwise.
    */
-  private _add(key: K, value: V): ReverseIterableMapNode<K, V> {
-    let node = this._map.get(key);
+  private _updateExistingNode(key: K, value: V) {
+    const node = this._map.get(key);
 
     if (node !== undefined) {
       node.value = value;
-    } else {
-      node = new ReverseIterableMapNode(key, value);
-
-      this._map.set(key, node);
+      return true;
     }
 
-    return node;
+    return false;
   }
 
   /**
@@ -124,7 +120,12 @@ export default class ReverseIterableMap<K, V> {
    * @returns the `ReverseIterableMap` object.
    */
   set(key: K, value: V): this {
-    const node = this._add(key, value);
+    if (this._updateExistingNode(key, value)) {
+      return this;
+    }
+
+    const node = new ReverseIterableMapNode(key, value);
+    this._map.set(key, node);
 
     if (this._lastNode !== null) {
       node.prevNode = this._lastNode;
@@ -149,7 +150,12 @@ export default class ReverseIterableMap<K, V> {
    * @returns the `ReverseIterableMap` object.
    */
   setFirst(key: K, value: V): this {
-    const node = this._add(key, value);
+    if (this._updateExistingNode(key, value)) {
+      return this;
+    }
+
+    const node = new ReverseIterableMapNode(key, value);
+    this._map.set(key, node);
 
     if (this._firstNode !== null) {
       node.nextNode = this._firstNode;
