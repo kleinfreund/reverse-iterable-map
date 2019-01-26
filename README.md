@@ -113,7 +113,7 @@ Then, open [localhost:8080/examples](http://127.0.0.1:8080/examples) in a browse
 
 *(requires Node.js version 8.5 or higher for experimental ES module support)*
 
-```shell
+```sh
 npm test
 ```
 
@@ -649,30 +649,28 @@ Implementing a reverse-iterable array, for example, can be accomplished by using
 
 … because I keep forgetting that.
 
-Let’s assume a *minor* update was made. First of all, the working directory needs to cleaned up; all changes need to be comitted and pushed.
+Let’s assume a *minor* update was made. First of all, the working directory needs to cleaned up; all changes need to be comitted.
 
-```shell
-git add .
-git commit -m "Implemented extremely nice feature"
-git push
+```sh
+git commit -am "Implemented extremely nice feature"
 ```
 
 Next, make sure you have a valid NPM authentication token set up:
 
-```shell
+```sh
 npm whoami
 ```
 
 If not, do that with `npm login` and continue. We now create a new commit with the next *minor* version tag and update the package.json. Actually, the following command will do that:
 
-```shell
+```sh
 npm version minor # See `npm version --help` for more options
 ```
 
 This creates a new git tag that we need to publish as well. With that, we can now publish the new version.
 
-```shell
-git push --tags
+```sh
+git push && git push --tags
 npm publish
 ```
 
