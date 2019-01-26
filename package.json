@@ -1,7 +1,7 @@
 {
   "name": "reverse-iterable-map",
   "description": "A reverse-iterable map implementation based on the built-in Map object",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "repository": "kleinfreund/reverse-iterable-map",
   "author": {
     "name": "Philipp Rudloff",
