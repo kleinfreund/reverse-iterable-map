@@ -82,7 +82,7 @@ npm install --save reverse-iterable-map
 - ES module
 
   ```js
-  import ReverseIterableMap from 'reverse-iterable-map/dist/esm/reverse-iterable-map.mjs';
+  import ReverseIterableMap from 'reverse-iterable-map/dist/esm/reverse-iterable-map';
 
   const map = new ReverseIterableMap();
   ```
