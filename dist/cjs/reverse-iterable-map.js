@@ -84,23 +84,19 @@ class ReverseIterableMap {
         return node ? node.value : undefined;
     }
     /**
-     * The `add()` method adds a new element to the internal `Map` object. It does not link itself
-     * with its neighboring elements which is why this method must never be called directly.
+     * Updates a node’s value if one exists for the given key.
      *
-     * @param key The key of the element to add to the `ReverseIterableMap` object.
-     * @param value The value of the element to add to the `ReverseIterableMap` object.
-     * @returns the `ReverseIterableMapNode` object.
+     * @param key The key of the element to update.
+     * @param value The new value to set on the element.
+     * @returns `true` if a node was present and updated; `false` otherwise.
      */
-    _add(key, value) {
-        let node = this._map.get(key);
+    _updateExistingNode(key, value) {
+        const node = this._map.get(key);
         if (node !== undefined) {
             node.value = value;
+            return true;
         }
-        else {
-            node = new ReverseIterableMapNode(key, value);
-            this._map.set(key, node);
-        }
-        return node;
+        return false;
     }
     /**
      * The `set()` method adds a new element to a `ReverseIterableMap` object in insertion order or
@@ -111,7 +107,11 @@ class ReverseIterableMap {
      * @returns the `ReverseIterableMap` object.
      */
     set(key, value) {
-        const node = this._add(key, value);
+        if (this._updateExistingNode(key, value)) {
+            return this;
+        }
+        const node = new ReverseIterableMapNode(key, value);
+        this._map.set(key, node);
         if (this._lastNode !== null) {
             node.prevNode = this._lastNode;
             this._lastNode.nextNode = node;
@@ -131,7 +131,11 @@ class ReverseIterableMap {
      * @returns the `ReverseIterableMap` object.
      */
     setFirst(key, value) {
-        const node = this._add(key, value);
+        if (this._updateExistingNode(key, value)) {
+            return this;
+        }
+        const node = new ReverseIterableMapNode(key, value);
+        this._map.set(key, node);
         if (this._firstNode !== null) {
             node.nextNode = this._firstNode;
             this._firstNode.prevNode = node;
