@@ -16,13 +16,23 @@
     "dist"
   ],
   "scripts": {
+    "prepublishOnly": "npm test",
     "prepare": "npm run build",
+    "test": "ava tests/*.js",
     "build": "npm run build:esm && npm run build:cjs",
     "build:esm": "tsc --module es2015 --outDir dist/esm && npm run rename-to-mjs",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "rename-to-mjs": "mv dist/esm/reverse-iterable-map.js dist/esm/reverse-iterable-map.mjs",
-    "test": "node --experimental-modules tests/tests.mjs",
     "examples": "http-server"
+  },
+  "ava": {
+    "compileEnhancements": false,
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
   },
   "keywords": [
     "map",
@@ -35,7 +45,9 @@
     "url": "https://github.com/kleinfreund/reverse-iterable-map/issues"
   },
   "devDependencies": {
+    "ava": "^1.1.0",
     "http-server": "^0.11.1",
+    "ts-node": "^8.0.2",
     "typescript": "^3.2.4"
   }
 }

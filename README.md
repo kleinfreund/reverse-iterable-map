@@ -111,10 +111,10 @@ Then, open [localhost:8080/examples](http://127.0.0.1:8080/examples) in a browse
 
 ## Tests
 
-*(requires Node.js version 8.5 or higher for experimental ES module support)*
+In order to run the tests, clone the repository and run the following:
 
 ```sh
-npm test
+npm install && npm test
 ```
 
 
