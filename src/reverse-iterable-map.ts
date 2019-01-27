@@ -314,16 +314,16 @@ export default class ReverseIterableMap<K, V> {
 
   /**
    * Returns an object which is both an iterable and an iterator. It fulfills the requirements of
-   * the [iteration protocols][1] plus allowing reverse-iteration.
+   * the [iteration protocols][1] plus allowing reverse iteration:
    *
-   * - **Iterator requirements**: An object that implements a function `next`. This function
-   *   returns an object with two properties: `value` and `done`.
+   * - **Iterator requirements**: An object that implements a function `next`.
+   *   This function returns an object with two properties: `value` and `done`.
    *
-   * - **Iterable requirements**: An object that implements a function `[Symbol.iterator]()`. This
-   *   function returns an iterator.
+   * - **Iterable requirements**: An object that implements a function `[Symbol.iterator]`.
+   *   This function returns an iterator.
    *
-   * - **Reverse-iterable requirements**: An object that implements a function `reverse`. This
-   *   function returns an iterator with the special behavior of iterating in reverse insertion
+   * - **Reverse-iterable requirements**: An object that implements a function `reverseIterator`.
+   *   This function returns an iterator with the special behavior of iterating in reverse insertion
    *   order. This is non-standard behavior.
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
@@ -346,6 +346,7 @@ export default class ReverseIterableMap<K, V> {
         currentNode = startNode !== undefined ? startNode : lastNode;
         forwards = false;
 
+        // Return the iterable itself.
         return this;
       },
       [Symbol.iterator]() {
