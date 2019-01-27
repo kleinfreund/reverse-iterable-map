@@ -1,10 +1,17 @@
 import test from 'ava';
 import ReverseIterableMap from '../src/reverse-iterable-map';
 
-test('Construct map without arguments', t => {
+test('Construct map without argument', t => {
   const map = new ReverseIterableMap();
 
   t.is(map.size, 0, 'Map is empty.');
+});
+
+test('Construct map with illegal argument', t => {
+  t.throws(() => {
+    // @ts-ignore because this is a deliberately wrong call to the constructor
+    new ReverseIterableMap([1, 2, 3]);
+  }, 'iterable for Map should have array-like objects');
 });
 
 test('Construct map with array of arrays', t => {
@@ -122,6 +129,30 @@ test('map.set() last node with existing key', t => {
   ]);
 
   t.is(map.set(2, 'omega'), map);
+
+  t.deepEqual([...map.values()], ['a', 'b', 'omega']);
+});
+
+test('map.setFirst() first node with existing key', t => {
+  const map = new ReverseIterableMap([
+    [0, 'a'],
+    [1, 'b'],
+    [2, 'c']
+  ]);
+
+  t.is(map.setFirst(0, 'alpha'), map);
+
+  t.deepEqual([...map.values()], ['alpha', 'b', 'c']);
+});
+
+test('map.setFirst() last node with existing key', t => {
+  const map = new ReverseIterableMap([
+    [0, 'a'],
+    [1, 'b'],
+    [2, 'c']
+  ]);
+
+  t.is(map.setFirst(2, 'omega'), map);
 
   t.deepEqual([...map.values()], ['a', 'b', 'omega']);
 });
