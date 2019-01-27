@@ -255,18 +255,6 @@ export default class ReverseIterableMap<K, V> {
    * Allows usage of the [iteration protocols][1] for reverse iteration.
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
-   *
-   * Examples:
-   *
-   * ```js
-   * const map = new ReverseIterableMap([1, 2, 3].entries());
-   *
-   * [...map.reverseIterator()];
-   *
-   * for (const [key, value] of map.reverseIterator()) {
-   *   console.log(key, value);
-   * }
-   * ```
    */
   reverseIterator(): IterableIterator<[K, V]> {
     return this.entries().reverseIterator();
