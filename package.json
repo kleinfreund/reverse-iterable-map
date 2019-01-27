@@ -34,6 +34,11 @@
       "ts-node/register"
     ]
   },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ]
+  },
   "keywords": [
     "map",
     "linked-map",
