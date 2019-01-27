@@ -272,7 +272,7 @@ export default class ReverseIterableMap<K, V> {
   entries(): ReverseIterableIterator<[K, V]> {
     const getIteratorValue = (node: ReverseIterableMapNode<K, V>): [K, V] => [node.key, node.value];
 
-    return this._iterableIterator(getIteratorValue);
+    return this._iterableIterator(getIteratorValue, undefined);
   }
 
   /**
@@ -284,7 +284,7 @@ export default class ReverseIterableMap<K, V> {
   keys(): ReverseIterableIterator<K> {
     const getIteratorValue = (node: ReverseIterableMapNode<K, V>): K => node.key;
 
-    return this._iterableIterator(getIteratorValue);
+    return this._iterableIterator(getIteratorValue, undefined);
   }
 
   /**
@@ -296,7 +296,7 @@ export default class ReverseIterableMap<K, V> {
   values(): ReverseIterableIterator<V> {
     const getIteratorValue = (node: ReverseIterableMapNode<K, V>): V => node.value;
 
-    return this._iterableIterator(getIteratorValue);
+    return this._iterableIterator(getIteratorValue, undefined);
   }
 
   /**

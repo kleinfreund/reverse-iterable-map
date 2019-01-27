@@ -236,7 +236,7 @@ export default class ReverseIterableMap {
      */
     entries() {
         const getIteratorValue = (node) => [node.key, node.value];
-        return this._iterableIterator(getIteratorValue);
+        return this._iterableIterator(getIteratorValue, undefined);
     }
     /**
      * The `keys()` method returns a new [Iterator][1] object that contains the keys for each
@@ -246,7 +246,7 @@ export default class ReverseIterableMap {
      */
     keys() {
         const getIteratorValue = (node) => node.key;
-        return this._iterableIterator(getIteratorValue);
+        return this._iterableIterator(getIteratorValue, undefined);
     }
     /**
      * The `values()` method returns a new [Iterator][1] object that contains the values for each
@@ -256,7 +256,7 @@ export default class ReverseIterableMap {
      */
     values() {
         const getIteratorValue = (node) => node.value;
-        return this._iterableIterator(getIteratorValue);
+        return this._iterableIterator(getIteratorValue, undefined);
     }
     /**
      * The `iteratorFor()` method returns a new [Iterator][1] object that contains the
