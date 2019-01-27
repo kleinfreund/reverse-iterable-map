@@ -357,6 +357,7 @@ export default class ReverseIterableMap<K, V> {
       reverseIterator() {
         currentNode = startNode !== undefined ? startNode : lastNode;
         forwards = false;
+
         return this;
       },
       [Symbol.iterator]() {
@@ -365,10 +366,12 @@ export default class ReverseIterableMap<K, V> {
       },
       next() {
         let value;
-        if (currentNode) {
+
+        if (currentNode !== null) {
           value = getIteratorValue(currentNode);
           currentNode = forwards ? currentNode.nextNode : currentNode.prevNode;
         }
+
         return iteratorResult(value);
       }
     };
