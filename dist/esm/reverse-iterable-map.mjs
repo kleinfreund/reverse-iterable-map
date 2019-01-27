@@ -79,7 +79,7 @@ export default class ReverseIterableMap {
      */
     get(key) {
         const node = this._map.get(key);
-        return node ? node.value : undefined;
+        return node !== undefined ? node.value : undefined;
     }
     /**
      * Updates a node’s value if one exists for the given key.
@@ -110,14 +110,16 @@ export default class ReverseIterableMap {
         }
         const node = new ReverseIterableMapNode(key, value);
         this._map.set(key, node);
+        // If there is already a last node it needs to be linked with the new node.
         if (this._lastNode !== null) {
             node.prevNode = this._lastNode;
             this._lastNode.nextNode = node;
         }
-        this._lastNode = node;
+        // If there is only one entry in the map, set the first node reference.
         if (this._firstNode === null) {
             this._firstNode = node;
         }
+        this._lastNode = node;
         return this;
     }
     /**
@@ -134,14 +136,16 @@ export default class ReverseIterableMap {
         }
         const node = new ReverseIterableMapNode(key, value);
         this._map.set(key, node);
+        // If there is already a first node it needs to be linked with the new node.
         if (this._firstNode !== null) {
             node.nextNode = this._firstNode;
             this._firstNode.prevNode = node;
         }
-        this._firstNode = node;
+        // If there is only one entry in the map, set the last node reference.
         if (this._lastNode === null) {
             this._lastNode = node;
         }
+        this._firstNode = node;
         return this;
     }
     /**
@@ -161,18 +165,23 @@ export default class ReverseIterableMap {
             return false;
         }
         if (node.prevNode !== null && node.nextNode !== null) {
+            // `node` is in the middle.
             node.prevNode.nextNode = node.nextNode;
             node.nextNode.prevNode = node.prevNode;
         }
         else if (node.prevNode !== null) {
+            // `node` is the last node; a new last node needs to be linked.
             node.prevNode.nextNode = null;
             this._lastNode = node.prevNode;
         }
         else if (node.nextNode !== null) {
+            // `node` is the first node; a new first node needs to linked.
             node.nextNode.prevNode = null;
             this._firstNode = node.nextNode;
         }
         else {
+            // `node` is the first and last node.
+            // Both first and last node reference need to be unset.
             this._firstNode = null;
             this._lastNode = null;
         }
