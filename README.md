@@ -16,30 +16,30 @@ See also:
 
 
 
-## Table of Contents
+## Table of contents
 
-* [Installation & usage](#installation--usage)
-* [Examples](#examples)
-* [Tests](#tests)
-* [Documentation](#documentation)
-  * [Constructor](#constructor)
-  * [`size`](#size)
-  * [`clear()`](#clear)
-  * [`delete()`](#delete)
-  * [`entries()`](#entries)
-  * [`forEach()`](#foreach)
-  * [`forEachReverse()`](#foreachreverse)
-  * [`get()`](#get)
-  * [`has()`](#has)
-  * [`iteratorFor()`](#iteratorfor)
-  * [`keys()`](#keys)
-  * [`reverseIterator()`](#reverseiterator)
-  * [`set()`](#set)
-  * [`setFirst()`](#setfirst)
-  * [`[Symbol.iterator]()`](#symboliterator)
-  * [`values()`](#values)
-* [Why this was implemented](#why-this-was-implemented)
-* [How to update this package](#how-to-update-this-package)
+- [Installation & usage](#installation--usage)
+- [Examples](#examples)
+- [Tests](#tests)
+- [Documentation](#documentation)
+  - [Constructor](#constructor)
+  - [`size`](#size)
+  - [`clear()`](#clear)
+  - [`delete()`](#delete)
+  - [`entries()`](#entries)
+  - [`forEach()`](#foreach)
+  - [`forEachReverse()`](#foreachreverse)
+  - [`get()`](#get)
+  - [`has()`](#has)
+  - [`iteratorFor()`](#iteratorfor)
+  - [`keys()`](#keys)
+  - [`reverseIterator()`](#reverseiterator)
+  - [`set()`](#set)
+  - [`setFirst()`](#setfirst)
+  - [`[Symbol.iterator]()`](#symboliterator)
+  - [`values()`](#values)
+- [Why this was implemented](#why-this-was-implemented)
+- [How to update this package](#how-to-update-this-package)
 
 
 
@@ -137,45 +137,41 @@ new ReverseIterableMap([iterable])
 
 **Parameters**:
 
-* `iterable`: An [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object whose elements are key-value pairs.
+- `iterable`: An `Array` or other [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object whose elements are key-value pairs.
 
-  In order to construct a `ReverseIterableMap` object from an array, it can be passed by calling the [`Array.prototype.entries()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries) method.
+#### Usage
+
+- Without arguments
+
+  ```js
+  const map = new ReverseIterableMap();
+  ```
+
+- `Array`
 
   ```js
   const map = new ReverseIterableMap([1, 2, 3].entries());
   ```
 
-#### Usage
+- `Array` of `Array`s
 
-```js
-const map = new ReverseIterableMap();
-```
+  ```js
+  const map = new ReverseIterableMap([[0, 1], [1, 2], [2, 3]]);
+  ```
 
-##### `Array`
+- `Map`
 
-```js
-const map = new ReverseIterableMap([1, 2, 3].entries());
-```
+  ```js
+  const builtInMap = new Map([['key1', 1], ['key2', 2], ['key3', 3]]);
+  const map = new ReverseIterableMap(builtInMap);
+  ```
 
-##### `Array` of `Array`s
+- `NodeList`
 
-```js
-const map = new ReverseIterableMap([[0, 1], [1, 2], [2, 3]]);
-```
-
-##### `Map`
-
-```js
-const builtInMap = new Map([['key1', 1], ['key2', 2], ['key3', 3]]);
-const map = new ReverseIterableMap(builtInMap);
-```
-
-##### `NodeList`
-
-```js
-const nodeList = document.querySelectorAll('a');
-const map = new ReverseIterableMap(nodeList.entries());
-```
+  ```js
+  const nodeList = document.querySelectorAll('a');
+  const map = new ReverseIterableMap(nodeList.entries());
+  ```
 
 
 
@@ -192,9 +188,7 @@ map.size
 #### Usage
 
 ```js
-const map = new ReverseIterableMap();
-
-map
+const map = new ReverseIterableMap()
   .set('one', 'I')
   .set('two', 'lack')
   .set('three', 'creativity');
@@ -222,7 +216,7 @@ map.clear();
 
 ```js
 // Clears the underlying Map object
-// Sets the first and last node references to null
+// Sets the first and last node references to `null`
 map.clear();
 ```
 
@@ -238,11 +232,11 @@ map.delete(key);
 
 **Parameters**:
 
-* **key**: Required. The key of the element to remove from the `ReverseIterableMap` object.
+- **key**: Required. The key of the element to remove from the `ReverseIterableMap` object.
 
 **Return value**:
 
-* **Boolean**: Returns `true` if an element in the `ReverseIterableMap` object existed and has been removed, or `false` if the element does not exist.
+- **Boolean**: Returns `true` if an element in the `ReverseIterableMap` object existed and has been removed, or `false` if the element does not exist.
 
 #### Usage
 
@@ -281,7 +275,7 @@ A new `ReverseIterableMap` iterator object.
 
 ### `forEach()`
 
-The `forEach()` method executes a provided function once per each `[key, value]` pair in the `ReverseIterableMap` object, in insertion order.
+The `forEach()` method executes a provided function once for each `[key, value]` pair in the `ReverseIterableMap` object, in insertion order.
 
 #### Syntax
 
@@ -291,12 +285,37 @@ map.forEach(callback[, thisArg]);
 
 **Parameters**:
 
-* **callback**: Function to execute for each element.
-* **thisArg**: Value to use as `this` when executing `callback`.
+- **callbackfn**: Function to execute for each element. The `callbackfn` gets passed references to the current `value`, `key`, and a reference to the `ReverseIterableMap` object itself.
+
+- **thisArg**: Value to use as `this` when executing `callback`.
 
 **Return value**:
 
 [`undefined`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined).
+
+#### Usage
+
+```js
+const map = new ReverseIterableMap([
+  [0, 'a'],
+  [1, 'b'],
+  [2, 'c']
+]);
+
+map.forEach(value => {
+  console.log(value);
+});
+//> a
+//> b
+//> c
+
+map.forEach(function (value, key, mapReference) {
+  console.log(key, value, mapReference.size);
+});
+//> 0 a 3
+//> 1 b 3
+//> 2 c 3
+```
 
 
 
@@ -312,12 +331,36 @@ map.forEachReverse(callback[, thisArg]);
 
 **Parameters**:
 
-* **callback**: Function to execute for each element.
-* **thisArg**: Value to use as `this` when executing `callback`.
+- **callback**: Function to execute for each element. The `callbackfn` gets passed references to the current `value`, `key`, and a reference to the `ReverseIterableMap` object itself.
+- **thisArg**: Value to use as `this` when executing `callback`.
 
 **Return value**:
 
 [`undefined`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined).
+
+#### Usage
+
+```js
+const map = new ReverseIterableMap([
+  [0, 'a'],
+  [1, 'b'],
+  [2, 'c']
+]);
+
+map.forEachReverse(value => {
+  console.log(value);
+});
+//> c
+//> b
+//> a
+
+map.forEachReverse(function (value, key, mapReference) {
+  console.log(key, value, mapReference.size);
+});
+//> 2 c 3
+//> 1 b 3
+//> 0 a 3
+```
 
 
 
@@ -331,11 +374,11 @@ map.get(key);
 
 **Parameters**:
 
-* **key**: Required. The key of the element to return from the `ReverseIterableMap` object.
+- **key**: Required. The key of the element to return from the `ReverseIterableMap` object.
 
 **Return value**:
 
-* Returns the element associated with the specified key or `undefined` if the key can't be found in the `ReverseIterableMap` object.
+- Returns the element associated with the specified key or `undefined` if the key can't be found in the `ReverseIterableMap` object.
 
 #### Usage
 
@@ -364,11 +407,11 @@ map.has(key);
 
 **Parameters**:
 
-* **key**: Required. The key of the element to test for presence in the `ReverseIterableMap` object.
+- **key**: Required. The key of the element to test for presence in the `ReverseIterableMap` object.
 
 **Return value**:
 
-* **Boolean**: Returns `true` if an element with the specified key exists in the `ReverseIterableMap` object; otherwise `false`.
+- **Boolean**: Returns `true` if an element with the specified key exists in the `ReverseIterableMap` object; otherwise `false`.
 
 #### Usage
 
@@ -403,7 +446,7 @@ map.iteratorFor(key);
 
 **Parameters**:
 
-* **key**: Required. The key of the element to start iterating from.
+- **key**: Required. The key of the element to start iterating from.
 
 **Return value**:
 
@@ -457,6 +500,26 @@ map.keys();
 
 A new `ReverseIterableMap` iterator object.
 
+#### Usage
+
+```js
+const map = new ReverseIterableMap([1, 2, 4].entries());
+
+const iterator = map.keys();
+
+iterator.next().value;
+//> 2
+
+iterator.next().value;
+//> 1
+
+iterator.next().value;
+//> 0
+
+iterator.next().value;
+//> undefined
+```
+
 
 
 ### `reverseIterator()`
@@ -505,12 +568,12 @@ map.set(key, value);
 
 **Parameters**:
 
-* **key**: Required. The key of the element to add to the `ReverseIterableMap` object.
-* **value**: Required. The value of the element to add to the `ReverseIterableMap` object.
+- **key**: Required. The key of the element to add to the `ReverseIterableMap` object.
+- **value**: Required. The value of the element to add to the `ReverseIterableMap` object.
 
 **Return value**:
 
-* The `ReverseIterableMap` object.
+- The `ReverseIterableMap` object.
 
 #### Usage
 
@@ -546,12 +609,12 @@ map.set(key, value);
 
 **Parameters**:
 
-* **key**: Required. The key of the element to add to the `ReverseIterableMap` object.
-* **value**: Required. The value of the element to add to the `ReverseIterableMap` object.
+- **key**: Required. The key of the element to add to the `ReverseIterableMap` object.
+- **value**: Required. The value of the element to add to the `ReverseIterableMap` object.
 
 **Return value**:
 
-* The `ReverseIterableMap` object.
+- The `ReverseIterableMap` object.
 
 #### Usage
 
@@ -621,15 +684,35 @@ map.values();
 
 A new `ReverseIterableMap` iterator object.
 
+#### Usage
+
+```js
+const map = new ReverseIterableMap([1, 2, 4].entries());
+
+const iterator = map.values();
+
+iterator.next().value;
+//> 1
+
+iterator.next().value;
+//> 2
+
+iterator.next().value;
+//> 4
+
+iterator.next().value;
+//> undefined
+```
+
 
 
 ## Why this was implemented
 
 Part of the additions to ECMAScript 2015 are the [iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols): [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) and [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterator_protocol). The former allows arbitrary objects to become iterable. Following the rules of the protocol gives one iteration capabilities via the following techniques:
 
-* [`for...of` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)
-* [`Array.from()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
-* [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)
+- [`for...of` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)
+- [`Array.from()` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
+- [Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)
 
 **However**, only the iteration in one direction is considered by the [specification](https://www.ecma-international.org/ecma-262/6.0/#sec-iteration) at the time. This means that we only get forward-iteration by default. There is a draft for a proposal to add a `ReverseIterable` interface to the specification: [“The ReverseIterable Interface” by Lee Byron](https://github.com/leebyron/ecmascript-reverse-iterable).
 
