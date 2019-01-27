@@ -189,7 +189,7 @@ class ReverseIterableMap {
      */
     forEach(callbackfn, thisArg) {
         for (const [key, value] of this.entries()) {
-            callbackfn(value, key, thisArg);
+            callbackfn.call(thisArg, value, key, this);
         }
     }
     /**
@@ -198,7 +198,7 @@ class ReverseIterableMap {
      */
     forEachReverse(callbackfn, thisArg) {
         for (const [key, value] of this.entries().reverseIterator()) {
-            callbackfn(value, key, thisArg);
+            callbackfn.call(thisArg, value, key, this);
         }
     }
     /**

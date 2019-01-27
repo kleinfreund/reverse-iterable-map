@@ -649,9 +649,10 @@ Implementing a reverse-iterable array, for example, can be accomplished by using
 
 … because I keep forgetting that.
 
-Let’s assume a *minor* update was made. First of all, the working directory needs to cleaned up; all changes need to be comitted.
+Let’s assume a *minor* update was made. First of all, the working directory needs to cleaned up; all changes need to be comitted. It’s important to run the `build` script to make sure new CommonJS and ES modules are compiled from the TypeScript source module.
 
 ```sh
+npm run build
 git commit -am "Implemented extremely nice feature"
 ```
 

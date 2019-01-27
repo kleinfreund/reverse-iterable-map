@@ -218,7 +218,7 @@ export default class ReverseIterableMap<K, V> {
    */
   forEach(callbackfn: (value: V, key: K, map: Map<K, V>) => void, thisArg?: any): void {
     for (const [key, value] of this.entries()) {
-      callbackfn(value, key, thisArg);
+      callbackfn.call(thisArg, value, key, this);
     }
   }
 
@@ -228,7 +228,7 @@ export default class ReverseIterableMap<K, V> {
    */
   forEachReverse(callbackfn: (value: V, key: K, map: Map<K, V>) => void, thisArg?: any): void {
     for (const [key, value] of this.entries().reverseIterator()) {
-      callbackfn(value, key, thisArg);
+      callbackfn.call(thisArg, value, key, this);
     }
   }
 

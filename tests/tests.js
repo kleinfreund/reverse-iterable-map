@@ -186,6 +186,98 @@ test('Some particulars', t => {
   t.is(map.get(new String('')), undefined);
 });
 
+test('map.forEach() with one-argument-callback', t => {
+  const map = new ReverseIterableMap([
+    [0, 'a'],
+    [1, 'b'],
+    [2, 'c']
+  ]);
+
+  let lowerCaseCodePoint = 97; // 97 is the code point for "a", 98 → "b", etc.
+
+  map.forEach(function (value) {
+    t.is(this, map);
+    t.is(value, String.fromCodePoint(lowerCaseCodePoint));
+
+    lowerCaseCodePoint++;
+  }, map);
+});
+
+test('map.forEach() with two-argument-callback', t => {
+  const map = new ReverseIterableMap([
+    [0, 'a'],
+    [1, 'b'],
+    [2, 'c']
+  ]);
+
+  let lowerCaseCodePoint = 97; // 97 is the code point for "a", 98 → "b", etc.
+  let index = 0;
+
+  map.forEach(function (value, key) {
+    t.is(value, String.fromCodePoint(lowerCaseCodePoint));
+    t.is(key, index);
+
+    lowerCaseCodePoint++;
+    index++;
+  });
+});
+
+test('map.forEach() with three-argument-callback', t => {
+  const map = new ReverseIterableMap([
+    [0, 'a'],
+    [1, 'b'],
+    [2, 'c']
+  ]);
+
+  let lowerCaseCodePoint = 97; // 97 is the code point for "a", 98 → "b", etc.
+  let index = 0;
+
+  map.forEach(function (value, key, mapReference) {
+    t.is(value, String.fromCodePoint(lowerCaseCodePoint));
+    t.is(key, index);
+    t.is(mapReference, map);
+
+    lowerCaseCodePoint++;
+    index++;
+  });
+});
+
+test('map.forEach() with thisArg', t => {
+  const map = new ReverseIterableMap([
+    [0, 'a'],
+    [1, 'b'],
+    [2, 'c']
+  ]);
+
+  const obj = {};
+
+  map.forEach(function () {
+    t.is(this, obj);
+  }, obj);
+});
+
+test('map.forEachReverse() with three-argument-callback and thisArg', t => {
+  const map = new ReverseIterableMap([
+    [0, 'a'],
+    [1, 'b'],
+    [2, 'c']
+  ]);
+
+  let lowerCaseCodePoint = 99; // 99 → "c", etc.
+  let index = 2;
+  const obj = {};
+
+  map.forEachReverse(function (value, key, mapReference) {
+    t.is(value, String.fromCodePoint(lowerCaseCodePoint));
+    t.is(key, index);
+    t.is(mapReference, map);
+    t.is(this, obj);
+
+    lowerCaseCodePoint--;
+    index--;
+  }, obj);
+});
+
 test('map[Symbol.iterator]()', t => {
   const map = new ReverseIterableMap()
     .set(0, 'Hello?')
