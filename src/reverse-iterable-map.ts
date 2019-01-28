@@ -269,7 +269,7 @@ export default class ReverseIterableMap<K, V> {
   entries(): ReverseIterableIterator<[K, V]> {
     const getIteratorValue = (node: ReverseIterableMapNode<K, V>): [K, V] => [node.key, node.value];
 
-    return this._iterableIterator(getIteratorValue, undefined);
+    return this._iterableIterator(getIteratorValue);
   }
 
   /**
@@ -281,7 +281,7 @@ export default class ReverseIterableMap<K, V> {
   keys(): ReverseIterableIterator<K> {
     const getIteratorValue = (node: ReverseIterableMapNode<K, V>): K => node.key;
 
-    return this._iterableIterator(getIteratorValue, undefined);
+    return this._iterableIterator(getIteratorValue);
   }
 
   /**
@@ -293,7 +293,7 @@ export default class ReverseIterableMap<K, V> {
   values(): ReverseIterableIterator<V> {
     const getIteratorValue = (node: ReverseIterableMapNode<K, V>): V => node.value;
 
-    return this._iterableIterator(getIteratorValue, undefined);
+    return this._iterableIterator(getIteratorValue);
   }
 
   /**
@@ -328,7 +328,8 @@ export default class ReverseIterableMap<K, V> {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
    *
-   * @param startNode Node to start iterating from
+   * @param getIteratorValue
+   * @param [startNode] Node to start iterating from
    * @returns a reverse-iterable iterator
    */
   private _iterableIterator(

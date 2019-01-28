@@ -223,18 +223,6 @@ class ReverseIterableMap {
      * Allows usage of the [iteration protocols][1] for reverse iteration.
      *
      * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
-     *
-     * Examples:
-     *
-     * ```js
-     * const map = new ReverseIterableMap([1, 2, 3].entries());
-     *
-     * [...map.reverseIterator()];
-     *
-     * for (const [key, value] of map.reverseIterator()) {
-     *   console.log(key, value);
-     * }
-     * ```
      */
     reverseIterator() {
         return this.entries().reverseIterator();
@@ -247,7 +235,7 @@ class ReverseIterableMap {
      */
     entries() {
         const getIteratorValue = (node) => [node.key, node.value];
-        return this._iterableIterator(getIteratorValue, undefined);
+        return this._iterableIterator(getIteratorValue);
     }
     /**
      * The `keys()` method returns a new [Iterator][1] object that contains the keys for each
@@ -257,7 +245,7 @@ class ReverseIterableMap {
      */
     keys() {
         const getIteratorValue = (node) => node.key;
-        return this._iterableIterator(getIteratorValue, undefined);
+        return this._iterableIterator(getIteratorValue);
     }
     /**
      * The `values()` method returns a new [Iterator][1] object that contains the values for each
@@ -267,7 +255,7 @@ class ReverseIterableMap {
      */
     values() {
         const getIteratorValue = (node) => node.value;
-        return this._iterableIterator(getIteratorValue, undefined);
+        return this._iterableIterator(getIteratorValue);
     }
     /**
      * The `iteratorFor()` method returns a new [Iterator][1] object that contains the
@@ -285,21 +273,22 @@ class ReverseIterableMap {
     }
     /**
      * Returns an object which is both an iterable and an iterator. It fulfills the requirements of
-     * the [iteration protocols][1] plus allowing reverse-iteration.
+     * the [iteration protocols][1] plus allowing reverse iteration:
      *
-     * - **Iterator requirements**: An object that implements a function `next`. This function
-     *   returns an object with two properties: `value` and `done`.
+     * - **Iterator requirements**: An object that implements a function `next`.
+     *   This function returns an object with two properties: `value` and `done`.
      *
-     * - **Iterable requirements**: An object that implements a function `[Symbol.iterator]()`. This
-     *   function returns an iterator.
+     * - **Iterable requirements**: An object that implements a function `[Symbol.iterator]`.
+     *   This function returns an iterator.
      *
-     * - **Reverse-iterable requirements**: An object that implements a function `reverse`. This
-     *   function returns an iterator with the special behavior of iterating in reverse insertion
+     * - **Reverse-iterable requirements**: An object that implements a function `reverseIterator`.
+     *   This function returns an iterator with the special behavior of iterating in reverse insertion
      *   order. This is non-standard behavior.
      *
      * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
      *
-     * @param startNode Node to start iterating from
+     * @param getIteratorValue
+     * @param [startNode] Node to start iterating from
      * @returns a reverse-iterable iterator
      */
     _iterableIterator(getIteratorValue, startNode) {
@@ -312,6 +301,7 @@ class ReverseIterableMap {
             reverseIterator() {
                 currentNode = startNode !== undefined ? startNode : lastNode;
                 forwards = false;
+                // Return the iterable itself.
                 return this;
             },
             [Symbol.iterator]() {
@@ -320,7 +310,7 @@ class ReverseIterableMap {
             },
             next() {
                 let value;
-                if (currentNode) {
+                if (currentNode !== null) {
                     value = getIteratorValue(currentNode);
                     currentNode = forwards ? currentNode.nextNode : currentNode.prevNode;
                 }
