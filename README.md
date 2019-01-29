@@ -271,6 +271,26 @@ map.entries();
 
 A new `ReverseIterableMap` iterator object.
 
+#### Usage
+
+```js
+const map = new ReverseIterableMap([1, 2, 4].entries());
+
+const iterator = map.entries();
+
+iterator.next().value;
+//> [0, 1]
+
+iterator.next().value;
+//> [1, 2]
+
+iterator.next().value;
+//> [2, 4]
+
+iterator.next().value;
+//> undefined
+```
+
 
 
 ### `forEach()`
