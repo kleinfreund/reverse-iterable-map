@@ -23,7 +23,7 @@
     "build:esm": "tsc --module es2015 --outDir dist/esm && npm run rename-to-mjs",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "rename-to-mjs": "mv dist/esm/reverse-iterable-map.js dist/esm/reverse-iterable-map.mjs",
-    "examples": "http-server"
+    "examples": "npm run build && http-server"
   },
   "ava": {
     "compileEnhancements": false,
