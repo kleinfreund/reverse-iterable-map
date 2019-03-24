@@ -24,6 +24,7 @@ See also:
 - [Documentation](#documentation)
   - [Constructor](#constructor)
   - [`size`](#size)
+  - [`[Symbol.toStringTag]`](#symboltostringtag)
   - [`clear()`](#clear)
   - [`delete()`](#delete)
   - [`entries()`](#entries)
@@ -196,6 +197,12 @@ const map = new ReverseIterableMap()
 map.size
 //> 3
 ```
+
+
+
+### `[Symbol.toStringTag]`
+
+The `ReverseIterableMap[@@toStringTag]` property has an initial value of “ReverseIterableMap”.
 
 
 
