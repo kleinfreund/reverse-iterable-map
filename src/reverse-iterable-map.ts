@@ -225,7 +225,10 @@ export default class ReverseIterableMap<K, V> {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/forEach
    */
-  forEach(callbackfn: (value: V, key: K, map: Map<K, V>) => void, thisArg?: any): void {
+  forEach(
+    callbackfn: (value: V, key: K, map: ReverseIterableMap<K, V>) => void,
+    thisArg?: any
+  ): void {
     for (const [key, value] of this.entries()) {
       callbackfn.call(thisArg, value, key, this);
     }
@@ -235,7 +238,10 @@ export default class ReverseIterableMap<K, V> {
    * The `forEachReverse()` method executes a provided function once per each key/value pair in the
    * `ReverseIterableMap` object, in reverse insertion order.
    */
-  forEachReverse(callbackfn: (value: V, key: K, map: Map<K, V>) => void, thisArg?: any): void {
+  forEachReverse(
+    callbackfn: (value: V, key: K, map: ReverseIterableMap<K, V>) => void,
+    thisArg?: any
+  ): void {
     for (const [key, value] of this.entries().reverseIterator()) {
       callbackfn.call(thisArg, value, key, this);
     }
