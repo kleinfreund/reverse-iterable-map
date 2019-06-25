@@ -24,6 +24,18 @@ test('Construct map with array of arrays', t => {
   t.is(map.size, 3, 'Map has three elements.');
 });
 
+test('Construct map with array of arrays (readonly)', t => {
+  /** @type {ReadonlyArray<ReadonlyArray<number | string>>} */
+  const arrayOfArrays = [
+    [0, 'Hello?'],
+    [1, 'Are you still there?'],
+    [2, 'I see you']
+  ];
+  const map = new ReverseIterableMap(arrayOfArrays);
+
+  t.is(map.size, 3, 'Map has three elements.');
+});
+
 test('Construct map with another map', t => {
   const map = new Map([
     [0, 'Hello?'],
