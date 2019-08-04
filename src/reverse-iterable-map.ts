@@ -40,7 +40,7 @@ export default class ReverseIterableMap<K, V> {
    *
    * @returns the string tag of the `ReverseIterableMap` class.
    */
-  get [Symbol.toStringTag](): string {
+  get [Symbol.toStringTag]() {
     return 'ReverseIterableMap';
   }
 
@@ -52,7 +52,7 @@ export default class ReverseIterableMap<K, V> {
    *
    * @returns the size of the `ReverseIterableMap` object.
    */
-  get size(): number {
+  get size() {
     return this._map.size;
   }
 
@@ -62,7 +62,7 @@ export default class ReverseIterableMap<K, V> {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/clear
    */
-  clear(): void {
+  clear() {
     this._map.clear();
     this._firstNode = null;
     this._lastNode = null;
@@ -78,7 +78,7 @@ export default class ReverseIterableMap<K, V> {
    * @returns `true` if an element with the specified key exists in a
    * `ReverseIterableMap` object; otherwise `false`.
    */
-  has(key: K): boolean {
+  has(key: K) {
     return this._map.has(key);
   }
 
@@ -88,7 +88,7 @@ export default class ReverseIterableMap<K, V> {
    *
    * [1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/get
    */
-  get(key: K): V | undefined {
+  get(key: K) {
     const node = this._map.get(key);
     return node !== undefined ? node.value : undefined;
   }
@@ -119,7 +119,7 @@ export default class ReverseIterableMap<K, V> {
    * @param value The value of the element to add to the `ReverseIterableMap` object.
    * @returns the `ReverseIterableMap` object.
    */
-  set(key: K, value: V): this {
+  set(key: K, value: V) {
     if (this._updateExistingNode(key, value)) {
       return this;
     }
@@ -151,7 +151,7 @@ export default class ReverseIterableMap<K, V> {
    * @param value The value of the element to add to the `ReverseIterableMap` object.
    * @returns the `ReverseIterableMap` object.
    */
-  setFirst(key: K, value: V): this {
+  setFirst(key: K, value: V) {
     if (this._updateExistingNode(key, value)) {
       return this;
     }
@@ -186,7 +186,7 @@ export default class ReverseIterableMap<K, V> {
    * @returns `true` if an element in the `ReverseIterableMap` object
    * existed and has been removed, or `false` if the element does not exist.
    */
-  delete(key: K): boolean {
+  delete(key: K) {
     const node = this._map.get(key);
 
     if (node === undefined) {
@@ -228,7 +228,7 @@ export default class ReverseIterableMap<K, V> {
   forEach(
     callbackfn: (value: V, key: K, map: ReverseIterableMap<K, V>) => void,
     thisArg?: any
-  ): void {
+  ) {
     for (const [key, value] of this.entries()) {
       callbackfn.call(thisArg, value, key, this);
     }
@@ -241,7 +241,7 @@ export default class ReverseIterableMap<K, V> {
   forEachReverse(
     callbackfn: (value: V, key: K, map: ReverseIterableMap<K, V>) => void,
     thisArg?: any
-  ): void {
+  ) {
     for (const [key, value] of this.entries().reverseIterator()) {
       callbackfn.call(thisArg, value, key, this);
     }
