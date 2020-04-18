@@ -8,10 +8,14 @@ test('Construct map without argument', t => {
 });
 
 test('Construct map with illegal argument', t => {
-  t.throws(() => {
-    // @ts-ignore because this is a deliberately wrong call to the constructor
-    new ReverseIterableMap([1, 2, 3]);
-  }, 'iterable for Map should have array-like objects');
+  t.throws(
+    () => {
+      // @ts-ignore because this is a deliberately wrong call to the constructor
+      new ReverseIterableMap([1, 2, 3]);
+    },
+    { instanceOf: TypeError },
+    'iterable for Map should have array-like objects'
+  );
 });
 
 test('Construct map with array of arrays', t => {
