@@ -29,7 +29,7 @@ test('Construct map with array of arrays', t => {
 });
 
 test('Construct map with array of arrays (readonly)', t => {
-  /** @type {ReadonlyArray<ReadonlyArray<number | string>>} */
+  /** @type {Array<[number, string]>} */
   const arrayOfArrays = [
     [0, 'Hello?'],
     [1, 'Are you still there?'],
