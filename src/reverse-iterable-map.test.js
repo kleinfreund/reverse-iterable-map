@@ -1,5 +1,5 @@
 import test from 'ava';
-import ReverseIterableMap from '../src/reverse-iterable-map';
+import ReverseIterableMap from './reverse-iterable-map';
 
 test('Construct map without argument', t => {
   const map = new ReverseIterableMap();
