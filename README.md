@@ -103,7 +103,8 @@ npm install --save reverse-iterable-map
 For some live usage examples, clone the repository and run the following:
 
 ```sh
-npm install && npm run examples
+npm install
+npm start
 ```
 
 Then, open [localhost:8080/examples](http://127.0.0.1:8080/examples) in a browser.
@@ -115,7 +116,8 @@ Then, open [localhost:8080/examples](http://127.0.0.1:8080/examples) in a browse
 In order to run the tests, clone the repository and run the following:
 
 ```sh
-npm install && npm test
+npm install
+npm test
 ```
 
 

@@ -31,13 +31,14 @@
   "sideEffects": false,
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
+    "prebuild": "npm run test",
     "build:esm": "tsc --module es2015 --outDir dist/esm && npm run rename-to-mjs",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "test": "jest",
+    "start": "http-server",
+    "prestart": "npm run build",
     "rename-to-mjs": "mv dist/esm/reverse-iterable-map.js dist/esm/reverse-iterable-map.mjs",
-    "examples": "npm run build && http-server",
     "prepack": "npm run build",
-    "prebuild": "npm run test",
     "prepublishOnly": "npm run test"
   },
   "devDependencies": {
