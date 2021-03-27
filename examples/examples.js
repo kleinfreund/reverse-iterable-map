@@ -1,4 +1,4 @@
-import ReverseIterableMap from '../dist/esm/reverse-iterable-map.mjs';
+const ReverseIterableMap = window.ReverseIterableMap.default
 
 /**
  * Recursive algorithm to stringify arrays and their content in order to print them like dev tools.

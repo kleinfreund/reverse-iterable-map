@@ -48,16 +48,16 @@ See also:
 
 ### Browser
 
-Download the ES module file …
+Download the UMD bundle file …
 
 ```sh
-curl -O https://raw.githubusercontent.com/kleinfreund/reverse-iterable-map/main/dist/esm/reverse-iterable-map.mjs
+curl -O https://raw.githubusercontent.com/kleinfreund/reverse-iterable-map/main/dist/reverse-iterable-map.js
 ```
 
-… and import it like this:
+… and use it like this:
 
 ```js
-import ReverseIterableMap from 'reverse-iterable-map.mjs';
+const ReverseIterableMap = window.ReverseIterableMap.default
 
 const map = new ReverseIterableMap();
 ```
@@ -72,29 +72,11 @@ npm install --save reverse-iterable-map
 
 … and import it like this:
 
-- CommonJS module
+```node
+const ReverseIterableMap = require('reverse-iterable-map').default;
 
-  ```node
-  const ReverseIterableMap = require('reverse-iterable-map').default;
-
-  const map = new ReverseIterableMap();
-  ```
-
-- ES module
-
-  ```js
-  import ReverseIterableMap from 'reverse-iterable-map/dist/esm/reverse-iterable-map.mjs';
-
-  const map = new ReverseIterableMap();
-  ```
-
-- TypeScript module
-
-  ```ts
-  import ReverseIterableMap from 'reverse-iterable-map/src/reverse-iterable-map';
-
-  const map = new ReverseIterableMap();
-  ```
+const map = new ReverseIterableMap();
+```
 
 
 
