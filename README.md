@@ -7,6 +7,7 @@ It implements a linked list meaning that each element in the internal data struc
 Links:
 
 - [**npmjs.com**/package/reverse-iterable-map](https://www.npmjs.com/package/reverse-iterable-map)
+  - [on BundlePhobia](https://bundlephobia.com/result?p=reverse-iterable-map)
 - [**github.com**/kleinfreund/reverse-iterable-map](https://github.com/kleinfreund/reverse-iterable-map)
 
 See also:
