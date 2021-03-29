@@ -68,7 +68,7 @@ const map = new ReverseIterableMap();
 Install the node package as a dependency …
 
 ```sh
-npm install --save reverse-iterable-map
+npm install reverse-iterable-map
 ```
 
 … and import it like this:
