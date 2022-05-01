@@ -19,7 +19,8 @@ See also:
 
 ## Table of contents
 
-- [Installation & usage](#installation--usage)
+- [Installation](#installation)
+- [Usage](#usage)
 - [Examples](#examples)
 - [Tests](#tests)
 - [Documentation](#documentation)
@@ -45,36 +46,18 @@ See also:
 
 
 
-## Installation & usage
-
-### Browser
-
-Download the UMD bundle file …
-
-```sh
-curl -O https://raw.githubusercontent.com/kleinfreund/reverse-iterable-map/main/dist/reverse-iterable-map.js
-```
-
-… and use it like this:
-
-```js
-const ReverseIterableMap = window.ReverseIterableMap.default
-
-const map = new ReverseIterableMap();
-```
-
-### Node
-
-Install the node package as a dependency …
+## Installation
 
 ```sh
 npm install reverse-iterable-map
 ```
 
-… and import it like this:
 
-```node
-const ReverseIterableMap = require('reverse-iterable-map').default;
+
+## Usage
+
+```js
+import ReverseIterableMap from 'reverse-iterable-map';
 
 const map = new ReverseIterableMap();
 ```
@@ -87,6 +70,7 @@ For some live usage examples, clone the repository and run the following:
 
 ```sh
 npm install
+npm run build
 npm start
 ```
 

@@ -1,4 +1,6 @@
-const ReverseIterableMap = window.ReverseIterableMap.default
+import ReverseIterableMap from '../dist/reverse-iterable-map.js';
+
+Object.defineProperty(window, 'ReverseIterableMap', { value: ReverseIterableMap });
 
 /**
  * Recursive algorithm to stringify arrays and their content in order to print them like dev tools.
@@ -11,8 +13,8 @@ const ReverseIterableMap = window.ReverseIterableMap.default
  * //> [ 1, "2", undefined, "3", [ 4, 5, 6 ] ]
  * ```
  *
- * @param {*} input
- * @returns {String}
+ * @param {any} input
+ * @returns {string}
  */
 function stringify(input) {
   if (Array.isArray(input)) {
@@ -30,31 +32,31 @@ function stringify(input) {
 }
 
 /**
- * @param {String} command
+ * @param {string} command
  */
 function printCommand(command) {
   printCodeBlock(command, 'command');
 }
 
 /**
- * @param {Array} args
+ * @param {any[]} args
  */
 function printOutput(...args) {
-  const output = args.map(arg => stringify(arg));
+  const output = args.map((arg) => stringify(arg));
   printCodeBlock(output.join(' '), 'output');
 }
 
 /**
- * @param {Array} args
+ * @param {any[]} args
  */
 function printLog(...args) {
-  const output = args.map(arg => Array.isArray(arg) ? stringify(arg) : String(arg));
+  const output = args.map((arg) => Array.isArray(arg) ? stringify(arg) : String(arg));
   printCodeBlock(output.join(' '), 'log');
 }
 
 /**
- * @param {String} content
- * @param {Array<String>} classNames
+ * @param {string} content
+ * @param {string[]} classNames
  */
 function printCodeBlock(content, ...classNames) {
   let concatenatedLines = '';
