@@ -1,6 +1,6 @@
 {
   "name": "reverse-iterable-map",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "license": "MIT",
   "description": "A reverse-iterable map implementation based on the built-in Map object",
   "author": {
