@@ -7,15 +7,13 @@ It implements a linked list meaning that each element in the internal data struc
 Links:
 
 - [**npmjs.com**/package/reverse-iterable-map](https://www.npmjs.com/package/reverse-iterable-map)
-  - [on BundlePhobia](https://bundlephobia.com/result?p=reverse-iterable-map)
+	- [on BundlePhobia](https://bundlephobia.com/result?p=reverse-iterable-map)
 - [**github.com**/kleinfreund/reverse-iterable-map](https://github.com/kleinfreund/reverse-iterable-map)
 
 See also:
 
 - `ReverseIterableArray`: [reverse-iterable-array](https://www.npmjs.com/package/reverse-iterable-array)
 - `ReverseIterableSet`: [reverse-iterable-set](https://www.npmjs.com/package/reverse-iterable-set)
-
-
 
 ## Table of contents
 
@@ -24,35 +22,31 @@ See also:
 - [Examples](#examples)
 - [Tests](#tests)
 - [Documentation](#documentation)
-  - [Constructor](#constructor)
-  - [`size`](#size)
-  - [`[Symbol.toStringTag]`](#symboltostringtag)
-  - [`clear()`](#clear)
-  - [`delete()`](#delete)
-  - [`entries()`](#entries)
-  - [`forEach()`](#foreach)
-  - [`forEachReverse()`](#foreachreverse)
-  - [`get()`](#get)
-  - [`has()`](#has)
-  - [`iteratorFor()`](#iteratorfor)
-  - [`keys()`](#keys)
-  - [`reverseIterator()`](#reverseiterator)
-  - [`set()`](#set)
-  - [`setFirst()`](#setfirst)
-  - [`[Symbol.iterator]()`](#symboliterator)
-  - [`values()`](#values)
+	- [Constructor](#constructor)
+	- [`size`](#size)
+	- [`[Symbol.toStringTag]`](#symboltostringtag)
+	- [`clear()`](#clear)
+	- [`delete()`](#delete)
+	- [`entries()`](#entries)
+	- [`forEach()`](#foreach)
+	- [`forEachReverse()`](#foreachreverse)
+	- [`get()`](#get)
+	- [`has()`](#has)
+	- [`iteratorFor()`](#iteratorfor)
+	- [`keys()`](#keys)
+	- [`reverseIterator()`](#reverseiterator)
+	- [`set()`](#set)
+	- [`setFirst()`](#setfirst)
+	- [`[Symbol.iterator]()`](#symboliterator)
+	- [`values()`](#values)
 - [Why this was implemented](#why-this-was-implemented)
 - [How to update this package](#how-to-update-this-package)
-
-
 
 ## Installation
 
 ```sh
 npm install reverse-iterable-map
 ```
-
-
 
 ## Usage
 
@@ -61,8 +55,6 @@ import ReverseIterableMap from 'reverse-iterable-map';
 
 const map = new ReverseIterableMap();
 ```
-
-
 
 ## Examples
 
@@ -76,8 +68,6 @@ npm start
 
 Then, open [localhost:8080/examples](http://127.0.0.1:8080/examples) in a browser.
 
-
-
 ## Tests
 
 In order to run the tests, clone the repository and run the following:
@@ -87,15 +77,11 @@ npm install
 npm test
 ```
 
-
-
 ## Documentation
 
 **Disclaimer**: The documentation section copies a lot of content from the [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) documentation on the Mozilla Developer Network.
 
 A `ReverseIterableMap` object iterates its elements in insertion or reverse-insertion order — a [`for...of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) loop returns an array of `[key, value]` for each iteration.
-
-
 
 ### Constructor
 
@@ -113,39 +99,37 @@ new ReverseIterableMap([iterable])
 
 - Without arguments
 
-  ```js
-  const map = new ReverseIterableMap();
-  ```
+	```js
+	const map = new ReverseIterableMap();
+	```
 
 - `Array`
 
-  ```js
-  const map = new ReverseIterableMap([1, 2, 3].entries());
-  ```
+	```js
+	const map = new ReverseIterableMap([1, 2, 3].entries());
+	```
 
 - `Array` of `Array`s
 
-  ```js
-  const map = new ReverseIterableMap([[0, 1], [1, 2], [2, 3]]);
-  ```
+	```js
+	const map = new ReverseIterableMap([[0, 1], [1, 2], [2, 3]]);
+	```
 
 - `Map`
 
-  ```js
-  const builtInMap = new Map([['key1', 1], ['key2', 2], ['key3', 3]]);
-  const map = new ReverseIterableMap(builtInMap);
-  ```
+	```js
+	const builtInMap = new Map([['key1', 1], ['key2', 2], ['key3', 3]]);
+	const map = new ReverseIterableMap(builtInMap);
+	```
 
 - `NodeList`
 
-  ```js
-  const nodeList = document.querySelectorAll('a');
-  const map = new ReverseIterableMap(nodeList.entries());
-  ```
+	```js
+	const nodeList = document.querySelectorAll('a');
+	const map = new ReverseIterableMap(nodeList.entries());
+	```
 
-
-
-### `size`
+	### `size`
 
 The `size` accessor property returns the number of elements in a `ReverseIterableMap` object.
 
@@ -159,21 +143,17 @@ map.size
 
 ```js
 const map = new ReverseIterableMap()
-  .set('one', 'I')
-  .set('two', 'lack')
-  .set('three', 'creativity');
+	.set('one', 'I')
+	.set('two', 'lack')
+	.set('three', 'creativity');
 
 map.size
 //> 3
 ```
 
-
-
 ### `[Symbol.toStringTag]`
 
 The `ReverseIterableMap[@@toStringTag]` property has an initial value of “ReverseIterableMap”.
-
-
 
 
 ### `clear()`
@@ -195,8 +175,6 @@ map.clear();
 // Sets the first and last node references to `null`
 map.clear();
 ```
-
-
 
 ### `delete()`
 
@@ -228,8 +206,6 @@ map.delete(1);
 map.delete(2);
 //> false (key 2 does not exist in map)
 ```
-
-
 
 ### `entries()`
 
@@ -267,8 +243,6 @@ iterator.next().value;
 //> undefined
 ```
 
-
-
 ### `forEach()`
 
 The `forEach()` method executes a provided function once for each `[key, value]` pair in the `ReverseIterableMap` object, in insertion order.
@@ -293,27 +267,25 @@ map.forEach(callback[, thisArg]);
 
 ```js
 const map = new ReverseIterableMap([
-  [0, 'a'],
-  [1, 'b'],
-  [2, 'c']
+	[0, 'a'],
+	[1, 'b'],
+	[2, 'c']
 ]);
 
 map.forEach(value => {
-  console.log(value);
+	console.log(value);
 });
 //> a
 //> b
 //> c
 
 map.forEach(function (value, key, mapReference) {
-  console.log(key, value, mapReference.size);
+	console.log(key, value, mapReference.size);
 });
 //> 0 a 3
 //> 1 b 3
 //> 2 c 3
 ```
-
-
 
 ### `forEachReverse()`
 
@@ -338,27 +310,25 @@ map.forEachReverse(callback[, thisArg]);
 
 ```js
 const map = new ReverseIterableMap([
-  [0, 'a'],
-  [1, 'b'],
-  [2, 'c']
+	[0, 'a'],
+	[1, 'b'],
+	[2, 'c']
 ]);
 
 map.forEachReverse(value => {
-  console.log(value);
+	console.log(value);
 });
 //> c
 //> b
 //> a
 
 map.forEachReverse(function (value, key, mapReference) {
-  console.log(key, value, mapReference.size);
+	console.log(key, value, mapReference.size);
 });
 //> 2 c 3
 //> 1 b 3
 //> 0 a 3
 ```
-
-
 
 ### `get()`
 
@@ -391,8 +361,6 @@ map.get(2);
 //> undefined
 ```
 
-
-
 ### `has()`
 
 #### Syntax
@@ -423,8 +391,6 @@ map.has(1);
 map.has(2);
 //> false
 ```
-
-
 
 ### `iteratorFor()`
 
@@ -478,8 +444,6 @@ reverseIterator.next().value;
 //> undefined
 ```
 
-
-
 ### `keys()`
 
 Returns an iterator containing the keys for each element in the `ReverseIterableMap` object in insertion order.
@@ -516,8 +480,6 @@ iterator.next().value;
 //> undefined
 ```
 
-
-
 ### `reverseIterator()`
 
 In theory, following the semantics of `[Symbol.iterator]()`, this should be `[Symbol.reverseIterator]()`. However, as a developer, I cannot define a well-known symbol myself and make use of it. In the future, the a proposal like [The ReverseIterable Interface, by Lee Byron](https://github.com/leebyron/ecmascript-reverse-iterable) might make it’s way into the specification. For the time being, the `reverseIterator()` function serves the same purpose.
@@ -552,8 +514,6 @@ reverseIterator.next().value;
 //> undefined
 ```
 
-
-
 ### `set()`
 
 #### Syntax
@@ -587,11 +547,9 @@ The `set()` method returns a reference to the map object. This makes the set ope
 
 ```js
 const map = new ReverseIterableMap()
-  .set('key', '… is spelled like tea')
-  .set('hey', '… somehow ney');
+	.set('key', '… is spelled like tea')
+	.set('hey', '… somehow ney');
 ```
-
-
 
 ### `setFirst()`
 
@@ -616,8 +574,8 @@ map.set(key, value);
 
 ```js
 const map = new ReverseIterableMap()
-  .setFirst('key1', 'was inserted first')
-  .setFirst('key2', 'was inserted last');
+	.setFirst('key1', 'was inserted first')
+	.setFirst('key2', 'was inserted last');
 
 map.values().next().value;
 //> 'was inserted last'
@@ -625,8 +583,6 @@ map.values().next().value;
 map.values().reverseIterator().next().value;
 //> 'was inserted first'
 ```
-
-
 
 ### `[Symbol.iterator]()`
 
@@ -661,8 +617,6 @@ iterator.next().value;
 iterator.next().value;
 //> undefined
 ```
-
-
 
 ### `values()`
 
@@ -699,8 +653,6 @@ iterator.next().value;
 iterator.next().value;
 //> undefined
 ```
-
-
 
 ## Why this was implemented
 
