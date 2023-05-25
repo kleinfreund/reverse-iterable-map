@@ -299,7 +299,7 @@ describe('ReverseIterableMap', () => {
 
 		let lowerCaseCodePoint = 97 // 97 is the code point for "a", 98 → "b", etc.
 
-		map.forEach(function (this: any, value) {
+		map.forEach(/** @this {any} */ function (value) {
 			expect(this).toBe(map)
 			expect(value).toBe(String.fromCodePoint(lowerCaseCodePoint))
 
@@ -355,7 +355,7 @@ describe('ReverseIterableMap', () => {
 
 		const obj = {}
 
-		map.forEach(function (this: any) {
+		map.forEach(/** @this {any} */ function () {
 			expect(this).toBe(obj)
 		}, obj)
 	})
@@ -371,7 +371,7 @@ describe('ReverseIterableMap', () => {
 		let index = 2
 		const obj = {}
 
-		map.forEachReverse(function (this: any, value, key, mapReference) {
+		map.forEachReverse(/** @this {any} */ function (value, key, mapReference) {
 			expect(value).toBe(String.fromCodePoint(lowerCaseCodePoint))
 			expect(key).toBe(index)
 			expect(mapReference).toBe(map)
