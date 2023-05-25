@@ -370,7 +370,10 @@ export default class ReverseIterableMap<K, V> {
 					currentNode = forwards ? currentNode.nextNode : currentNode.prevNode
 				}
 
-				return iteratorResult(value)
+				return {
+					value: value,
+					done: value === undefined,
+				}
 			},
 		}
 	}
@@ -396,19 +399,6 @@ class ReverseIterableMapNode<K, V> {
 		this.value = value
 		this.prevNode = null
 		this.nextNode = null
-	}
-}
-
-/**
- * Returns an `IteratorResult` object as per the following rules:
- *
- * - If `value` is not `undefined`, `done` is `false`.
- * - If `value` is `undefined`, `done` is `true`. In this case, `value` may be omitted.
- */
-function iteratorResult<T>(value: T): IteratorResult<T> {
-	return {
-		value: value,
-		done: value === undefined,
 	}
 }
 
