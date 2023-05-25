@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest'
+
 import ReverseIterableMap from './reverse-iterable-map.js'
 
 describe('ReverseIterableMap', () => {
