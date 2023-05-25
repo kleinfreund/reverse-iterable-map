@@ -1,3 +1,5 @@
+import { ReverseIterableIterator } from '../types/index.d.js'
+
 /**
  * A reverse-iterable map implementation based on the built-in [`Map`][1] object.
  *
@@ -400,13 +402,4 @@ class ReverseIterableMapNode<K, V> {
 		this.prevNode = null
 		this.nextNode = null
 	}
-}
-
-/**
- * Custom `IterableIterator` interface including a `reverseIterator` function.
- * Should reverse-iteration make it into ECMAScript, this function would probably be named
- * `[Symbol.reverseIterator]`.
- */
-interface ReverseIterableIterator<T> extends IterableIterator<T> {
-	reverseIterator(): IterableIterator<T>
 }

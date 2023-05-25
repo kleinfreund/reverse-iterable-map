@@ -23,12 +23,20 @@
 		"iterator"
 	],
 	"type": "module",
-	"exports": "./dist/reverse-iterable-map.js",
+	"exports": {
+		".": {
+			"types": "./types/index.d.ts",
+			"default": "./dist/reverse-iterable-map.js"
+		},
+		"./types/index.d.ts": "./types/index.d.ts"
+	},
 	"main": "./dist/reverse-iterable-map.js",
 	"module": "./dist/reverse-iterable-map.js",
+	"types": "./types/index.d.ts",
 	"sideEffects": false,
 	"files": [
-		"dist"
+		"dist",
+		"types"
 	],
 	"scripts": {
 		"build": "rollup --config",
