@@ -1,4 +1,4 @@
-import ReverseIterableMap from './reverse-iterable-map'
+import ReverseIterableMap from './reverse-iterable-map.js'
 
 describe('ReverseIterableMap', () => {
 	test('Construct map without argument', () => {
